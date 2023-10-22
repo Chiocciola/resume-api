@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Resume() {
 
@@ -17,6 +18,7 @@ export default function Resume() {
     }, []);
 
     useEffect(() => {
+
         fetch('/api/resume/experience')
             .then(res => res.json())
             .then(data => setExperienceData(data))
@@ -31,7 +33,7 @@ export default function Resume() {
         <div>
             <h1>{resumeData.name}</h1>
             <h2>{resumeData.title}</h2>
-            <p>{resumeData.location} | {resumeData.phone} | {resumeData.email} | {resumeData.homePage}</p>
+            <p>📍 {resumeData.location} | 📱     {resumeData.phone} | <a href={`mailto:${resumeData.email}`}>💌 {resumeData.email}</a> | <a href={resumeData.homePage}>🔗 {resumeData.homePage}</a></p>
 
             {/* <ul>
                 {resumeData.skills.map(skill => (
@@ -39,13 +41,13 @@ export default function Resume() {
                 ))}
             </ul> */}
             <h3>Experience</h3>
-            {experienceData.map(exp => (
-                <div key={exp.company}>
+            {experienceData.map((exp, expIndex) => (
+                <div key={expIndex}>
                     <h4>{exp.company}</h4>
                     <p>{exp.position}</p>
                     <p>{exp.startDate} - {exp.endDate ?? 'Present'}</p>
                     <ul>
-                        {exp.highlights.map(highlight => (<li key={highlight}>{highlight}</li>))}
+                        {exp.highlights.map((highlight, hightlightIndex) => (<li key={expIndex*100 + hightlightIndex}>{highlight}</li>))}
                     </ul>
                 </div>
             ))}
