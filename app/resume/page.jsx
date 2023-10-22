@@ -45,7 +45,7 @@ export default function Resume() {
                     <p>{exp.position}</p>
                     <p>{exp.startDate} - {exp.endDate ?? 'Present'}</p>
                     <ul>
-                        {exp.highlights.map(highlight => (<li>{highlight}</li>))}
+                        {exp.highlights.map(highlight => (<li key={highlight}>{highlight}</li>))}
                     </ul>
                 </div>
             ))}
