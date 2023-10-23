@@ -2,7 +2,7 @@ export async function GET() {
 	
 	const data = {
 		name: "Dmitriy Bondar",
-		title: "Senior Software Engineer",
+		title: "Software Engineer",
 		location: "Cupertino (CA)",
 		phone: "408-306-2596",
 		email: "di-man@yandex.ru",

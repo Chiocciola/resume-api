@@ -2,22 +2,18 @@
 
 import styles from '../page.module.css'
 
-
 import { useEffect, useState } from 'react';
 
 async function getResume()
 {
-    const response = await fetch('/api/resume', { cache: 'no-store' })
-    const resume = await response.json()
+    const resume = await fetch('/api/resume').then(r => r.json());
    
-    resume.sections = Object.fromEntries(
-        await Promise.all(
-            resume.sections.map(
-                async (section) => { 
-                    const r = await fetch(section, { cache: 'no-store' });
-                    const s = await r.json();
-                    return [s.section,  s.content];
-                })))
+    const urls = resume.sections;
+
+    const loading = urls.map(url => fetch(url).then(r => r.json()));
+    const sections = await Promise.all(loading);
+
+    resume.sections = Object.fromEntries(sections.map(s => [s.section,  s.content]));
 
     return resume;
 }
@@ -27,8 +23,7 @@ export default function Resume() {
     var [resume, setResume] = useState(null);
 
     useEffect(
-        () => {getResume().then(setResume).catch(console.log);},
-        []);
+        () => {getResume().then(setResume).catch(console.log);});
 
     if (!resume)
         return (<div>Loading...</div>);
@@ -39,11 +34,13 @@ export default function Resume() {
             <h1>{resume.name}</h1>
             <h2>{resume.title}</h2>
            
-            <div className={styles.center}>
-                📍 {resume.location} 
-                | <a href={`tel:${resume.phone}`}>📱 {resume.phone}</a>
-                | <a href={`mailto:${resume.email}`}>💌 {resume.email}</a>
-                | <a href={resume.homePage}>🔗 {resume.homePage}</a>
+            <div className={styles.flexlist}>
+                <ul>
+                    <li>📍 {resume.location}</li>
+                    <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
+                    <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
+                    <li><a href={resume.homePage}>🔗 {resume.homePage}</a></li>
+                </ul>
             </div>
 
             { resume.sections['Summary'] && (
