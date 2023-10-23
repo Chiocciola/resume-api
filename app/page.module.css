@@ -40,12 +40,17 @@
   margin-left: 2rem;
 }
 
-.flexlist li + li::before {
-  content: " | ";
+.flexlist ul {
+  margin: 0;
+  text-align: center;
 }
 
+
 .flexlist li {
-  display: inline;
+  position: relative;
+  display: inline-block;
+  text-wrap: nowrap;
+  margin: 0rem 0.5rem;
 }
 
 /* Mobile */

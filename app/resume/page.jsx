@@ -36,10 +36,10 @@ export default function Resume() {
            
             <div className={styles.flexlist}>
                 <ul>
-                    <li><nobr>📍 {resume.location}</nobr></li>
-                    <li><a href={`tel:${resume.phone}`}><nobr>📱 {resume.phone}</nobr></a></li>
-                    <li><a href={`mailto:${resume.email}`}><nobr>💌 {resume.email}</nobr></a></li>
-                    <li><a href={resume.homePage}><nobr>🔗 {resume.homePage}</nobr></a></li>
+                    <li>📍 {resume.location}</li>
+                    <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
+                    <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
+                    <li><a href={resume.homePage}>🔗 {resume.homePage}</a></li>
                 </ul>
             </div>
 
