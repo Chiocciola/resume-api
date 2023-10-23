@@ -34,7 +34,10 @@ export async function GET() {
     };
 
 
-    const data = [softwareEngineerV, softwareEngineerIV]
+    const data = {
+        section: "Experience",
+        content: [softwareEngineerV, softwareEngineerIV]
+    };  
 
 	return Response.json(data)
   }
