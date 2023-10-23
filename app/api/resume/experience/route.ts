@@ -33,9 +33,8 @@ export async function GET() {
         ]
     };
 
-
     const data = {
-        section: "Experience",
+        title: "Experience",
         content: [softwareEngineerV, softwareEngineerIV]
     };  
 

@@ -1,7 +1,7 @@
 export async function GET() {
 
 	const data = {
-		section: "Skills",
+		title: "Skills",
 		content: [
 		{kind: "Languages", skills: ["C#", "C++", "Scala", "Python"]},
 		{kind: "Web technologies", skills: ["JavaScript", "React", "Next.js", "Firebase", "REST API"]},

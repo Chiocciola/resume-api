@@ -9,11 +9,27 @@ async function getResume()
     const resume = await fetch('/api/resume').then(r => r.json());
    
     const urls = resume.sections;
+    const loading = 
+        urls.map(async url => {
+            const r = await fetch(url);
+            return await r.json();
+        });
 
-    const loading = urls.map(url => fetch(url).then(r => r.json()));
-    const sections = await Promise.all(loading);
+    const sections = [];
 
-    resume.sections = Object.fromEntries(sections.map(s => [s.section,  s.content]));
+    for  (const section of loading)
+    {
+        try
+        {
+            sections.push(await section);
+        }
+        catch (e)
+        {
+            console.error(e);
+        }
+    }
+
+    resume.sections = Object.fromEntries(sections.map(s => [s.title,  s.content]));
 
     return resume;
 }
@@ -23,7 +39,7 @@ export default function Resume() {
     var [resume, setResume] = useState(null);
 
     useEffect(
-        () => {getResume().then(setResume).catch(console.log);});
+        () => {getResume().then(setResume);});
 
     if (!resume)
         return (<div>Loading...</div>);
@@ -53,11 +69,13 @@ export default function Resume() {
             { resume.sections['Skills'] && (
                 <>
                     <h3>Skills</h3>
+                    <p>
                     <ul>
                     {resume.sections['Skills'].map(group => (
                         <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
                     ))}
                     </ul>
+                    </p>
                 </>
             )}
 
@@ -66,12 +84,14 @@ export default function Resume() {
                     <h3>Experience</h3>
                     {resume.sections['Experience'].map((exp, expIndex) => (
                         <div key={expIndex}>
-                            <h4>{exp.company}</h4>
-                            <p>{exp.position}</p>
-                            <p>{exp.startDate} - {exp.endDate ?? 'Present'}</p>
+                            <h4>{exp.title}</h4>
+                            <div>{exp.company}</div>
+                            <div><i>{exp.startDate} - {exp.endDate ?? 'Present'}</i></div>
+                            <p>
                             <ul>
                                 {exp.highlights.map((highlight, hightlightIndex) => (<li key={expIndex*100 + hightlightIndex}>{highlight}</li>))}
                             </ul>
+                            </p>
                         </div>
                     ))}
                 </>
