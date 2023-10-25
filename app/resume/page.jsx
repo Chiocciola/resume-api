@@ -25,7 +25,7 @@ async function getResume()
         }
         catch (e)
         {
-            console.error(e);
+            // console.log(e);
         }
     }
 
@@ -38,8 +38,16 @@ export default function Resume() {
 
     var [resume, setResume] = useState(null);
 
+    var loading = false;
+
     useEffect(
-        () => {getResume().then(setResume);});
+        () => {
+            if (!loading)
+            {
+                loading = true;
+                getResume().then(setResume).then(() => loading = false);
+            }
+        }, []);
 
     if (!resume)
         return (<div>Loading...</div>);
@@ -62,38 +70,55 @@ export default function Resume() {
             { resume.sections['Summary'] && (
                 <>
                     <h3>Summary</h3>
-                    <p>{resume.sections['Summary']}</p>
+                    <div className={styles.section}>
+                        {resume.sections['Summary']}
+                    </div>
                 </>
             )}
 
             { resume.sections['Skills'] && (
                 <>
                     <h3>Skills</h3>
-                    <p>
-                    <ul>
-                    {resume.sections['Skills'].map(group => (
-                        <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
-                    ))}
-                    </ul>
-                    </p>
+                    <div className={styles.section}>
+                        <ul>
+                        {resume.sections['Skills'].map(group => (
+                            <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
+                        ))}
+                        </ul>
+                    </div>
                 </>
             )}
 
             { resume.sections['Experience'] && (
                 <>
                     <h3>Experience</h3>
-                    {resume.sections['Experience'].map((exp, expIndex) => (
-                        <div key={expIndex}>
-                            <h4>{exp.title}</h4>
-                            <div>{exp.company}</div>
-                            <div><i>{exp.startDate} - {exp.endDate ?? 'Present'}</i></div>
-                            <p>
-                            <ul>
-                                {exp.highlights.map((highlight, hightlightIndex) => (<li key={expIndex*100 + hightlightIndex}>{highlight}</li>))}
-                            </ul>
-                            </p>
-                        </div>
-                    ))}
+
+                    <div className={styles.experience}>
+
+                        {resume.sections['Experience'].map((company, companyIndex) => (
+                            <>
+                            <div className={styles.experience_company_logo}> </div>
+
+                            <div>
+                                {company.company}
+
+                                {company.positions.map((exp, expIndex) => (
+                                <div className={styles.experience_position_box}>
+                                    <span key={expIndex} className={styles.experience_position_path_node}></span>
+
+                                    <div key={expIndex} className={(expIndex < company.positions.length - 1) ? styles.experience_position_path: ""}>
+                                        <h4>{exp.title}</h4>
+                                        <div><i>{exp.startDate} - {exp.endDate ?? 'Present'}</i></div>
+                                        <ul>
+                                            {exp.highlights.map((highlight, hightlightIndex) => (<li key={expIndex*100 + hightlightIndex}>{highlight}</li>))}
+                                        </ul>
+                                    </div>
+                                </div>
+                                ))}
+                            </div>
+                            </>
+                        ))}
+                    </div>
                 </>
             )}
             {/* <h3>Education</h3>

@@ -1,8 +1,7 @@
 export async function GET() {
 	
 	const softwareEngineerV = {
-		title: "Software Engineer V",
-		company: "Applied Materials",
+		title: "Software Engineer V, Manager",
         location: "Santa Clara (CA)",
         startDate: "2021-07-01",
         endDate: null,
@@ -20,7 +19,6 @@ export async function GET() {
 
     const softwareEngineerIV = {
 		title: "Software Engineer IV",
-		company: "Applied Materials",
         location: "Santa Clara (CA)",
         startDate: "2019-02-01",
         endDate: "2021-07-01",
@@ -33,9 +31,41 @@ export async function GET() {
         ]
     };
 
+    const softwareEngineer = {
+		title: "Software Engineer",
+        location: "Treviso, Italy",
+        startDate: "2012-09-01",
+        endDate: "2019-02-01",
+        highlights: [
+            "Developed Desktop UI components for semiconductor equipment",
+            "Designed and developed a UI Test Framework to record, playback user actions, and assert UI states, facilitating build validation.",
+            "Extensively refactoring Recipe Editor: Removed code duplication and discrepancies in the behavior of similar components, leading to improved code quality and setting the stage for automated testing.",
+            "Introduced Block Recipe Editor: streamlining complex recipe creation using multiple reusable blocks. The feature reduces amount of repeated data, and simplify visual perception of recipe structure.",
+            "Designed and implemented UI part of Modular Clean Configuration: a novel approach to configure cleans using 'lego blocks' and a visual boolean expression editor, enhancing the configurability."
+        ]
+    };
+
+    const appliedMaterials = {
+        company: "Applied Materials",
+        positions: [softwareEngineerV, softwareEngineerIV, softwareEngineer]
+    }
+
+    const softwareEngineerGeolink = {
+		title: "Software Engineer",
+        location: "Saint Petersburg, Russia",
+        startDate: "2006-09-01",
+        endDate: "2012-09-01",
+        highlights: []
+    };
+
+    const geolink = {
+		company: "Geolink Technologies",
+        positions: [softwareEngineerGeolink]
+    }
+
     const data = {
         title: "Experience",
-        content: [softwareEngineerV, softwareEngineerIV]
+        content: [appliedMaterials, geolink]
     };  
 
 	return Response.json(data)

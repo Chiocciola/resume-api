@@ -34,18 +34,21 @@
 
 .main p {
   margin-top: 0.2rem;
+}
+
+.section {
   margin-left: 1rem;
 }
 
 .main ul {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
+
 
 .flexlist ul {
   margin: 0;
   text-align: center;
 }
-
 
 .flexlist li {
   position: relative;
@@ -54,10 +57,56 @@
   margin: 0rem 0.5rem;
 }
 
+.experience {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.experience_company_logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  width: 64px;
+}
+
+.experience_position_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience_position_path_node {
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  height: .6rem;
+  width: .6rem;
+  background-color: #a0a0a0;
+  top: 1.1rem;
+  left: -1.9rem;
+  margin-bottom: -.8rem;
+}
+
+.experience_position_path {
+  position: relative;
+}
+
+.experience_position_path:before {
+  content: "";
+  position: absolute;
+  left: calc(-1.6rem - 1px);
+  top: 2.6rem;
+  height: calc(100% - 2.4rem);
+  width: 2px;
+  background-color: #a0a0a0;
+  }
+
 /* Mobile */
 @media (max-width: 700px) {
   .main {
-    padding: 0rem;
+    padding: 0.1rem;
   }
 }
 
