@@ -2,7 +2,7 @@
 
 import styles from '../page.module.css'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 async function getResume()
 {
@@ -38,14 +38,14 @@ export default function Resume() {
 
     var [resume, setResume] = useState(null);
 
-    var loading = false;
+    const loading = useRef(false)
 
     useEffect(
         () => {
-            if (!loading)
+            if (!loading.current)
             {
-                loading = true;
-                getResume().then(setResume).then(() => loading = false);
+                loading.current = true;
+                getResume().then(setResume).then(() => loading.current = false);
             }
         }, []);
 
@@ -103,7 +103,7 @@ export default function Resume() {
                                 {company.company}
 
                                 {company.positions.map((exp, expIndex) => (
-                                <div className={styles.experience_position_box}>
+                                <div key={expIndex} className={styles.experience_position_box}>
                                     <span key={expIndex} className={styles.experience_position_path_node}></span>
 
                                     <div key={expIndex} className={(expIndex < company.positions.length - 1) ? styles.experience_position_path: ""}>
