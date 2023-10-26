@@ -1,6 +1,6 @@
 "use client"
 
-import styles from '../page.module.css'
+import styles from './page.module.css'
 
 import { useEffect, useState, useRef } from 'react';
 
@@ -8,28 +8,24 @@ async function getResume()
 {
     const resume = await fetch('/api/resume').then(r => r.json());
    
-    const urls = resume.sections;
-    const loading = 
-        urls.map(async url => {
-            const r = await fetch(url);
-            return await r.json();
-        });
+    const loadingSections = resume.sections.map(s => fetch(s.url).then(r => r.json()));
 
     const sections = [];
 
-    for  (const section of loading)
+    for (const loadingSection of loadingSections)
     {
         try
         {
-            sections.push(await section);
+            sections.push(await loadingSection);
         }
         catch (e)
         {
+            // ignore errors
             // console.log(e);
         }
     }
 
-    resume.sections = Object.fromEntries(sections.map(s => [s.title,  s.content]));
+    resume.sections = Object.fromEntries(sections.map(s => [s.title,  s]));
 
     return resume;
 }
@@ -56,11 +52,11 @@ export default function Resume() {
         <main className={styles.main}>
             
             <h1>{resume.name}</h1>
-            <h2>{resume.title}</h2>
+            <p className={styles.title}>{resume.title}</p>
            
-            <div className={styles.flexlist}>
+            <div className={styles.contactList}>
                 <ul>
-                    <li>📍 {resume.location}</li>
+                    <li><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
                     <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
                     <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
                     <li><a href={resume.homePage}>🔗 {resume.homePage}</a></li>
@@ -69,19 +65,20 @@ export default function Resume() {
 
             { resume.sections['Summary'] && (
                 <>
-                    <h3>Summary</h3>
+                    <h2>Summary</h2>
                     <div className={styles.section}>
-                        {resume.sections['Summary']}
+                        {resume.sections['Summary'].content}
                     </div>
                 </>
             )}
 
             { resume.sections['Skills'] && (
                 <>
-                    <h3>Skills</h3>
+                    <h2>Skills</h2>
+
                     <div className={styles.section}>
                         <ul>
-                        {resume.sections['Skills'].map(group => (
+                        {resume.sections['Skills'].content.map(group => (
                             <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
                         ))}
                         </ul>
@@ -91,32 +88,32 @@ export default function Resume() {
 
             { resume.sections['Experience'] && (
                 <>
-                    <h3>Experience</h3>
+                    <h2>Experience</h2>
 
                     <div className={styles.experience}>
 
-                        {resume.sections['Experience'].map((company, companyIndex) => (
-                            <>
-                            <div className={styles.experience_company_logo}> </div>
+                        {resume.sections['Experience'].content.map((company) => (
+                            <div key={company.company} className={styles.experience_company}>
+                                <div className={styles.experience_company_logo}></div>
+                                <div className={styles.experience_company_box}>
+                                    <h3>{company.company}</h3>
 
-                            <div>
-                                {company.company}
-
-                                {company.positions.map((exp, expIndex) => (
-                                <div key={expIndex} className={styles.experience_position_box}>
-                                    <span key={expIndex} className={styles.experience_position_path_node}></span>
-
-                                    <div key={expIndex} className={(expIndex < company.positions.length - 1) ? styles.experience_position_path: ""}>
-                                        <h4>{exp.title}</h4>
-                                        <div><i>{exp.startDate} - {exp.endDate ?? 'Present'}</i></div>
-                                        <ul>
-                                            {exp.highlights.map((highlight, hightlightIndex) => (<li key={expIndex*100 + hightlightIndex}>{highlight}</li>))}
-                                        </ul>
-                                    </div>
+                                    {company.positions.map((exp) => (
+                                        <div key={exp.title} className={styles.experience_position_box}>
+                                            <span/>
+                                            <div>
+                                                <h4>{exp.title}</h4>
+                                                <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
+                                                <div className={styles.grey}>{exp.location}</div>
+                                                <ul>
+                                                {exp.highlights.map((highlight, hightlightIndex) => (
+                                                    <li key={hightlightIndex}>{highlight}</li>))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                ))}
                             </div>
-                            </>
                         ))}
                     </div>
                 </>

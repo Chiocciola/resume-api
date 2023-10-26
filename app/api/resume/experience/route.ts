@@ -3,7 +3,7 @@ export async function GET() {
 	const softwareEngineerV = {
 		title: "Software Engineer V, Manager",
         location: "Santa Clara (CA)",
-        startDate: "2021-07-01",
+        startDate: "Jul 2021",
         endDate: null,
         highlights: [
             "Spearheading the development of Desktop UI for Applied Materials’ semiconductor equipment.",
@@ -20,8 +20,8 @@ export async function GET() {
     const softwareEngineerIV = {
 		title: "Software Engineer IV",
         location: "Santa Clara (CA)",
-        startDate: "2019-02-01",
-        endDate: "2021-07-01",
+        startDate: "Feb 2019",
+        endDate: "Jul 2021",
         highlights: [
             "Developed Desktop UI components for semiconductor equipment",
             "Designed and developed a UI Test Framework to record, playback user actions, and assert UI states, facilitating build validation.",
@@ -34,8 +34,8 @@ export async function GET() {
     const softwareEngineer = {
 		title: "Software Engineer",
         location: "Treviso, Italy",
-        startDate: "2012-09-01",
-        endDate: "2019-02-01",
+        startDate: "Sep 2012",
+        endDate: "Feb 2019",
         highlights: [
             "Developed Desktop UI components for semiconductor equipment",
             "Designed and developed a UI Test Framework to record, playback user actions, and assert UI states, facilitating build validation.",
@@ -53,8 +53,8 @@ export async function GET() {
     const softwareEngineerGeolink = {
 		title: "Software Engineer",
         location: "Saint Petersburg, Russia",
-        startDate: "2006-09-01",
-        endDate: "2012-09-01",
+        startDate: "Sep 2006",
+        endDate: "Feb 2012",
         highlights: []
     };
 
@@ -63,9 +63,23 @@ export async function GET() {
         positions: [softwareEngineerGeolink]
     }
 
+
+    const softwareEngineerTdisie = {
+		title: "Software Engineer",
+        location: "Novosibirsk, Russia",
+        startDate: "Jan 2001",
+        endDate: "Sep 2006",
+        highlights: []
+    };
+
+    const tdisie = {
+		company: "Technological Design Institute of Scientific Instrument Engineering",
+        positions: [softwareEngineerTdisie]
+    }
+
     const data = {
         title: "Experience",
-        content: [appliedMaterials, geolink]
+        content: [appliedMaterials, geolink, tdisie]
     };  
 
 	return Response.json(data)

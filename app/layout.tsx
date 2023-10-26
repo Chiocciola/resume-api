@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Dmitriy Bondar',
-  description: 'Dmitriy Bondar home page',
+  description: 'Dmitriy Bondar resume',
 }
 
 export default function RootLayout({children,}: {children: React.ReactNode}) {
@@ -16,11 +16,8 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
       <body className={inter.className}>
         <nav>
           <ul>
-            <li><Link href="/">🏠 Home</Link></li>
-            <li><Link href="/resume/">📝 Resume</Link></li>
             <li><Link href='/api/resume'>🩻 Resume as REST API</Link></li>
-            <li><Link href="https://www.linkedin.com/in/dmitriy-bondar/">🔗 Linkedin</Link></li>
-        </ul>
+          </ul>
         </nav>
         {children}
       </body>

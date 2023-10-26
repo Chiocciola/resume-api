@@ -7,29 +7,28 @@
 }
 
 .main h1 {
+  color: #005493;
   text-align: center;
+  font-size: 2.5rem;
   font-weight: 400;
-  margin-top: 0rem;
-  margin-bottom: 0rem;
 }
 
 .main h2 {
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 300;
-  margin-bottom: 0.0rem;
+  color: #005493;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 0.7rem;
 }
 
 .main h3 {
+  font-size: 1.2rem;
   font-weight: 400; 
-  margin-top: 0.7rem;
-  margin-bottom: 0rem;
+  margin: 0;  
 }
 
 .main h4 {
-  font-weight: 500;
-  margin-top: 0.7rem;
-  margin-bottom: 0rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .main p {
@@ -44,13 +43,22 @@
   margin-left: 1rem;
 }
 
+.grey {
+  color: #888;
+}
 
-.flexlist ul {
+.title {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.contactList ul {
   margin: 0;
   text-align: center;
 }
 
-.flexlist li {
+.contactList li {
   position: relative;
   display: inline-block;
   text-wrap: nowrap;
@@ -61,47 +69,59 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 3rem;
+}
+
+.experience_company {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
 }
 
 .experience_company_logo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  width: 64px;
+  width: 2rem;
+  height: 2rem;
+  background-color: #aaa;
+}
+
+.experience_company_box {
+  width: calc(100% - 2rem);
+  margin-left: 1rem;
 }
 
 .experience_position_box {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
-.experience_position_path_node {
+.experience_position_box span {
   position: relative;
   display: block;
   border-radius: 50%;
-  height: .6rem;
-  width: .6rem;
-  background-color: #a0a0a0;
-  top: 1.1rem;
-  left: -1.9rem;
-  margin-bottom: -.8rem;
+  height: .4rem;
+  width: .4rem;
+  background-color: #aaa;
+  top: 1rem;
+  left: -2.2rem;
 }
 
-.experience_position_path {
+.experience_position_box div {
   position: relative;
 }
 
-.experience_position_path:before {
+.experience_position_box div:before {
   content: "";
   position: absolute;
-  left: calc(-1.6rem - 1px);
-  top: 2.6rem;
-  height: calc(100% - 2.4rem);
+  left: calc(-2rem - 1px);
+  top: 1.9rem;
+  height: calc(100% - 1.0rem);
   width: 2px;
-  background-color: #a0a0a0;
-  }
+  background-color: #aaa;
+}
+
+.experience_position_box:last-child div:before{
+  content: none;
+}
 
 /* Mobile */
 @media (max-width: 700px) {

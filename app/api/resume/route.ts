@@ -7,7 +7,12 @@ export async function GET() {
 		phone: "408-306-2596",
 		email: "di-man@yandex.ru",
 		homePage: "https://www.linkedin.com/in/dmitriy-bondar/",
-		sections: ["/api/resume/skills", "/api/resume/summary", "/api/resume/experience"]//, "/api/resume/education"],
+		sections: [
+			{url:"/api/resume/skills"}, 
+			{url:"/api/resume/summary"}, 
+			{url:"/api/resume/experience"},
+			{url:"/api/resume/education"}
+		]
 	};
 
 	return Response.json(data)
