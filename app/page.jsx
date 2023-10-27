@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image'
 
 async function getResume()
 {
@@ -94,15 +95,16 @@ export default function Resume() {
 
                         {resume.sections['Experience'].content.map((company) => (
                             <div key={company.company} className={styles.experience_company}>
-                                <div className={styles.experience_company_logo}></div>
+                                <div className={styles.experience_company_logo}><img src={company.logo.url}/></div>
                                 <div className={styles.experience_company_box}>
-                                    <h3>{company.company}</h3>
+
+                                    {Object.keys(company.positions).length > 1 && (<><h3>{company.company}</h3><p>*</p></>)}
 
                                     {company.positions.map((exp) => (
                                         <div key={exp.title} className={styles.experience_position_box}>
-                                            <span/>
                                             <div>
                                                 <h4>{exp.title}</h4>
+                                                {Object.keys(company.positions).length == 1 && (<p>{company.company}</p>)}
                                                 <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
                                                 <div className={styles.grey}>{exp.location}</div>
                                                 <ul>
@@ -118,14 +120,27 @@ export default function Resume() {
                     </div>
                 </>
             )}
-            {/* <h3>Education</h3>
-            {resumeData.education.map(edu => (
-                <div key={edu.institution}>
-                    <h4>{edu.institution}</h4>
-                    <p>{edu.degree}</p>
-                    <p>{edu.startDate} - {edu.endDate}</p>
-                </div>
-            ))} */}
+
+            {resume.sections['Education'] && (
+                <>
+                    <h2>Education</h2>
+
+                    <div className={styles.experience}>
+
+                        {resume.sections['Education'].content.map(edu => (
+                            <div key={edu.institution} className={styles.experience_company}>
+                                <div className={styles.experience_company_logo}><img src={edu.logo.url}/></div>
+                                <div className={styles.experience_company_box}>
+
+                                    <h3>{edu.institution}</h3>
+                                    <p>{edu.degree}</p>
+                                    <div className={styles.grey}>{edu.startDate} - {edu.endDate}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </main>
     );
 };

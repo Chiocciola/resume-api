@@ -47,6 +47,8 @@ export async function GET() {
 
     const appliedMaterials = {
         company: "Applied Materials",
+        logo: {url: '/amat.png'},
+
         positions: [softwareEngineerV, softwareEngineerIV, softwareEngineer]
     }
 
@@ -60,9 +62,9 @@ export async function GET() {
 
     const geolink = {
 		company: "Geolink Technologies",
+        logo: {url: '/geolink.jpeg'},
         positions: [softwareEngineerGeolink]
     }
-
 
     const softwareEngineerTdisie = {
 		title: "Software Engineer",
@@ -74,6 +76,7 @@ export async function GET() {
 
     const tdisie = {
 		company: "Technological Design Institute of Scientific Instrument Engineering",
+        logo: {url: '/tdisie.png'},
         positions: [softwareEngineerTdisie]
     }
 
