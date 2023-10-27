@@ -98,7 +98,7 @@ export default function Resume() {
                                 <div className={styles.experience_company_logo}><img src={company.logo.url}/></div>
                                 <div className={styles.experience_company_box}>
 
-                                    {Object.keys(company.positions).length > 1 && (<><h3>{company.company}</h3><p>*</p></>)}
+                                    {Object.keys(company.positions).length > 1 && (<h3>{company.company}</h3>)}
 
                                     {company.positions.map((exp) => (
                                         <div key={exp.title} className={styles.experience_position_box}>
