@@ -53,7 +53,8 @@ export default function Resume() {
         <main className={styles.main}>
             
             <h1>{resume.name}</h1>
-            <p className={styles.title}>{resume.title}</p>
+            
+            <div className={styles.title}>{resume.title}</div>
            
             <div className={styles.contactList}>
                 <ul>
@@ -88,58 +89,58 @@ export default function Resume() {
             )}
 
             { resume.sections['Experience'] && (
-                <>
+                <div className={styles.experience}>
+
                     <h2>Experience</h2>
 
-                    <div className={styles.experience}>
+                    {resume.sections['Experience'].content.map((company) => (
+                        <div key={company.company} className={styles.experience_company}>
 
-                        {resume.sections['Experience'].content.map((company) => (
-                            <div key={company.company} className={styles.experience_company}>
-                                <div className={styles.experience_company_logo}><img src={company.logo.url}/></div>
-                                <div className={styles.experience_company_box}>
+                            <img className={styles.experience_company_logo} src={company.logo.url}/>
 
-                                    {Object.keys(company.positions).length > 1 && (<h3>{company.company}</h3>)}
+                            <div className={styles.experience_company_content}>
 
-                                    {company.positions.map((exp) => (
-                                        <div key={exp.title} className={styles.experience_position_box}>
-                                            <div>
-                                                <h4>{exp.title}</h4>
-                                                {Object.keys(company.positions).length == 1 && (<p>{company.company}</p>)}
-                                                <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
-                                                <div className={styles.grey}>{exp.location}</div>
-                                                <ul>
-                                                {exp.highlights.map((highlight, hightlightIndex) => (
-                                                    <li key={hightlightIndex}>{highlight}</li>))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                {Object.keys(company.positions).length > 1 && (<h3>{company.company}</h3>)}
+
+                                {company.positions.map((exp) => (
+                                    <div key={exp.title} className={styles.experience_position_box}>
+
+                                        <h4>{exp.title}</h4>
+
+                                        {Object.keys(company.positions).length == 1 && (<p>{company.company}</p>)}
+                                        <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
+                                        <div className={styles.grey}>{exp.location}</div>
+
+                                        <ul className={styles.experience_position_highlights}>
+                                            {exp.highlights.map((highlight, hightlightIndex) => (
+                                                <li key={hightlightIndex}>{highlight}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </>
+                        </div>
+                    ))}
+                </div>
             )}
 
             {resume.sections['Education'] && (
-                <>
+                <div className={styles.experience}>
+
                     <h2>Education</h2>
 
-                    <div className={styles.experience}>
+                    {resume.sections['Education'].content.map(edu => (
+                        <div key={edu.institution} className={styles.experience_company}>
+                            <img className={styles.experience_company_logo} src={edu.logo.url}/>
+                            <div className={styles.experience_company_content}>
 
-                        {resume.sections['Education'].content.map(edu => (
-                            <div key={edu.institution} className={styles.experience_company}>
-                                <div className={styles.experience_company_logo}><img src={edu.logo.url}/></div>
-                                <div className={styles.experience_company_box}>
-
-                                    <h3>{edu.institution}</h3>
-                                    <p>{edu.degree}</p>
-                                    <div className={styles.grey}>{edu.startDate} - {edu.endDate}</div>
-                                </div>
+                                <h3>{edu.institution}</h3>
+                                <p>{edu.degree}</p>
+                                <div className={styles.grey}>{edu.startDate} &ndash; {edu.endDate}</div>
                             </div>
-                        ))}
-                    </div>
-                </>
+                        </div>
+                    ))}
+                </div>
             )}
         </main>
     );

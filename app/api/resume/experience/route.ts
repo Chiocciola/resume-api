@@ -37,11 +37,10 @@ export async function GET() {
         startDate: "Sep 2012",
         endDate: "Feb 2019",
         highlights: [
-            "Developed Desktop UI components for semiconductor equipment",
-            "Designed and developed a UI Test Framework to record, playback user actions, and assert UI states, facilitating build validation.",
-            "Extensively refactoring Recipe Editor: Removed code duplication and discrepancies in the behavior of similar components, leading to improved code quality and setting the stage for automated testing.",
-            "Introduced Block Recipe Editor: streamlining complex recipe creation using multiple reusable blocks. The feature reduces amount of repeated data, and simplify visual perception of recipe structure.",
-            "Designed and implemented UI part of Modular Clean Configuration: a novel approach to configure cleans using 'lego blocks' and a visual boolean expression editor, enhancing the configurability."
+            "Developed Desktop UI and Back-end components for solar equipment.",
+            "Implemented proxy layer with Beckhoff TwinCAT PLC.",
+            "Introduced custom graphical rendering for smooth animation.",
+            "Designed and rolled out SECS/GEM software interface."  
         ]
     };
 
