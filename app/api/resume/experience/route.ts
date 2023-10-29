@@ -5,8 +5,8 @@ export async function GET() {
         location: "Santa Clara (CA)",
         startDate: "Jul 2021",
         endDate: null,
+        summary: "Spearheading the development of Desktop UI for Applied Materials’ semiconductor equipment.",
         highlights: [
-            "Spearheading the development of Desktop UI for Applied Materials’ semiconductor equipment.",
             "Managing a US-based team (2 devs + 1 UI/UX) and matrix-managing a team of 20 devs in India.",
             "Successfully established and scaled a high-performing team in India within a tight timeframe to offset the loss of an EU-based team, ensuring a seamless transition and zero disruptions.",
             "Proactively pinpointed and prioritized three transformative areas of focus:",
@@ -22,8 +22,8 @@ export async function GET() {
         location: "Santa Clara (CA)",
         startDate: "Feb 2019",
         endDate: "Jul 2021",
-        highlights: [
-            "Developed Desktop UI components for semiconductor equipment",
+        summary: "Developed Desktop UI components for Applied Materials’ semiconductor equipment.",
+        highlights: [      
             "Designed and developed a UI Test Framework to record, playback user actions, and assert UI states, facilitating build validation.",
             "Extensively refactoring Recipe Editor: Removed code duplication and discrepancies in the behavior of similar components, leading to improved code quality and setting the stage for automated testing.",
             "Introduced Block Recipe Editor: streamlining complex recipe creation using multiple reusable blocks. The feature reduces amount of repeated data, and simplify visual perception of recipe structure.",
@@ -36,8 +36,8 @@ export async function GET() {
         location: "Treviso, Italy",
         startDate: "Sep 2012",
         endDate: "Feb 2019",
+        summary: "Developed Desktop UI and Back-end components for solar equipment.",
         highlights: [
-            "Developed Desktop UI and Back-end components for solar equipment.",
             "Implemented proxy layer with Beckhoff TwinCAT PLC.",
             "Introduced custom graphical rendering for smooth animation.",
             "Designed and rolled out SECS/GEM software interface."  

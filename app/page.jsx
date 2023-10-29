@@ -63,7 +63,7 @@ export default function Resume() {
                     <li><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
                     <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
                     <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                    <li><a href={resume.homePage}>🔗 {resume.homePage}</a></li>
+                    <li><a href={resume.homePage}><Image src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
                 </ul>
             </div>
 
@@ -113,7 +113,9 @@ export default function Resume() {
                                         <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
                                         <div className={styles.grey}>{exp.location}</div>
 
-                                        <ul className={styles.experience_position_highlights}>
+                                        <p className={styles.mt_0_5}>{exp.summary}</p>
+
+                                        <ul className={styles.mt_0_5}>
                                             {exp.highlights.map((highlight, hightlightIndex) => (
                                                 <li key={hightlightIndex}>{highlight}</li>
                                             ))}
