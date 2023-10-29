@@ -9,9 +9,18 @@ export async function GET() {
         endDate: "2004",
     }
 
+    const vki = {
+        institution: "College of Informatics",
+        logo: {url: '/nsu.png'},
+        degree: "Associate degree, Computer Engineering",
+        location: "Novosibirsk, Russia",
+        startDate: "1996",
+        endDate: "2000",
+    }
+
     const data = {
         title: "Education",
-        content: [nsu]
+        content: [nsu, vki]
     };  
 
 	return Response.json(data)

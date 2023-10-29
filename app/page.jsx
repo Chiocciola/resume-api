@@ -11,7 +11,7 @@ async function getResume()
    
     const loadingSections = resume.sections.map(s => fetch(s.url).then(r => r.json()));
 
-    await new Promise(r => setTimeout(r, 1000));
+    // await new Promise(r => setTimeout(r, 1000));
 
     const sections = [];
 
