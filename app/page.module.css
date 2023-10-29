@@ -46,10 +46,6 @@
   margin-left: 1rem;
 }
 
-.main ul {
-  list-style-position: inside;
-}
-
 .grey {
   color: #888;
 }
@@ -82,7 +78,6 @@
   margin-top: 0.5rem;
 }
 
-
 /* Mobile */
 @media (max-width: 700px) {
   .main {
@@ -93,7 +88,7 @@
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .main {
-    padding: 0.2rem;
+    padding: 1rem;
   }
 }
 

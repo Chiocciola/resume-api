@@ -11,6 +11,8 @@ async function getResume()
    
     const loadingSections = resume.sections.map(s => fetch(s.url).then(r => r.json()));
 
+    await new Promise(r => setTimeout(r, 1000));
+
     const sections = [];
 
     for (const loadingSection of loadingSections)
@@ -42,12 +44,12 @@ export default function Resume() {
             if (!loading.current)
             {
                 loading.current = true;
-                getResume().then(setResume).then(() => loading.current = false);
+                getResume().then(setResume).finally(() => loading.current = false);
             }
         }, []);
 
     if (!resume)
-        return (<div>Loading...</div>);
+        return (<div className="loader"/>);
 
     return (
         <main className={styles.main}>

@@ -15,7 +15,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body className={inter.className}>
         <nav>
-          <ul>
+          <ul className='menu'>
             <li><Link href='/api/resume'>🩻 Resume as REST API</Link></li>
           </ul>
         </nav>
