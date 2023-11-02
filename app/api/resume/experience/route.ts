@@ -61,7 +61,7 @@ export async function GET() {
 
     const geolink = {
 		company: "Geolink Technologies",
-        logo: {url: '/geolink.jpeg'},
+        logo: {url: '/geolink.png'},
         positions: [softwareEngineerGeolink]
     }
 

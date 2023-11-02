@@ -42,10 +42,6 @@
   font-weight: 500;  
 }
 
-.section {
-  margin-left: 1rem;
-}
-
 .grey {
   color: #888;
 }
@@ -66,16 +62,24 @@
   margin-left: 1rem;
 }
 
-.experience_position_box {
+.experience_position_content {
   margin-top: 1rem;
 }
 
-.experience_position_box:only-child {
+.experience_position_content:only-child {
   margin-top: 0;
 }
 
 .mt_0_5 {
   margin-top: 0.5rem;
+}
+
+.ml_3 {
+  margin-left: 4rem;
+}
+
+.align_middle {
+  vertical-align: middle;
 }
 
 /* Mobile */

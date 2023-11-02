@@ -11,7 +11,7 @@ export async function GET() {
 
     const vki = {
         institution: "College of Informatics",
-        logo: {url: '/nsu.png'},
+        logo: {url: '/vki.png'},
         degree: "Associate degree, Computer Engineering",
         location: "Novosibirsk, Russia",
         startDate: "1996",

@@ -8,6 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Dmitriy Bondar',
   description: 'Dmitriy Bondar resume',
+  icons: {
+    icon: '/goomba.png',
+    apple: '/goomba.png'
+  },
 }
 
 export default function RootLayout({children,}: {children: React.ReactNode}) {

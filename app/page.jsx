@@ -63,14 +63,15 @@ export default function Resume() {
                     <li><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
                     <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
                     <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                    <li><a href={resume.homePage}><Image src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
+                    <li><a href={resume.homePage}><Image className={styles.align_middle} src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
                 </ul>
             </div>
 
             { resume.sections['Summary'] && (
                 <>
                     <h2>Summary</h2>
-                    <div className={styles.section}>
+                    
+                    <div className={styles.ml_3}>
                         {resume.sections['Summary'].content}
                     </div>
                 </>
@@ -80,7 +81,7 @@ export default function Resume() {
                 <>
                     <h2>Skills</h2>
 
-                    <div className={styles.section}>
+                    <div className={styles.ml_3}>
                         <ul>
                         {resume.sections['Skills'].content.map(group => (
                             <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
@@ -91,7 +92,7 @@ export default function Resume() {
             )}
 
             { resume.sections['Experience'] && (
-                <div className={styles.experience}>
+                <div>
 
                     <h2>Experience</h2>
 
@@ -105,7 +106,7 @@ export default function Resume() {
                                 {Object.keys(company.positions).length > 1 && (<h3>{company.company}</h3>)}
 
                                 {company.positions.map((exp) => (
-                                    <div key={exp.title} className={styles.experience_position_box}>
+                                    <div key={exp.title} className={styles.experience_position_content}>
 
                                         <h4>{exp.title}</h4>
 
@@ -129,7 +130,7 @@ export default function Resume() {
             )}
 
             {resume.sections['Education'] && (
-                <div className={styles.experience}>
+                <div>
 
                     <h2>Education</h2>
 

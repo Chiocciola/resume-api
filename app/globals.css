@@ -22,13 +22,12 @@ a {
 }
 
 ul {
-  list-style-position: inside;
+  padding-left: 20px;
 }
 
 .menu {
   list-style: none;
 }
-
 
 /* Loader */
 .loader {
