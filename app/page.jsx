@@ -1,7 +1,5 @@
 "use client"
 
-import styles from './page.module.css'
-
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image'
 
@@ -52,26 +50,24 @@ export default function Resume() {
         return (<div className="loader"/>);
 
     return (
-        <main className={styles.main}>
+        <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
             
-            <h1>{resume.name}</h1>
+            <h1 className="text-center text-3xl">{resume.name}</h1>
             
-            <div className={styles.title}>{resume.title}</div>
+            <p className="text-center mb-4 text-xl">{resume.title}</p>
            
-            <div className={styles.contactList}>
-                <ul>
-                    <li><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
-                    <li><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
-                    <li><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                    <li><a href={resume.homePage}><Image className={styles.align_middle} src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
-                </ul>
-            </div>
+            <ul className="m-0 text-center">
+                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
+                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
+                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
+                <li className="relative inline-block whitespace-nowrap mx-2"><a href={resume.homePage}><Image className="align-middle inline" src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
+            </ul>
 
             { resume.sections['Summary'] && (
                 <>
-                    <h2>Summary</h2>
+                    <h2 className="text-2xl mt-3">Summary</h2>
                     
-                    <div className={styles.ml_3}>
+                    <div className="ml-12">
                         {resume.sections['Summary'].content}
                     </div>
                 </>
@@ -79,44 +75,42 @@ export default function Resume() {
 
             { resume.sections['Skills'] && (
                 <>
-                    <h2>Skills</h2>
+                    <h2 className="text-2xl mt-3">Skills</h2>
 
-                    <div className={styles.ml_3}>
-                        <ul>
+                    <ul className='ml-12 list-disc'>
                         {resume.sections['Skills'].content.map(group => (
                             <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
                         ))}
-                        </ul>
-                    </div>
+                    </ul>
                 </>
             )}
 
             { resume.sections['Experience'] && (
                 <div>
 
-                    <h2>Experience</h2>
+                    <h2 className="text-2xl mt-4">Experience</h2>
 
                     {resume.sections['Experience'].content.map((company) => (
-                        <div key={company.company} className={styles.experience_company}>
+                        <div key={company.company} className="flex flex-row mt-4">
 
-                            <img className={styles.experience_company_logo} src={company.logo.url}/>
+                            <img className="w-12 h-12" src={company.logo.url}/>
 
-                            <div className={styles.experience_company_content}>
+                            <div className="ml-4">
 
-                                {Object.keys(company.positions).length > 1 && (<h3>{company.company}</h3>)}
+                                {Object.keys(company.positions).length > 1 && (<h3 className="text-xl font-medium">{company.company}</h3>)}
 
                                 {company.positions.map((exp) => (
-                                    <div key={exp.title} className={styles.experience_position_content}>
+                                    <div key={exp.title} className="mt-2 ony:mt-0">
 
-                                        <h4>{exp.title}</h4>
+                                        <h4 className="text-xl font-medium">{exp.title}</h4>
 
                                         {Object.keys(company.positions).length == 1 && (<p>{company.company}</p>)}
-                                        <div className={styles.grey}>{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
-                                        <div className={styles.grey}>{exp.location}</div>
+                                        <div className="text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
+                                        <div className="text-gray-500">{exp.location}</div>
 
-                                        <p className={styles.mt_0_5}>{exp.summary}</p>
+                                        <p className="mt-2">{exp.summary}</p>
 
-                                        <ul className={styles.mt_0_5}>
+                                        <ul className="mt-2 list-disc">
                                             {exp.highlights.map((highlight, hightlightIndex) => (
                                                 <li key={hightlightIndex}>{highlight}</li>
                                             ))}
@@ -132,16 +126,17 @@ export default function Resume() {
             {resume.sections['Education'] && (
                 <div>
 
-                    <h2>Education</h2>
+                    <h2 className="text-2xl mt-4">Education</h2>
 
                     {resume.sections['Education'].content.map(edu => (
-                        <div key={edu.institution} className={styles.experience_company}>
-                            <img className={styles.experience_company_logo} src={edu.logo.url}/>
-                            <div className={styles.experience_company_content}>
+                        <div key={edu.institution} className="flex flex-row mt-3">
 
-                                <h3>{edu.institution}</h3>
+                            <img className="w-12 h-12" src={edu.logo.url}/>
+
+                            <div className="ml-4">
+                                <h3 className="text-xl font-medium">{edu.institution}</h3>
                                 <p>{edu.degree}</p>
-                                <div className={styles.grey}>{edu.startDate} &ndash; {edu.endDate}</div>
+                                <div className="text-gray-500">{edu.startDate} &ndash; {edu.endDate}</div>
                             </div>
                         </div>
                     ))}
