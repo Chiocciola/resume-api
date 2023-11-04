@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Dmitriy Bondar',
@@ -25,7 +25,8 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span></span>
     
             <ul id="menu">
-              <li><Link href='/api/resume'>🩻 Resume as REST API</Link></li>
+              <li><a href="https://www.linkedin.com/in/dmitriy-bondar/">LinkedIn</a></li>
+              <li><a href='/api/resume'>Resume as REST API</a></li>
             </ul>
           </div>
         </nav>
