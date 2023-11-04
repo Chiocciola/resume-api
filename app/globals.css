@@ -5,7 +5,6 @@
 :root
 {
   --fore-color: #000;
-  --back-color: #fff;
   --menu-color: #aaa;
 }
 
@@ -13,7 +12,6 @@
   :root
   {
     --fore-color: #fff;
-    --back-color: #000;
     --menu-color: #555;
   }
 
@@ -43,24 +41,29 @@ ul {
   100% { transform: rotate(360deg); }
 }
 
-/* nav
+nav
 {
-  background: #aaa;
-  height: 3rem;
-  width: 100%;
+  display: block;
 
-  position: static;
-}  */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  
+  border-bottom: 1px solid #888;
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+} 
 
 /* Menu */
 #menuToggle
 {
-  position: fixed;
+  /* position: fixed;
   top: 1rem;
-  left: 1rem;
+  left: 1rem; */
 
-  background: var(--back-color);
-    
+  margin: 1rem;
+  
   -webkit-user-select: none;
   user-select: none;
 }
@@ -70,7 +73,8 @@ ul {
   display: block;
 
   position: absolute;
-  top: 5px;
+  top: 1rem;
+  left: 1rem;
   width: 33px;
   height: 22px;
   
@@ -92,7 +96,7 @@ ul {
   width: 33px;
   height: 4px;
 
-  margin-top: 5px;
+  /* margin-top: 5px; */
   margin-bottom: 5px;
   
   z-index: 2;
@@ -120,6 +124,8 @@ ul {
 #menuToggle span:nth-last-child(2)
 {
   transform-origin: 0% 100%;
+
+  margin-bottom: 0;
 }
 
 /* 
@@ -157,21 +163,20 @@ ul {
 #menu
 {
   position: fixed;
-  top: 3rem;
+  top: 55px;
   left: -1rem;
 
   height: 100%;
   overflow: auto;
 
   z-index: 1;
+  
+  border-right: 1px solid #888;
 
-  /* width: 300px; */
-  /* min-height: 200vh; */
-  
-  padding: 50px;
-  /* padding-top: 125px; */
-  
-  background: var(--menu-color);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  padding: 50px;  
   
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
@@ -195,5 +200,4 @@ ul {
 #menu li
 {
   padding: 10px 0;
-  /* color: var(--back-color); */
 }

@@ -57,10 +57,10 @@ export default function Resume() {
             <p className="text-center mb-4 text-xl">{resume.title}</p>
            
             <ul className="m-0 text-center">
-                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
-                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
-                <li className="relative inline-block whitespace-nowrap mx-2"><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                <li className="relative inline-block whitespace-nowrap mx-2"><a href={resume.linkedin}><Image src="/linkedin.png" className="align-middle inline mb-1" width="14" height="14"/> {resume.linkedin.replace("https:\/\/www." ,"")}</a></li>
+                <li className="inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
+                <li className="inline-block whitespace-nowrap mx-2"><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
+                <li className="inline-block whitespace-nowrap mx-2"><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
+                <li className="inline-block whitespace-nowrap mx-2"><a href={resume.linkedin}><Image src="/linkedin.png" className="align-middle inline mb-1" width="14" height="14"/> {resume.linkedin.replace("https:\/\/www." ,"")}</a></li>
             </ul>
 
             { resume.summary && (
@@ -90,7 +90,7 @@ export default function Resume() {
                     {resume.sections['Experience'].content.map((company) => (
                         <div key={company.company} className="flex flex-row mt-4">
 
-                            <img className="w-12 h-12 sticky top-0" src={company.logo.url}/>
+                            <img className="w-12 h-12" src={company.logo.url}/>
 
                             <div className="ml-4">
 

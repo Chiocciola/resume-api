@@ -16,19 +16,21 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav>
+        <nav className="flex flex-row">
           <div id="menuToggle">
 
             <input type="checkbox" />
-            <span></span>
-            <span></span>
-            <span></span>
+            <span/>
+            <span/>
+            <span/>
     
             <ul id="menu">
               <li><a href="https://www.linkedin.com/in/dmitriy-bondar/">LinkedIn</a></li>
               <li><a href='/api/resume'>Resume as REST API</a></li>
             </ul>
           </div>
+
+          <Image src="/goomba.png" className="m-auto mr-3" alt="Dmitriy Bondar" width="32" height="32" />
         </nav>
 
         {children}
