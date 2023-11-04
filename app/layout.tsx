@@ -16,21 +16,23 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav className="flex flex-row">
-          <div id="menuToggle">
+        <nav className="flex justify-between flex-row">
+
+          <Image src="/goomba.png" className="m-auto mx-3" alt="Dmitriy Bondar" width="32" height="32" />
+
+          <div id="menuToggle" className='m-4'>
 
             <input type="checkbox" />
             <span/>
             <span/>
             <span/>
     
-            <ul id="menu">
-              <li><a href="https://www.linkedin.com/in/dmitriy-bondar/">LinkedIn</a></li>
-              <li><a href='/api/resume'>Resume as REST API</a></li>
+            <ul id="menu" className='p-12'>
+              <li className="py-2"><a href="https://www.linkedin.com/in/dmitriy-bondar/">LinkedIn</a></li>
+              <li className="py-2"><a href='/api/resume'>Resume as REST API</a></li>
             </ul>
           </div>
 
-          <Image src="/goomba.png" className="m-auto mr-3" alt="Dmitriy Bondar" width="32" height="32" />
         </nav>
 
         {children}

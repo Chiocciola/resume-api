@@ -43,8 +43,6 @@ ul {
 
 nav
 {
-  display: block;
-
   position: sticky;
   top: 0;
   width: 100%;
@@ -57,13 +55,7 @@ nav
 
 /* Menu */
 #menuToggle
-{
-  /* position: fixed;
-  top: 1rem;
-  left: 1rem; */
-
-  margin: 1rem;
-  
+{  
   -webkit-user-select: none;
   user-select: none;
 }
@@ -71,18 +63,16 @@ nav
 #menuToggle input
 {
   display: block;
-
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+
+  /* Size of slices and margins */
   width: 33px;
   height: 22px;
   
-  z-index: 3; /* and place it over the hamburger */
+  opacity: 0; /* hide this */
+  z-index: 1; /* and place it over the hamburger */
 
   cursor: pointer;
-  
-  opacity: 0; /* hide this */
   
   -webkit-touch-callout: none;
 }
@@ -91,19 +81,14 @@ nav
 {
   display: block;
 
-  /* position: relative; */
-
   width: 33px;
   height: 4px;
 
-  /* margin-top: 5px; */
   margin-bottom: 5px;
   
-  z-index: 2;
-
   background: var(--fore-color);
   border-radius: 3px;
-    
+  
   transform-origin: 4px 0px;
   
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
@@ -128,76 +113,46 @@ nav
   margin-bottom: 0;
 }
 
-/* 
- * Transform all the slices of hamburger
- * into a crossmark.
- */
+/* Transform all the slices of hamburger into a crossmark. */
 #menuToggle input:checked ~ span
 {
-  opacity: 1;
+  /* opacity: 1; */
   transform: rotate(45deg) translate(4.5px, -3.5px);
-  /* background: var(--back-color); */
 }
 
-/*
- * But let's hide the middle one.
- */
+/* Hide the middle one. */
 #menuToggle input:checked ~ span:nth-last-child(3)
 {
   opacity: 0;
-  transform: rotate(0deg) scale(0.0, 1); 
+  transform: rotate(0deg) scale(0.0, 0.0); 
 }
 
-/*
- *  the last one should go the other direction
- */
+/* The last one should go the other direction. */
 #menuToggle input:checked ~ span:nth-last-child(2)
 {
   transform: rotate(-45deg) translate(2.5px, 5.5px);
 }
 
-/*
- * Make this absolute positioned
- * at the top left of the screen
- */
 #menu
 {
   position: fixed;
   top: 55px;
-  left: -1rem;
-
+  right: 0;
   height: 100%;
-  overflow: auto;
-
-  z-index: 1;
   
-  border-right: 1px solid #888;
+  border-left: 1px solid #888;
 
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-
-  padding: 50px;  
   
-  transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
+  /* Hide menu. */
+  transform: translate(100%, 0);
   
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-/*
- * And let's slide it in from the left
- */
+/* Show menu. */
 #menuToggle input:checked ~ #menu
 {
   transform: none;
-}
-
-#menu ul
-{
-  list-style-type: none;
-}
-
-#menu li
-{
-  padding: 10px 0;
 }
