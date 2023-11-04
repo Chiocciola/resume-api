@@ -15,11 +15,21 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body>
+
         <nav>
-          <ul className='menu'>
-            <li><Link href='/api/resume'>🩻 Resume as REST API</Link></li>
-          </ul>
+          <div id="menuToggle">
+
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+    
+            <ul id="menu">
+              <li><Link href='/api/resume'>🩻 Resume as REST API</Link></li>
+            </ul>
+          </div>
         </nav>
+
         {children}
       </body>
     </html>
