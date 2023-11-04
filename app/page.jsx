@@ -60,16 +60,14 @@ export default function Resume() {
                 <li className="relative inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
                 <li className="relative inline-block whitespace-nowrap mx-2"><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
                 <li className="relative inline-block whitespace-nowrap mx-2"><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                <li className="relative inline-block whitespace-nowrap mx-2"><a href={resume.homePage}><Image className="align-middle inline" src="/linkedin.png" width="14" height="14"/> {resume.homePage.replace("https:\/\/www." ,"")}</a></li>
+                <li className="relative inline-block whitespace-nowrap mx-2"><a href={resume.linkedin}><Image src="/linkedin.png" className="align-middle inline mb-1" width="14" height="14"/> {resume.linkedin.replace("https:\/\/www." ,"")}</a></li>
             </ul>
 
-            { resume.sections['Summary'] && (
+            { resume.summary && (
                 <>
                     <h2 className="text-2xl mt-3">Summary</h2>
                     
-                    <div className="ml-12">
-                        {resume.sections['Summary'].content}
-                    </div>
+                    <p className="ml-4">{resume.summary}</p>
                 </>
             )}
 
@@ -77,56 +75,59 @@ export default function Resume() {
                 <>
                     <h2 className="text-2xl mt-3">Skills</h2>
 
-                    <ul className='ml-12 list-disc'>
+                    <ul className='ml-4 list-disc'>
                         {resume.sections['Skills'].content.map(group => (
-                            <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
+                            <li key={group.kind}><strong>{group.kind}:</strong> {group.skills.join(", ")}</li>
                         ))}
                     </ul>
                 </>
             )}
 
             { resume.sections['Experience'] && (
-                <div>
-
-                    <h2 className="text-2xl mt-4">Experience</h2>
+                <>
+                    <h2 className="text-2xl mt-3">Experience</h2>
 
                     {resume.sections['Experience'].content.map((company) => (
                         <div key={company.company} className="flex flex-row mt-4">
 
-                            <img className="w-12 h-12" src={company.logo.url}/>
+                            <img className="w-12 h-12 sticky top-0" src={company.logo.url}/>
 
                             <div className="ml-4">
 
-                                {Object.keys(company.positions).length > 1 && (<h3 className="text-xl font-medium">{company.company}</h3>)}
+                                {company.positions.length > 1 && (<h3 className="text-xl font-medium">{company.company}</h3>)}
 
                                 {company.positions.map((exp) => (
-                                    <div key={exp.title} className="mt-2 ony:mt-0">
+                                    <div key={exp.title} className="mt-2 only:mt-0">
 
                                         <h4 className="text-xl font-medium">{exp.title}</h4>
 
-                                        {Object.keys(company.positions).length == 1 && (<p>{company.company}</p>)}
-                                        <div className="text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</div>
-                                        <div className="text-gray-500">{exp.location}</div>
+                                        {company.positions.length == 1 && (
+                                            <p>{company.company}</p>)}
 
-                                        <p className="mt-2">{exp.summary}</p>
+                                            <p className="leading-tight text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</p>
+                                            <p className="leading-tight text-gray-500">{exp.location}</p>
 
-                                        <ul className="mt-2 list-disc">
-                                            {exp.highlights.map((highlight, hightlightIndex) => (
-                                                <li key={hightlightIndex}>{highlight}</li>
-                                            ))}
-                                        </ul>
+                                        {exp.summary && (
+                                            <p className="mt-2">{exp.summary}</p>)}
+
+                                        {exp.highlights && (
+                                            <ul className="mt-2 list-disc">
+                                                {exp.highlights.map((highlight, hightlightIndex) => (
+                                                    <li key={hightlightIndex}>{highlight}</li>
+                                                ))}
+                                            </ul>
+                                        )}
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
-                </div>
+                </>
             )}
 
             {resume.sections['Education'] && (
-                <div>
-
-                    <h2 className="text-2xl mt-4">Education</h2>
+                <>
+                    <h2 className="text-2xl mt-3">Education</h2>
 
                     {resume.sections['Education'].content.map(edu => (
                         <div key={edu.institution} className="flex flex-row mt-3">
@@ -135,12 +136,12 @@ export default function Resume() {
 
                             <div className="ml-4">
                                 <h3 className="text-xl font-medium">{edu.institution}</h3>
-                                <p>{edu.degree}</p>
-                                <div className="text-gray-500">{edu.startDate} &ndash; {edu.endDate}</div>
+                                <p className="leading-tight">{edu.degree}</p>
+                                <p className="leading-tight text-gray-500">{edu.startDate} &ndash; {edu.endDate}</p>
                             </div>
                         </div>
                     ))}
-                </div>
+                </>
             )}
         </main>
     );

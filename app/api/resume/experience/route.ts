@@ -2,9 +2,8 @@ export async function GET() {
 	
 	const softwareEngineerV = {
 		title: "Software Engineer V, Manager",
-        location: "Santa Clara (CA)",
+        location: "Santa Clara, CA",
         startDate: "Jul 2021",
-        endDate: null,
         summary: "Spearheading the development of Desktop UI for Applied Materials’ semiconductor equipment.",
         highlights: [
             "Managing a US-based team (2 devs + 1 UI/UX) and matrix-managing a team of 20 devs in India.",
@@ -19,7 +18,7 @@ export async function GET() {
 
     const softwareEngineerIV = {
 		title: "Software Engineer IV",
-        location: "Santa Clara (CA)",
+        location: "Santa Clara, CA",
         startDate: "Feb 2019",
         endDate: "Jul 2021",
         summary: "Developed Desktop UI components for Applied Materials’ semiconductor equipment.",
@@ -56,7 +55,6 @@ export async function GET() {
         location: "Saint Petersburg, Russia",
         startDate: "Sep 2006",
         endDate: "Feb 2012",
-        highlights: []
     };
 
     const geolink = {
@@ -70,7 +68,6 @@ export async function GET() {
         location: "Novosibirsk, Russia",
         startDate: "Jan 2001",
         endDate: "Sep 2006",
-        highlights: []
     };
 
     const tdisie = {
