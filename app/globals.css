@@ -5,14 +5,14 @@
 :root
 {
   --fore-color: #000;
-  --menu-color: #aaa;
+  --back-color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root
   {
     --fore-color: #fff;
-    --menu-color: #555;
+    --back-color: #000;
   }
 
   html {
@@ -46,11 +46,8 @@ nav
   position: sticky;
   top: 0;
   width: 100%;
-  
-  border-bottom: 1px solid #888;
 
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background-color: var(--back-color);
 } 
 
 /* Menu */
@@ -86,7 +83,7 @@ nav
 
   margin-bottom: 5px;
   
-  background: var(--fore-color);
+  background: currentColor;
   border-radius: 3px;
   
   transform-origin: 4px 0px;
@@ -136,15 +133,11 @@ nav
 #menu
 {
   position: fixed;
-  top: 55px;
+  top: 54px;
   right: 0;
-  height: 100%;
   
-  border-left: 1px solid #888;
+  background-color: var(--back-color);
 
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  
   /* Hide menu. */
   transform: translate(100%, 0);
   

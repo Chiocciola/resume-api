@@ -16,9 +16,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav className="flex justify-between flex-row">
+        <nav className="flex justify-between flex-row shadow-md">
 
-          <Image src="/goomba.png" className="m-auto mx-3" alt="Dmitriy Bondar" width="32" height="32" />
+          <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" />
 
           <div id="menuToggle" className='m-4'>
 
@@ -27,9 +27,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
             <span/>
     
-            <ul id="menu" className='p-12'>
-              <li className="py-2"><a href="https://www.linkedin.com/in/dmitriy-bondar/">LinkedIn</a></li>
-              <li className="py-2"><a href='/api/resume'>Resume as REST API</a></li>
+            <ul id="menu" className='p-12 shadow-md'>
+              <li className="py-2 text-xl"><a href="https://www.linkedin.com/in/dmitriy-bondar/">🔗 LinkedIn</a></li>
+              <li className="py-2 text-xl"><a href='/api/resume'>🩻 Resume as REST API</a></li>
             </ul>
           </div>
 
