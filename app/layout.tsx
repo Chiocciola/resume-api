@@ -16,13 +16,15 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav className="flex justify-between flex-row shadow-md">
+        <nav className="flex justify-between flex-row">
 
-          <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" />
+          <div className="absolute h-full w-full z-10 shadow-lg pointer-events-none"/>
+
+          <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
 
           <div id="menuToggle" className='m-4'>
 
-            <input type="checkbox" />
+            <input id="clickTarget" type="checkbox" />
             <span/>
             <span/>
             <span/>
@@ -31,11 +33,13 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
               <li className="py-2 text-xl"><a href="https://www.linkedin.com/in/dmitriy-bondar/">🔗 LinkedIn</a></li>
               <li className="py-2 text-xl"><a href='/api/resume'>🩻 Resume as REST API</a></li>
             </ul>
+            
           </div>
 
         </nav>
 
         {children}
+
       </body>
     </html>
   )
