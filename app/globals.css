@@ -142,12 +142,15 @@ nav
 
   /* Hide menu. */
   transform: translate(100%, 0);
+  opacity: 0;
   
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
 /* Show menu. */
 #menuToggle input:checked ~ #menu
 {
-  transform: none;
+  transform: none;  
+  opacity: 1;
 }

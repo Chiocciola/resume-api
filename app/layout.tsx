@@ -16,9 +16,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav className="flex justify-between flex-row">
+        <nav className="flex justify-between flex-row shadow-lg">
 
-          <div className="absolute h-full w-full z-10 shadow-lg pointer-events-none"/>
+          <div className="absolute h-full w-full z-10 shadow-md pointer-events-none"/>
 
           <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
 
@@ -29,9 +29,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
             <span/>
     
-            <ul id="menu" className='p-12 shadow-md'>
-              {/* <li className="py-2 text-xl"><a href="https://www.linkedin.com/in/dmitriy-bondar/">🔗 LinkedIn</a></li> */}
-              <li className="py-2 text-xl"><a href='/api/resume'>🩻 Resume as REST API</a></li>
+            <ul id="menu" className='p-12 shadow-lg'>
+              <li className="py-2 text-l"><a href='/api/resume'>🩻 Resume REST API</a></li>
+              <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis-docs/Chiocciola/Resume/1.0.0'>📄 REST API Docs</a></li>
             </ul>
             
           </div>
