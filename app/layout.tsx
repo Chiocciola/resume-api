@@ -30,8 +30,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
     
             <ul id="menu" className='p-12 shadow-lg'>
-              <li className="py-2 text-l"><a href='/api/resume'>🩻 Resume REST API</a></li>
-              <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis-docs/Chiocciola/Resume/1.0.0'>📄 REST API Docs</a></li>
+              <li className="py-2 text-l"><a href='/api/resume'>🩻 REST API to get  resume</a></li>
+              <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 OpenAPI spec (SwaggerHub)</a></li>
+              <li className="py-2 text-l"><a href='https://www.postman.com/chiocciola/workspace/public/collection/'>🧑‍🚀 Test in Postman</a></li>
             </ul>
             
           </div>

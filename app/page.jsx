@@ -5,11 +5,10 @@ import Image from 'next/image'
 
 async function getResume()
 {
-    const resume = await fetch('/api/resume').then(r => r.json());
-   
-    const loadingSections = resume.sections.map(s => fetch(s.url).then(r => r.json()));
-
-    // await new Promise(r => setTimeout(r, 1000));
+    const loadingResume = fetch('/api/resume').then(r => r.json());
+    
+    const sectionsUrl = await fetch('/api/resume/sections').then(r => r.json());
+    const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
 
     const sections = [];
 
@@ -26,6 +25,7 @@ async function getResume()
         }
     }
 
+    const resume = await loadingResume;
     resume.sections = Object.fromEntries(sections.map(s => [s.title,  s]));
 
     return resume;
