@@ -30,11 +30,11 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
     
             <nav id="menu" className='p-12 shadow-lg'>
-              <p className="p-4 pt-0">This is client side rendered page.<br/>Data are loaded through REST API.</p>
+              <p className="p-4 pt-0">This is a client side rendered page.<br/>The data is loaded using REST API.</p>
               <ul >
-                <li className="py-2 text-l"><a href='/api/resume'>🩻 REST API entrypoint</a></li>
-                <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 API spec (OpenAPI - SwaggerHub)</a></li>
-                <li className="py-2 text-l"><a href='https://www.postman.com/chiocciola/workspace/public/collection/'>🧑‍🚀 Test API in Postman</a></li>
+                <li className="py-2 text-l"><a href='/api/resume'>🚪 API entrypoint</a></li>
+                <li className="py-2 text-l"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 API on SwaggerHub</a></li>
+                <li className="py-2 text-l"><a target="_blank" href='https://www.postman.com/chiocciola/workspace/public/api/13769021-3b9f-4a58-9428-0ca72661b45f?action=share&creator=27924363'>🧑‍🚀 API on Postman</a></li>
               </ul>
             </nav>
             
