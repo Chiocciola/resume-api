@@ -60,7 +60,7 @@ export default function Resume() {
                 <li className="inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${resume.location}`}>📍 {resume.location}</a></li>
                 <li className="inline-block whitespace-nowrap mx-2"><a href={`tel:${resume.phone}`}>📱 {resume.phone}</a></li>
                 <li className="inline-block whitespace-nowrap mx-2"><a href={`mailto:${resume.email}`}>💌 {resume.email}</a></li>
-                <li className="inline-block whitespace-nowrap mx-2"><a href={resume.linkedin}><Image src="/linkedin.png" className="align-middle inline mb-1" alt="LinkedIn" width="14" height="14"/> {resume.linkedin.replace("https:\/\/www." ,"")}</a></li>
+                <li className="inline-block whitespace-nowrap mx-2"><a href={resume.linkedin.url}><Image src="/linkedin.png" className="align-middle inline mb-1" alt="LinkedIn" width="14" height="14"/> {resume.linkedin.url.replace("https:\/\/www." ,"")}</a></li>
             </ul>
 
             { resume.summary && (
