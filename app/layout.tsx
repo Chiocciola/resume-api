@@ -16,7 +16,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <nav className="flex justify-between flex-row shadow-lg">
+        <div id="topBar" className="flex justify-between flex-row shadow-lg">
 
           <div className="absolute h-full w-full z-10 shadow-md pointer-events-none"/>
 
@@ -29,15 +29,18 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
             <span/>
     
-            <ul id="menu" className='p-12 shadow-lg'>
-              <li className="py-2 text-l"><a href='/api/resume'>🩻 REST API to get  resume</a></li>
-              <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 OpenAPI spec (SwaggerHub)</a></li>
-              <li className="py-2 text-l"><a href='https://www.postman.com/chiocciola/workspace/public/collection/'>🧑‍🚀 Test in Postman</a></li>
-            </ul>
+            <nav id="menu" className='p-12 shadow-lg'>
+              <p className="p-4 pt-0">This is client side rendered page.<br/>Data are loaded through REST API.</p>
+              <ul >
+                <li className="py-2 text-l"><a href='/api/resume'>🩻 REST API entrypoint</a></li>
+                <li className="py-2 text-l"><a href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 API spec (OpenAPI - SwaggerHub)</a></li>
+                <li className="py-2 text-l"><a href='https://www.postman.com/chiocciola/workspace/public/collection/'>🧑‍🚀 Test API in Postman</a></li>
+              </ul>
+            </nav>
             
           </div>
 
-        </nav>
+        </div>
 
         {children}
 
