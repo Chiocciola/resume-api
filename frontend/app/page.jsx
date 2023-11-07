@@ -7,7 +7,7 @@ async function getResume()
 {
     const loadingResume = fetch('https://api.dmitriy-bondar.dev/resume').then(r => r.json());
     
-    const sectionsUrl = await fetch('/api/resume/sections').then(r => r.json());
+    const sectionsUrl = await fetch('https://api.dmitriy-bondar.dev/resume/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
 
     const sections = [];
