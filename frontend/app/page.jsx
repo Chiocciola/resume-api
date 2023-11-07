@@ -21,7 +21,7 @@ async function getResume()
         catch (e)
         {
             // ignore errors
-            // console.log(e);
+            console.log(e);
         }
     }
 
