@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 async function getResume()
 {
-    const loadingResume = fetch('/api/resume').then(r => r.json());
+    const loadingResume = fetch('https://api.dmitriy-bondar.dev/resume').then(r => r.json());
     
     const sectionsUrl = await fetch('/api/resume/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
