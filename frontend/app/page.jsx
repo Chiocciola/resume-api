@@ -38,7 +38,17 @@ async function getResume()
 
 export default async function Resume() {
 
-    const resume = await getResume();
+    var resume = null;
+
+    try
+    {
+        resume = await getResume();
+    }
+    catch (e)
+    {
+        console.log(e);
+        return (<p>e</p>);
+    }
 
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
