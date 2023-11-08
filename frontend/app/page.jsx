@@ -29,8 +29,6 @@ async function getResume()
     const resume = await loadingResume;
     resume.sections = Object.fromEntries(sections.map(s => [s.title,  s]));
 
-	await new Promise(r => setTimeout(r, 10000));
-
     return resume;
 }
 
