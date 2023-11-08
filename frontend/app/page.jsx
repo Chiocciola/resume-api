@@ -6,7 +6,7 @@ async function getResume()
 {
     const host = process.env.API_URL;
 
-    const loadingResume = fetch(host + '/resume').then(r => r.json());
+    const loadingResume = fetch(host + '/resume', { next: { revalidate: 10 } }).then(r => r.json());
     
     const sectionsUrl = await fetch(host + '/resume/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
