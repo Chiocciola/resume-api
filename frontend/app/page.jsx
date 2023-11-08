@@ -47,7 +47,7 @@ export default async function Resume() {
     catch (e)
     {
         console.log(e);
-        return (<p>e</p>);
+        return (<p>e.message</p>);
     }
 
     return (
