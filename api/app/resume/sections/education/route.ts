@@ -1,8 +1,10 @@
 export async function GET() {
 		
+	const host = process.env.API_URL;
+
     const nsu = {
         institution: "Novosibirsk State University",
-        logo: {url: '/nsu.png'},
+        logo: {url: host + '/nsu.png'},
         degree: "Bachelor's degree, Computer Engineering",
         location: "Novosibirsk, Russia",
         startDate: "1998",
@@ -11,7 +13,7 @@ export async function GET() {
 
     const vki = {
         institution: "College of Informatics",
-        logo: {url: '/vki.png'},
+        logo: {url: host + '/vki.png'},
         degree: "Associate degree, Computer Engineering",
         location: "Novosibirsk, Russia",
         startDate: "1996",

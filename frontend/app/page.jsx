@@ -1,13 +1,15 @@
-"use client"
-
-import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image'
 
 async function getResume()
 {
-    const loadingResume = fetch('https://api.dmitriy-bondar.dev/resume').then(r => r.json());
+    // await new Promise(r => setTimeout(r, 2000));
+    // console.log("Loading resume from RESTful API");
+
+    const host = process.env.API_URL;
+
+    const loadingResume = fetch(host + '/').then(r => r.json());
     
-    const sectionsUrl = await fetch('https://api.dmitriy-bondar.dev/resume/sections').then(r => r.json());
+    const sectionsUrl = await fetch(host + '/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
 
     const sections = [];
@@ -31,23 +33,9 @@ async function getResume()
     return resume;
 }
 
-export default function Resume() {
+export default async function Resume() {
 
-    var [resume, setResume] = useState(null);
-
-    const loading = useRef(false)
-
-    useEffect(
-        () => {
-            if (!loading.current)
-            {
-                loading.current = true;
-                getResume().then(setResume).finally(() => loading.current = false);
-            }
-        }, []);
-
-    if (!resume)
-        return (<div className="loader"/>);
+    const resume = await getResume();
 
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">

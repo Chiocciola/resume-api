@@ -1,5 +1,7 @@
 export async function GET() {
 	
+	const host = process.env.API_URL;
+
 	const softwareEngineerV = {
 		title: "Software Engineer V, Manager",
         location: "Santa Clara, CA",
@@ -45,7 +47,7 @@ export async function GET() {
 
     const appliedMaterials = {
         company: "Applied Materials",
-        logo: {url: '/amat.png'},
+        logo: {url: host + '/amat.png'},
 
         positions: [softwareEngineerV, softwareEngineerIV, softwareEngineer]
     }
@@ -59,7 +61,7 @@ export async function GET() {
 
     const geolink = {
 		company: "Geolink Technologies",
-        logo: {url: '/geolink.png'},
+        logo: {url: host + '/geolink.png'},
         positions: [softwareEngineerGeolink]
     }
 
@@ -72,7 +74,7 @@ export async function GET() {
 
     const tdisie = {
 		company: "Technological Design Institute of Scientific Instrument Engineering",
-        logo: {url: '/tdisie.png'},
+        logo: {url: host + '/tdisie.png'},
         positions: [softwareEngineerTdisie]
     }
 

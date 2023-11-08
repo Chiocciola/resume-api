@@ -1,6 +1,6 @@
 export async function GET() {
 	
-	const host = "https://api.dmitriy-bondar.dev";
+	const host = process.env.API_URL;
 
 	const data = [
 			{url: host + "/resume/sections/skills"}, 
