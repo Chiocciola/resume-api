@@ -4,9 +4,6 @@ export const dynamic = 'force-dynamic';
 
 async function getResume()
 {
-    // await new Promise(r => setTimeout(r, 2000));
-    // console.log("Loading resume from RESTful API");
-
     const host = process.env.API_URL;
     console.log("Loading resume from RESTful API at " + host);
 
