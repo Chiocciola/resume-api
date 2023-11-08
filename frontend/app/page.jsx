@@ -8,6 +8,7 @@ async function getResume()
     // console.log("Loading resume from RESTful API");
 
     const host = process.env.API_URL;
+    console.log("Loading resume from RESTful API at " + host);
 
     const loadingResume = fetch(host + '/').then(r => r.json());
     
