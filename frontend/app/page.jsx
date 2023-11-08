@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 async function getResume()
 {
     const host = process.env.API_URL;
 
-    const loadingResume = fetch(host + '/resume', { next: { revalidate: 10 } }).then(r => r.json());
+    const loadingResume = fetch(host + '/resume').then(r => r.json());
     
     const sectionsUrl = await fetch(host + '/resume/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
@@ -28,6 +28,8 @@ async function getResume()
 
     const resume = await loadingResume;
     resume.sections = Object.fromEntries(sections.map(s => [s.title,  s]));
+
+	await new Promise(r => setTimeout(r, 10000));
 
     return resume;
 }
