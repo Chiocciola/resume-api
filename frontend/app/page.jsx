@@ -49,6 +49,8 @@ export default async function Resume() {
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
             
+            <p className="text-center">{String.fromCodePoint(Math.floor(Math.random() * (0x1F64F - 0x1F600 + 1)) + 0x1F600)}</p>
+
             <h1 className="text-center text-3xl">{resume.name}</h1>
             
             <p className="text-center mb-4 text-xl">{resume.title}</p>
@@ -140,6 +142,7 @@ export default async function Resume() {
                     ))}
                 </>
             )}
+
         </main>
     );
 };
