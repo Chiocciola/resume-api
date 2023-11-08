@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+export const dynamic = 'force-dynamic';
+
 async function getResume()
 {
     // await new Promise(r => setTimeout(r, 2000));
