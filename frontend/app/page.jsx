@@ -9,9 +9,6 @@ async function getResume()
 
     const host = process.env.API_URL;
 
-    if (!host)
-        return null
-
     const loadingResume = fetch(host + '/').then(r => r.json());
     
     const sectionsUrl = await fetch(host + '/sections').then(r => r.json());
@@ -41,9 +38,6 @@ async function getResume()
 export default async function Resume() {
 
     const resume = await getResume();
-
-    if (!resume)
-        return (<></>);
 
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
