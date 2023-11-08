@@ -5,11 +5,10 @@ export const dynamic = 'force-dynamic';
 async function getResume()
 {
     const host = process.env.API_URL;
-    console.log("Loading resume from RESTful API at " + host);
 
-    const loadingResume = fetch(host + '/').then(r => r.json());
+    const loadingResume = fetch(host + '/resume').then(r => r.json());
     
-    const sectionsUrl = await fetch(host + '/sections').then(r => r.json());
+    const sectionsUrl = await fetch(host + '/resume/sections').then(r => r.json());
     const loadingSections = sectionsUrl.map(s => fetch(s.url).then(r => r.json()));
 
     const sections = [];
