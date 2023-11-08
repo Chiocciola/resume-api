@@ -23,7 +23,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           {/* Icon to the left */}
           <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
 
-          {/* Hmburger to the right */}
+          {/* Hamburger to the right */}
           <div id="menuToggle" className='m-4'>
 
             <input id="clickTarget" type="checkbox" />
@@ -32,7 +32,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
     
             <nav id="menu" className='p-12 shadow-lg'>
-              <p className="p-4 pt-0">This resume is a client-side rendered web page.<br/>It loads data using a REST API.</p>
+              <p className="p-4 pt-0">This web application renders a resume using data obtained from a RESTful API.</p>
               <ul >
                 <li className="py-2 text-l"><a href={`${process.env.API_URL}/resume`}>🚪 Resume API entry point</a></li>
                 <li className="py-2 text-l"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 Resume API on SwaggerHub</a> &#x2197;</li>
