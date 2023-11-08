@@ -7,8 +7,8 @@ async function getResume()
 
     const host = process.env.API_URL;
 
-    // if (!host)
-    //     return null
+    if (!host)
+        return null
 
     const loadingResume = fetch(host + '/').then(r => r.json());
     
