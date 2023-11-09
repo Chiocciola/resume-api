@@ -22,7 +22,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
           {/* Icon to the left */}
           <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
-
+            
           {/* Hamburger to the right */}
           <div id="menuToggle" className='m-4'>
 
