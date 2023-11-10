@@ -160,8 +160,8 @@ ul {
 
 #menu
 {
-  position: fixed;
-  top: 54px;
+position: fixed;
+  top: 52px;
   right: 0;
   
   background-color: var(--back-color);

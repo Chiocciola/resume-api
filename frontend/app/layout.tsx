@@ -17,7 +17,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <div id="topBar" className="flex flex-row justify-between shadow-lg sticky top-0 w-full">
+        <div id="topBar" className="flex flex-row justify-between shadow-lg sticky top-0 w-screen">
 
           {/* Logo to the left */}
           <div id="logo" className="m-auto mx-4 text-3xl">
