@@ -18,11 +18,13 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <div id="topBar" className="flex flex-row justify-between shadow-lg">
+        <div id="topBar" className="flex flex-row justify-between shadow-lg sticky top-0 w-full">
 
           {/* Icon to the left */}
-          <Image src="/goomba.png" className="m-auto mx-4" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
-            
+          <div className="goomba-card m-auto mx-4">
+            <Image src="/goomba.png" className="goomba" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
+            <div className="goomba-back m-auto text-3xl">😝</div>
+          </div>
           {/* Hamburger to the right */}
           <div id="menuToggle" className='m-4'>
 

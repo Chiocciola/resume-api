@@ -24,7 +24,6 @@ ul {
   padding-left: 20px;
 }
 
-
 /* Loader */
 .loader {
   border: 10px solid transparent; 
@@ -41,12 +40,44 @@ ul {
   100% { transform: rotate(360deg); }
 }
 
+.goomba-card
+{
+  -webkit-user-select: none;
+  user-select: none;
+
+  cursor: pointer;
+  perspective: 50px;
+}
+
+.goomba, .goomba-back
+{
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+.goomba-back
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateY(-180deg);
+}
+
+.goomba-card:active .goomba
+{
+  transform: rotateY(180deg);
+}
+
+.goomba-card:active .goomba-back
+{
+  transform: rotateY(0deg);
+}
+
+
 #topBar
 {
-  position: sticky;
-  top: 0;
-  width: 100%;
-
   background-color: var(--back-color);
 } 
 
