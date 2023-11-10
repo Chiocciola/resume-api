@@ -24,24 +24,9 @@ ul {
   padding-left: 20px;
 }
 
-/* Loader */
-.loader {
-  border: 10px solid transparent; 
-  border-top: 10px solid currentColor;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-  margin: auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
 
-#topBar
+#navbar
 {
   background-color: var(--back-color);
 } 
@@ -60,12 +45,13 @@ ul {
   display: block;
   position: absolute;  
   
-  opacity: 0; /* hide this */
-  z-index: 1; /* and place it over */
+  opacity: 0;
+  z-index: 1;
 
   cursor: pointer;
   
   -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #logo div
@@ -97,13 +83,13 @@ ul {
 }
 
 /* Menu */
-#menuToggle
+#menu
 {  
   -webkit-user-select: none;
   user-select: none;
 }
 
-#menuToggle input
+#menu input
 {
   display: block;
   position: absolute;
@@ -112,8 +98,8 @@ ul {
   width: 33px;
   height: 20px;
   
-  opacity: 0; /* hide this */
-  z-index: 1  ; /* and place it over the hamburger */
+  opacity: 0;
+  z-index: 1;
 
   cursor: pointer;
   
@@ -121,7 +107,7 @@ ul {
   -webkit-tap-highlight-color: transparent;
 }
 
-#menuToggle span
+#menu span
 {
   display: block;
 
@@ -136,29 +122,28 @@ ul {
               opacity 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-#menuToggle span:nth-child(4)
+#menu span:nth-child(4)
 {
   margin-bottom: 0;
 }
 
-/* Transform all the slices of hamburger into a crossmark. */
-#menuToggle input:checked ~ span:nth-child(2)
+#menu input:checked ~ span:nth-child(2)
 {
   transform: translate(0px, 9px) rotate(45deg);
 }
 
-#menuToggle input:checked ~ span:nth-child(3)
+#menu input:checked ~ span:nth-child(3)
 {
   opacity: 0;  
   transform: scale(0, 1);
 }
 
-#menuToggle input:checked ~ span:nth-child(4)
+#menu input:checked ~ span:nth-child(4)
 {
   transform: translate(0px, -9px) rotate(-45deg);
 }
 
-#menu
+#menu nav
 {
 position: fixed;
   top: 52px;
@@ -166,12 +151,10 @@ position: fixed;
   
   background-color: var(--back-color);
 
-  /* Hide menu. */
   opacity: 0;  
 }
 
-/* Show menu. */
-#menuToggle input:checked ~ #menu
+#menu input:checked ~ nav
 {
   opacity: 1;
 }
