@@ -22,13 +22,14 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
           {/* Icon to the left */}
           <div className="goomba-card m-auto mx-4">
+            <input type="checkbox" />
             <Image src="/goomba.png" className="goomba" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
-            <div className="goomba-back m-auto text-3xl">😝</div>
+            <div className="goomba-back allign-middle w-8 h-8 text-3xl">😝</div>
           </div>
           {/* Hamburger to the right */}
           <div id="menuToggle" className='m-4'>
 
-            <input id="clickTarget" type="checkbox" />
+            <input type="checkbox" />
             <span/>
             <span/>
             <span/>
