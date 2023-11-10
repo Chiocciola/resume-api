@@ -1,6 +1,5 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { Suspense } from 'react'
 import Loading from './loading'
 
@@ -20,12 +19,13 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
         <div id="topBar" className="flex flex-row justify-between shadow-lg sticky top-0 w-full">
 
-          {/* Icon to the left */}
-          <div className="goomba-card m-auto mx-4">
-            <input type="checkbox" />
-            <Image src="/goomba.png" className="goomba" alt="Dmitriy Bondar" width="32" height="32" priority={true}/>
-            <div className="goomba-back allign-middle w-8 h-8 text-3xl">😝</div>
+          {/* Logo to the left */}
+          <div id="logo" className="m-auto mx-4 text-3xl">
+            <input type="checkbox" className="w-8 h-8" />
+            <div className="w-8 h-8 ">📃</div>
+            <div className="w-8 h-8">😝</div>
           </div>
+
           {/* Hamburger to the right */}
           <div id="menuToggle" className='m-4'>
 
@@ -46,10 +46,11 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           </div>
 
           {/* Shadow on top of the menu */}
-          <div className="absolute h-full w-full shadow-md pointer-events-none"/>
+          <div className="absolute h-full w-full shadow-md pointer-events-none" />
           
         </div>
 
+        {/* Loading UI is not supported yet by Next,js, this is why it is not working */}
         <Suspense fallback={<Loading />}>
           {children}
         </Suspense>

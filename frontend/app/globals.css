@@ -40,7 +40,14 @@ ul {
   100% { transform: rotate(360deg); }
 }
 
-.goomba-card
+
+#topBar
+{
+  background-color: var(--back-color);
+} 
+
+/* Logo */
+#logo
 {
   -webkit-user-select: none;
   user-select: none;
@@ -48,23 +55,20 @@ ul {
   perspective: 50px;
 }
 
-.goomba-card input
-{
+#logo input
+{ 
   display: block;
-  position: absolute;
-
-  width: 32px;
-  height: 32px;
+  position: absolute;  
   
   opacity: 0; /* hide this */
-  z-index: 2; /* and place it over */
+  z-index: 1; /* and place it over */
 
   cursor: pointer;
   
   -webkit-touch-callout: none;
 }
 
-.goomba, .goomba-back
+#logo div
 {
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -72,29 +76,25 @@ ul {
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-.goomba-back
+#logo div:nth-child(2)
 {
   position: absolute;
-  top: 0;
-  left: 0;
+}
+
+#logo div:nth-child(3)
+{
   transform: rotateY(-180deg);
 }
 
-.goomba-card input:checked ~ .goomba
+#logo input:checked ~ div:nth-child(2)
 {
   transform: rotateY(180deg);
 }
 
-.goomba-card input:checked ~ .goomba-back
+#logo input:checked ~ div:nth-child(3)
 {
   transform: rotateY(0deg);
 }
-
-
-#topBar
-{
-  background-color: var(--back-color);
-} 
 
 /* Menu */
 #menuToggle
@@ -108,16 +108,17 @@ ul {
   display: block;
   position: absolute;
 
-  /* Size of slices and margins */
+  /* Size of the hamburger */
   width: 33px;
-  height: 22px;
+  height: 20px;
   
   opacity: 0; /* hide this */
-  z-index: 2; /* and place it over the hamburger */
+  z-index: 1  ; /* and place it over the hamburger */
 
   cursor: pointer;
   
   -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #menuToggle span
@@ -125,41 +126,34 @@ ul {
   display: block;
 
   width: 33px;
-  height: 4px;
+  height: 2px;
 
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   
   background: currentColor;
-  border-radius: 2px;
-
-  z-index: 1;
-
-  transform-origin: 16.5px 2px;
   
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.3s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-#menuToggle span:nth-last-child(2)
+#menuToggle span:nth-child(4)
 {
   margin-bottom: 0;
 }
 
 /* Transform all the slices of hamburger into a crossmark. */
-#menuToggle input:checked ~ span:nth-last-child(4)
+#menuToggle input:checked ~ span:nth-child(2)
 {
   transform: translate(0px, 9px) rotate(45deg);
 }
 
-/* Hide the middle one. */
-#menuToggle input:checked ~ span:nth-last-child(3)
+#menuToggle input:checked ~ span:nth-child(3)
 {
   opacity: 0;  
   transform: scale(0, 1);
 }
 
-/* The last one should go the other direction. */
-#menuToggle input:checked ~ span:nth-last-child(2)
+#menuToggle input:checked ~ span:nth-child(4)
 {
   transform: translate(0px, -9px) rotate(-45deg);
 }
@@ -173,16 +167,11 @@ ul {
   background-color: var(--back-color);
 
   /* Hide menu. */
-  transform: translate(100%, 0);
-  opacity: 0;
-  
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  opacity: 0;  
 }
 
 /* Show menu. */
 #menuToggle input:checked ~ #menu
 {
-  transform: none;  
   opacity: 1;
 }
