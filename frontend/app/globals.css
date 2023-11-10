@@ -45,6 +45,8 @@ ul {
   -webkit-user-select: none;
   user-select: none;
 
+  -webkit-touch-callout: none;
+
   cursor: pointer;
   perspective: 50px;
 }
