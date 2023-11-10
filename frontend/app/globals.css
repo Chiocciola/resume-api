@@ -4,14 +4,12 @@
 
 :root
 {
-  --fore-color: #000;
   --back-color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root
   {
-    --fore-color: #fff;
     --back-color: #333;
   }
 
@@ -20,12 +18,12 @@
   }
 }
 
+/* Align list bullets to the text */
 ul {
   padding-left: 20px;
 }
 
-
-
+/* Navbar */
 #navbar
 {
   background-color: var(--back-color);
@@ -65,6 +63,8 @@ ul {
 #logo div:nth-child(2)
 {
   position: absolute;
+
+  transform: rotateY(0deg);
 }
 
 #logo div:nth-child(3)
@@ -83,6 +83,7 @@ ul {
 }
 
 /* Menu */
+
 #menu
 {  
   -webkit-user-select: none;
