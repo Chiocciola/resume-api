@@ -67,7 +67,7 @@ const ResumePage = () => {
     return (
         <div style={{fontFamily: "monospace", margin: "auto", maxWidth: "800px"}}>
             <h1>Resume API</h1>
-            <p>The Resume API allows developers to access resume content, providing detailed information about an individual's professional and educational background. This API offers endpoints for retrieving general information, such as name and contact details, as well as detailed sections for experience and education.</p>
+            <p>The Resume API allows developers to access resume content, providing detailed information about an individual&apos;s professional and educational background. This API offers endpoints for retrieving general information, such as name and contact details, as well as detailed sections for experience and education.</p>
 
             <h2>Endpoints</h2>
 
