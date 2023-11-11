@@ -61,7 +61,7 @@ const ResumePage = () => {
             <p>This is a REST API for accessing resume data.</p>
 
             <h2>Endpoints</h2>
-            <table style={{width: "600px"}}>
+            <table style={{maxWidth: "600px"}}>
                 <tbody>
                 {endpoints.map(({ name, label, data, setData }) => (
                     <>
