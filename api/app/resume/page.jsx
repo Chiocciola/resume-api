@@ -56,20 +56,20 @@ const ResumePage = () => {
     ];            
 
     return (
-        <>
+        <div style={{fontFamily: "monospace"}}>
             <h1>Resume API</h1>
             <p>This is a REST API for accessing resume data.</p>
 
             <h2>Endpoints</h2>
-            <table style={{maxWidth: "600px"}}>
+            <table style={{borderCollapse: "collapse", border: "1px solid #082044", maxWidth: "600px", width: "100%"}}>
                 <tbody>
                 {endpoints.map(({ name, label, data, setData }) => (
                     <>
-                        <tr key={name}>
-                            <td><h3>{label}</h3></td>
-                            <td style={{width: "60px"}}>
-                                {!data && (<button style={{width: "100%"}} onClick={() => fetchData(label, setData)}>GET</button>)}
-                                {data && (<button style={{width: "100%"}} onClick={() => clearData(setData)}>Clear</button>)}
+                        <tr key={name} style={{margin: "1rem", color: "white", backgroundColor: "#082044"}}>
+                            <td><p style={{margin: "0.5rem 1rem"}}>{label}</p></td>
+                            <td style={{margin: "1rem", width: "90px"}}>
+                                {!data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => fetchData(label, setData)}>{loading ? "Loading..." : "GET"}</button>)}
+                                { data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => clearData(setData)}>CLEAR</button>)}
                             </td>                                             
                         </tr>
 
@@ -85,7 +85,7 @@ const ResumePage = () => {
                 ))}
                 </tbody>
             </table>
-        </>
+        </div>
     );
 
 
