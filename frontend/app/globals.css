@@ -69,12 +69,12 @@ ul {
 
 #logo div:nth-child(3)
 {
-  transform: rotateY(-180deg);
+  transform: rotateY(-179deg);
 }
 
 #logo input:checked ~ div:nth-child(2)
 {
-  transform: rotateY(180deg);
+  transform: rotateY(179deg);
 }
 
 #logo input:checked ~ div:nth-child(3)
