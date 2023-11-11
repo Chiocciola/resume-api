@@ -91,7 +91,7 @@ const ResumePage = () => {
                                 <tr style={{color: "white", backgroundColor: "#082044",}}>
                                     <td><p style={{margin: "0.5rem 1rem"}}>{endpoint}</p></td>
                                     <td style={{width: "90px"}}>
-                                        {!data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => fetchData(apiMointPoint + endpoint, setData)}>{loading ? "Loading..." : "GET"}</button>)}
+                                        {!data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => fetchData(apiEntryPoint + endpoint, setData)}>{loading ? "Loading..." : "GET"}</button>)}
                                         { data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => clearData(setData)}>CLEAR</button>)}
                                     </td>                                             
                                 </tr>
