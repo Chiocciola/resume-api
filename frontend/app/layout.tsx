@@ -33,7 +33,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <span/>
     
             <nav className='p-12 shadow-lg'>
-              <p className="p-4 pt-0">This resume fetches data from a RESTful API.</p>
+              <p className="p-4 pt-0">This resume page fetches data from a RESTful API.</p>
               <ul >
                 <li className="py-2 text-l"><a href={`${process.env.API_URL}/resume`}>🚪 Resume API entry point &#x2197;</a></li>
                 <li className="py-2 text-l"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 Resume API on SwaggerHub &#x2197;</a></li>
