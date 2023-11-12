@@ -19,7 +19,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
           {/* Logo to the left */}
           <div id="logo" className="m-auto mx-4 text-3xl">
-            <input type="checkbox" className="w-8 h-8" />
+            <input id="logoChckbox" type="checkbox" className="w-8 h-8" />
             <div className="w-8 h-8 ">📃</div>
             <div className="w-8 h-8">😝</div>
           </div>
@@ -27,7 +27,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           {/* Hamburger to the right */}
           <div id="menu" className='m-4'>
 
-            <input type="checkbox" />
+            <input id="menuChckbox" type="checkbox" />
             <span/>
             <span/>
             <span/>

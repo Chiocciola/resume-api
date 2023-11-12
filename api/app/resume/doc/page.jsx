@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-const ResumePage = () => {
+// export const metadata = {
+//     title: 'Resume API',
+//     description: 'Documentation for the Resume API',
+// }
+
+export default function ResumePag() {
 
     const [apiEntryPoint, setApiEntryPoint] = useState("/resume");
 
-    const [indexData, setIndexData] = useState(null);
     const [generalData, setGeneralData] = useState(null);
-    const [sectionsData, setSectionsData] = useState(null);
     const [experienceData, setExperienceData] = useState(null);
     const [educationData, setEducationData] = useState(null);
     const [skillsData, setSkillsData] = useState(null);
@@ -32,22 +35,10 @@ const ResumePage = () => {
 
     const endpoints = [
         {
-            description: 'index of available endpoints',
-            endpoint: '/',
-            data: indexData,
-            setData: setIndexData,
-        },
-        {
             description: 'general resume information such as name, title, and contact details',
             endpoint: '/general',
             data: generalData,
             setData: setGeneralData,
-        },
-        {
-            description: 'index of resume sections',
-            endpoint: '/sections',
-            data: sectionsData,
-            setData: setSectionsData,
         },
         {
             description: "detailed information about professional background",
@@ -62,6 +53,11 @@ const ResumePage = () => {
         },
         {
             endpoint: '/sections/skills',
+            data: skillsData,
+            setData: setSkillsData,
+        },
+        {
+            endpoint: '/sections/languages',
             data: skillsData,
             setData: setSkillsData,
         },
@@ -91,34 +87,22 @@ const ResumePage = () => {
                         <h3 style={{display: "inline"}}>{endpoint}</h3>
                         <p style={{display: "inline"}}> {description}</p>
 
-                        <table style={{borderCollapse: "collapse", border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 1rem 1.5rem"}}>
-                            <tbody>
-                                <tr style={{color: "white", backgroundColor: "#082044",}}>
-                                    <td width="100%"><p style={{margin: "0.5rem 1rem"}}>{apiEntryPoint + endpoint}</p></td>
-                                    <td>
-                                        <button
-                                            style={{width: "80px", margin: "1rem", border: "none", color: "white", backgroundColor: "orangered"}}
-                                            onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
-                                                {loading ? "Loading..." : data ? "CLEAR" :"GET"}
-                                        </button>
-                                    </td>                                             
-                                </tr>
+                        <div style={{border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 1rem 1.5rem"}}>
 
-                                {data && (
-                                <tr>
-                                    <td colSpan="2">
-                                        <pre style={{whiteSpace: "pre-wrap"}}>
-                                            {JSON.stringify(data, null, 2)}
-                                        </pre>
-                                    </td>
-                                </tr>)}
-                            </tbody>
-                        </table>
+                            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem",color: "white", backgroundColor: "#082044",}}>
+                                <span>{apiEntryPoint + endpoint}</span>
+                                <button
+                                    style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}}
+                                    onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
+                                        {loading ? "Loading..." : data ? "CLEAR" :"GET"}
+                                </button>
+                            </div>
+
+                            {data && (<pre style={{margin: "1rem", whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
+                        </div>
                     </li>
                 ))}
                 </ol>
         </article>
     );
 };
-
-export default ResumePage;

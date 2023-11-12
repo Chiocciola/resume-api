@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'API',
-  description: 'API',
+  title: 'APIs',
+  description: 'Place where APIs live',
 }
 
 export default function RootLayout({
