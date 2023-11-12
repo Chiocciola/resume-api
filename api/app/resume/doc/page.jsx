@@ -41,13 +41,13 @@ export default function ResumePag() {
             setData: setGeneralData,
         },
         {
-            description: "information about hard and soft skills, technologies and programming languages",
+            description: "hard and soft skills, technologies and programming languages",
             endpoint: '/sections/skills',
             data: skillsData,
             setData: setSkillsData,
         },
         {
-            description: "detailed information about professional background",
+            description: "information about professional background",
             endpoint: '/sections/experience',
             data: experienceData,
             setData: setExperienceData,
@@ -59,7 +59,7 @@ export default function ResumePag() {
             setData: setEducationData,
         },
         {
-            description: "detailed information about spoken languages",
+            description: "information about spoken languages",
             endpoint: '/sections/languages',
             data: skillsData,
             setData: setSkillsData,
@@ -76,38 +76,44 @@ export default function ResumePag() {
             <p>Detailed specification is available on <a href="https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0">SwaggerHub</a></p>
 
             <h2>Entry Point</h2>
-            <p><a href={apiEntryPoint}>{apiEntryPoint}</a></p>
+            
+            <p>API entry point is located at <a href={apiEntryPoint}>{apiEntryPoint}</a></p>
+            <p> Don't forget to add  it to the beginning of each endpoint, if you are using CURL or Postman to test the API.</p>
 
             <h2>Endpoints</h2>
 
                 <p>Each endpoint is available as a GET request. The response is a JSON object.</p>
-                <p>Press <span style={{padding: "0 0.5rem", color: "white", backgroundColor: "orangered"}}>GET</span> button to retrieve the data directly from the browser.</p>
-
-                <ol style={{listStylePosition: "inside", padding: "0" }}>
+                <p>Press <span style={{padding: "0 0.5rem", color: "white", backgroundColor: "#1391ff"}}>GET</span> button to retrieve the data directly from the browser.</p>
 
                 {endpoints.map(({description, endpoint, data, setData }) => (
-                    <li key={endpoint} style={{margin: "2rem 0"}}>
-                        <h3 style={{display: "inline"}}>{endpoint}</h3>
-                        <p style={{display: "inline"}}> {description}</p>
+                    <div key={endpoint} style={{margin: "1rem 0"}}>
 
-                        <div style={{border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 0 1.5rem"}}>
+                        <div style={{border: "1px solid #61affe",  borderRadius: "4px", backgroundColor: "#ecf6ff", width: "100%"}}>
 
-                            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem", color: "white", backgroundColor: "#082044",}}>
+                            <div style={{display: "flex", padding: "0.5rem", borderBottom: data ? "1px solid #61affe": "none"}}>
 
-                                <span style={{display: "inline-block", overflow: "hidden", textOverflow: "ellipsis"}}>{apiEntryPoint + endpoint}</span>
-
-                                <button
-                                    style={{flexShrink: "0", width: "80px", border: "none", color: "white", backgroundColor: "orangered", cursor: "pointer"}}
+                            <button
+                                    style={{flexShrink: "0", width: "80px", padding: "6px 0", margin: "0 0 auto 0", border: "none", borderRadius: "3px", color: "white", backgroundColor: "#1391ff", cursor: "pointer"}}
                                     onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
-                                        {loading ? "Loading..." : data ? "CLEAR" :"GET"}
+                                        <strong>
+                                            {loading ? "Loading..." : data ? "CLEAR" :"GET"}
+                                        </strong>
                                 </button>
+
+                                <div style={{display: "inline-block", margin: "auto 0 auto 0.5rem"}}>
+                                    <big><strong>{endpoint}</strong></big>
+                                </div>
+
+                                <div style={{display: "inline-block", margin: "auto 0 auto 0.5rem"}}>
+                                    {description}
+                                </div>
+
                             </div>
 
-                            {data && (<pre style={{margin: "1rem", whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
+                            {data && (<pre style={{borderRadius: "3px", backgroundColor: "#333", color: "white", margin: "0.5rem", padding: "0.5rem",whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
                         </div>
-                    </li>
+                    </div>
                 ))}
-                </ol>
         </article>
     );
 };
