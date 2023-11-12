@@ -1,7 +1,6 @@
 "use client"
 
-import { use, useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 
 const ResumePage = () => {
 
@@ -33,39 +32,35 @@ const ResumePage = () => {
 
     const endpoints = [
         {
-            name: "index",
-            description: 'list of available endpoints',
+            description: 'index of available endpoints',
             endpoint: '/',
             data: indexData,
             setData: setIndexData,
         },
         {
-            name: "general",
-            description: 'general resume information such as name, title, and contact details.',
+            description: 'general resume information such as name, title, and contact details',
             endpoint: '/general',
             data: generalData,
             setData: setGeneralData,
         },
         {
-            name: 'sections',
+            description: 'index of resume sections',
             endpoint: '/sections',
             data: sectionsData,
             setData: setSectionsData,
         },
         {
-            name: 'experience',
+            description: "detailed information about professional background",
             endpoint: '/sections/experience',
             data: experienceData,
             setData: setExperienceData,
         },
         {
-            name: 'education',
             endpoint: '/sections/education',
             data: educationData,
             setData: setEducationData,
         },
         {
-            name: 'skills',
             endpoint: '/sections/skills',
             data: skillsData,
             setData: setSkillsData,
@@ -73,26 +68,39 @@ const ResumePage = () => {
     ];            
 
     return (
-        <div style={{fontFamily: "monospace", margin: "auto", maxWidth: "800px"}}>
+        <article style={{fontFamily: "monospace", margin: "auto", maxWidth: "800px"}}>
             <h1>Resume API</h1>
-            <p>The Resume API allows developers to access resume content, providing detailed information about an individual&apos;s professional and educational background. This API offers endpoints for retrieving general information, such as name and contact details, as well as detailed sections for experience and education.</p>
+            <p>The Resume API allows developers to access resume content, providing detailed information about professional and educational background. This API offers endpoints for retrieving general information, such as name and contact details, as well as detailed sections for experience and education.</p>
+
+            <h2>Specification</h2>
+
+            <p>Detailed specification is available on <a href="https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0">SwaggerHub</a></p>
 
             <h2>Entry Point</h2>
             <p><a href={apiEntryPoint}>{apiEntryPoint}</a></p>
 
             <h2>Endpoints</h2>
 
-                {endpoints.map(({ name, description, endpoint, data, setData }) => (
-                    <>
-                        <p key={name}><strong>{name}: </strong>{description}</p>
+                <p>Each endpoint is available as a GET request. The response is a JSON object.</p>
+                <p>Press <span style={{padding: "0 0.5rem", color: "white", backgroundColor: "orangered"}}>GET</span> button to retrieve the data directly from the browser.</p>
 
-                        <table key={endpoint} style={{borderCollapse: "collapse", border: "1px solid #082044", width: "100%"}}>
+                <ol style={{listStylePosition: "inside", padding: "0" }}>
+
+                {endpoints.map(({description, endpoint, data, setData }) => (
+                    <li key={endpoint}>
+                        <h3 style={{display: "inline"}}>{endpoint}</h3>
+                        <p style={{display: "inline"}}> {description}</p>
+
+                        <table style={{borderCollapse: "collapse", border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 1rem 1.5rem"}}>
                             <tbody>
                                 <tr style={{color: "white", backgroundColor: "#082044",}}>
-                                    <td><p style={{margin: "0.5rem 1rem"}}>{endpoint}</p></td>
-                                    <td style={{width: "90px"}}>
-                                        {!data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => fetchData(apiEntryPoint + endpoint, setData)}>{loading ? "Loading..." : "GET"}</button>)}
-                                        { data && (<button style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}} onClick={() => clearData(setData)}>CLEAR</button>)}
+                                    <td width="100%"><p style={{margin: "0.5rem 1rem"}}>{apiEntryPoint + endpoint}</p></td>
+                                    <td>
+                                        <button
+                                            style={{width: "80px", margin: "1rem", border: "none", color: "white", backgroundColor: "orangered"}}
+                                            onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
+                                                {loading ? "Loading..." : data ? "CLEAR" :"GET"}
+                                        </button>
                                     </td>                                             
                                 </tr>
 
@@ -106,9 +114,10 @@ const ResumePage = () => {
                                 </tr>)}
                             </tbody>
                         </table>
-                    </>
+                    </li>
                 ))}
-        </div>
+                </ol>
+        </article>
     );
 };
 
