@@ -41,22 +41,25 @@ export default function ResumePag() {
             setData: setGeneralData,
         },
         {
+            description: "information about hard and soft skills, technologies and programming languages",
+            endpoint: '/sections/skills',
+            data: skillsData,
+            setData: setSkillsData,
+        },
+        {
             description: "detailed information about professional background",
             endpoint: '/sections/experience',
             data: experienceData,
             setData: setExperienceData,
         },
         {
+            description: "information about educational background",
             endpoint: '/sections/education',
             data: educationData,
             setData: setEducationData,
         },
         {
-            endpoint: '/sections/skills',
-            data: skillsData,
-            setData: setSkillsData,
-        },
-        {
+            description: "detailed information about spoken languages",
             endpoint: '/sections/languages',
             data: skillsData,
             setData: setSkillsData,
@@ -83,16 +86,18 @@ export default function ResumePag() {
                 <ol style={{listStylePosition: "inside", padding: "0" }}>
 
                 {endpoints.map(({description, endpoint, data, setData }) => (
-                    <li key={endpoint}>
+                    <li key={endpoint} style={{margin: "2rem 0"}}>
                         <h3 style={{display: "inline"}}>{endpoint}</h3>
                         <p style={{display: "inline"}}> {description}</p>
 
-                        <div style={{border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 1rem 1.5rem"}}>
+                        <div style={{border: "1px solid #082044", width: "calc(100% - 1.5rem)", margin: "0.5rem 0 0 1.5rem"}}>
 
-                            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem",color: "white", backgroundColor: "#082044",}}>
-                                <span>{apiEntryPoint + endpoint}</span>
+                            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem", color: "white", backgroundColor: "#082044",}}>
+
+                                <span style={{display: "inline-block", overflow: "hidden", textOverflow: "ellipsis"}}>{apiEntryPoint + endpoint}</span>
+
                                 <button
-                                    style={{width: "80px", border: "none", color: "white", backgroundColor: "orangered"}}
+                                    style={{flexShrink: "0", width: "80px", border: "none", color: "white", backgroundColor: "orangered", cursor: "pointer"}}
                                     onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
                                         {loading ? "Loading..." : data ? "CLEAR" :"GET"}
                                 </button>
