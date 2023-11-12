@@ -78,7 +78,7 @@ export default function ResumePag() {
             <h2>Entry Point</h2>
             
             <p>API entry point is located at <a href={apiEntryPoint}>{apiEntryPoint}</a></p>
-            <p> Don't forget to add  it to the beginning of each endpoint, if you are using CURL or Postman to test the API.</p>
+            <p> Don&apos;t forget to add  it to the beginning of each endpoint, if you are using CURL or Postman to test the API.</p>
 
             <h2>Endpoints</h2>
 
