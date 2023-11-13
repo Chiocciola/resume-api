@@ -90,24 +90,21 @@ export default function ResumePag() {
 
                         <div style={{border: "1px solid #61affe",  borderRadius: "4px", backgroundColor: "#ecf6ff", width: "100%"}}>
 
-                            <div style={{display: "flex", padding: "0.5rem", borderBottom: data ? "1px solid #61affe": "none"}}>
+                            <div style={{display: "flex", flexDirection: "column", padding: "0.5rem", borderBottom: data ? "1px solid #61affe": "none"}}>
 
-                            <button
-                                    style={{flexShrink: "0", width: "80px", padding: "6px 0", margin: "0 0 auto 0", border: "none", borderRadius: "3px", color: "white", backgroundColor: "#1391ff", cursor: "pointer"}}
-                                    onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
-                                        <strong>
-                                            {loading ? "Loading..." : data ? "CLEAR" :"GET"}
-                                        </strong>
-                                </button>
+                                <div style={{ display: "flex", gap: "0.5rem"}}>
 
-                                <div style={{display: "inline-block", margin: "auto 0 auto 0.5rem"}}>
-                                    <big><strong>{endpoint}</strong></big>
+                                    <button style={{flexShrink: "0", width: "80px", padding: "6px 0", border: "none", borderRadius: "3px", color: "white", backgroundColor: "#1391ff", cursor: "pointer", fontFamily: "monospace"}}
+                                            onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
+                                        {loading ? "Loading..." : data ? "CLEAR" : "GET"}
+                                    </button>
+
+                                    <div style={{overflow: "hidden", textOverflow: "ellipsis", margin: "auto 0", fontSize: "1rem", fontWeight: "bold"}}>{endpoint}</div>
                                 </div>
 
-                                <div style={{display: "inline-block", margin: "auto 0 auto 0.5rem"}}>
-                                    {description}
+                                <div style={{overflow: "hidden", margin: "auto 0 auto 88px", color: "gray"}}>
+                                    <div>{description}</div>
                                 </div>
-
                             </div>
 
                             {data && (<pre style={{borderRadius: "3px", backgroundColor: "#333", color: "white", margin: "0.5rem", padding: "0.5rem",whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
