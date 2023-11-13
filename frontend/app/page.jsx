@@ -80,6 +80,18 @@ export default async function Resume() {
                 </>
             )}
 
+            {resume.sections['Languages'] && (
+                <>  
+                    <h2 className="text-2xl mt-3">Languages</h2>
+
+                    <ul className='ml-4 list-disc'>
+                        {resume.sections['Languages'].content.map(language => (
+                            <li key={language}>{language}</li>
+                        ))}
+                    </ul>
+                </>
+            )}
+
             { resume.sections['Experience'] && (
                 <>
                     <h2 className="text-2xl mt-3">Experience</h2>
