@@ -36,31 +36,31 @@ export default function ResumePag() {
 
     const endpoints = [
         {
-            description: 'general resume information such as name, title, and contact details',
+            description: 'General resume information such as name, title, and contact details',
             endpoint: '/general',
             data: generalData,
             setData: setGeneralData,
         },
         {
-            description: "hard and soft skills, technologies and programming languages",
+            description: "Hard and soft skills, technologies and programming languages",
             endpoint: '/sections/skills',
             data: skillsData,
             setData: setSkillsData,
         },
         {
-            description: "information about professional background",
+            description: "Information about professional background",
             endpoint: '/sections/experience',
             data: experienceData,
             setData: setExperienceData,
         },
         {
-            description: "information about educational background",
+            description: "Information about educational background",
             endpoint: '/sections/education',
             data: educationData,
             setData: setEducationData,
         },
         {
-            description: "information about spoken languages",
+            description: "Information about spoken languages",
             endpoint: '/sections/languages',
             data: languagesData,
             setData: setLanguagesData,
@@ -76,8 +76,8 @@ export default function ResumePag() {
 
             <p>Detailed specification is available on <a href="https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0">SwaggerHub</a></p>
 
-            <h2>Access API using Postman</h2>
-            <p>Alternative way to test the API is to use Postman. You can access the collection of requests <a href="https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363">here</a>.</p>
+            {/* <h2>Access API using Postman</h2>
+            <p>Alternative way to test the API is to use Postman. You can access the collection of requests <a href="https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363">here</a>.</p> */}
 
             <h2>Entry Point</h2> 
             
@@ -94,24 +94,24 @@ export default function ResumePag() {
 
                         <div style={{border: "1px solid #61affe",  borderRadius: "4px", backgroundColor: "#ecf6ff", width: "100%"}}>
 
-                            <div style={{display: "flex", flexDirection: "column", padding: "0.5rem", borderBottom: data ? "1px solid #61affe": "none"}}>
+                            <div style={{display: "flex", flexDirection: "column", gap: "0.5rem", padding: "0.5rem", borderBottom: data ? "1px solid #61affe": "none"}}>
 
-                                <div style={{ display: "flex", gap: "0.5rem"}}>
+                                <div style={{ display: "flex", overflow: "hidden", gap: "0.5rem"}}>
 
-                                    <button style={{flexShrink: "0", width: "80px", padding: "6px 0", border: "none", borderRadius: "3px", color: "white", backgroundColor: "#1391ff", cursor: "pointer", fontFamily: "monospace"}}
+                                    <button style={{flexShrink: "0", width: "80px", padding: "6px 0", border: "none", borderRadius: "3px", color: "white", backgroundColor: "#1391ff", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit"}}
                                             onClick={() => data ? clearData(setData) : fetchData(apiEntryPoint + endpoint, setData)}>
                                         {loading ? "Loading..." : data ? "CLEAR" : "GET"}
                                     </button>
 
-                                    <div style={{overflow: "hidden", textOverflow: "ellipsis", margin: "auto 0", fontSize: "1rem", fontWeight: "bold"}}>{endpoint}</div>
+                                    <div style={{textOverflow: "ellipsis", margin: "auto 0", fontSize: "1rem", fontWeight: "bold"}}>{endpoint}</div>
                                 </div>
 
-                                <div style={{overflow: "hidden", margin: "auto 0 auto 88px", color: "gray"}}>
-                                    <div>{description}</div>
+                                <div style={{overflow: "hidden", color: "gray"}}>
+                                    {description}
                                 </div>
                             </div>
 
-                            {data && (<pre style={{borderRadius: "3px", backgroundColor: "#333", color: "white", margin: "0.5rem", padding: "0.5rem",whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
+                            {data && (<pre style={{overflow: "hidden", margin: "0.5rem", padding: "0.5rem", borderRadius: "3px", backgroundColor: "#333", color: "white", whiteSpace: "pre-wrap"}}>{JSON.stringify(data, null, 2)}</pre>)}
                         </div>
                     </div>
                 ))}
