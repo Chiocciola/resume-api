@@ -15,6 +15,7 @@ export default function ResumePag() {
     const [experienceData, setExperienceData] = useState(null);
     const [educationData, setEducationData] = useState(null);
     const [skillsData, setSkillsData] = useState(null);
+    const [languagesData, setLanguagesData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const fetchData = async (endpoint, setData) => {
@@ -61,8 +62,8 @@ export default function ResumePag() {
         {
             description: "information about spoken languages",
             endpoint: '/sections/languages',
-            data: skillsData,
-            setData: setSkillsData,
+            data: languagesData,
+            setData: setLanguagesData,
         },
     ];            
 
