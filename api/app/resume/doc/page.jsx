@@ -76,7 +76,10 @@ export default function ResumePag() {
 
             <p>Detailed specification is available on <a href="https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0">SwaggerHub</a></p>
 
-            <h2>Entry Point</h2>
+            <h2>Access API using Postman</h2>
+            <p>Alternative way to test the API is to use Postman. You can access the collection of requests <a href="https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363">here</a>.</p>
+
+            <h2>Entry Point</h2> 
             
             <p>API entry point is located at <a href={apiEntryPoint}>{apiEntryPoint}</a></p>
             <p> Don&apos;t forget to add  it to the beginning of each endpoint, if you are using CURL or Postman to test the API.</p>

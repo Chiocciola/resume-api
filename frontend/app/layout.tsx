@@ -37,7 +37,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
               <ul >
                 <li className="py-2 text-l"><a target="_blank" href={`${process.env.API_URL}/resume/doc`}>🚪 Resume API &#x2197;</a></li>
                 <li className="py-2 text-l"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 Resume API on SwaggerHub &#x2197;</a></li>
-                <li className="py-2 text-l"><a target="_blank" href='https://www.postman.com/chiocciola/workspace/public/api/09a5bb57-61ea-4340-a7c6-161f8ac966fa?action=share&creator=27924363'>🧑‍🚀 Resume API on Postman &#x2197;</a></li>
+                <li className="py-2 text-l"><a target="_blank" href='https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363'>🧑‍🚀 Resume API on Postman &#x2197;</a></li>
               </ul>
             </nav>
           
