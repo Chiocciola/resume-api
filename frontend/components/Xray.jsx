@@ -61,7 +61,7 @@ export default function Xray({apiEntryPoint}) {
 
             <div className='flex flex-row mt-4 gap-4'>
                 <div>
-                    <p><span className={!index ? "font-bold" : ""}>1. Let's start with fetching the index of resume sections:</span> {indexUrl}</p>
+                    <p><span className={!index ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume sections:</span> {indexUrl}</p>
                 </div>
 
                 <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded m-1 px-4 w-28 ml-auto'} onClick={() => (loadIndex(indexUrl))}>Get Index</button>
