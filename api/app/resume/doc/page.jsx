@@ -37,7 +37,7 @@ export default function ResumePag() {
     const endpoints = [
         {
             description: 'General resume information such as name, title, and contact details',
-            endpoint: '/general',
+            endpoint: '/sections/general',
             data: generalData,
             setData: setGeneralData,
         },

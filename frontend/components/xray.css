@@ -1,0 +1,36 @@
+
+#card-carusel
+{
+  perspective: 1000px;
+}
+
+#card-carusel .card-left,
+#card-carusel .card-main,
+#card-carusel .card-right
+{
+  backface-visibility: hidden;
+  /* transform-style: preserve-3d; */
+  transition: transform 0.5s ease-in-out;
+}
+
+#card-carusel .card-right
+{
+  position: absolute;
+  transform-origin: left;
+  transform: translate(100%, 0) rotateY(120deg);
+}
+
+#card-carusel .card-main
+{
+  /* position: relative; */
+  /* transform: none */
+  transform-origin: left;
+}
+
+
+#card-carusel .card-left
+{  
+  position: absolute;
+  transform-origin: right;
+  transform: translate(-100%, 0) rotateY(-120deg);
+}

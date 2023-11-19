@@ -1,5 +1,9 @@
-import './globals.css'
 import type { Metadata } from 'next'
+
+import './globals.css'
+
+import Logo from '../components/Logo'
+
 
 export const metadata: Metadata = {
   title: 'Dmitriy Bondar',
@@ -18,11 +22,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
         <div id="navbar" className="flex flex-row justify-between sticky top-0 w-screen">
 
           {/* Logo to the left */}
-          <div id="logo" className="m-auto mx-4 text-3xl">
-            <input id="logoChckbox" type="checkbox" className="w-8 h-8" />
-            <div className="w-8 h-8 ">📃</div>
-            <div className="w-8 h-8">😝</div>
-          </div>
+          <Logo />
 
           {/* Hamburger to the right */}
           <div id="menu" className='m-4'>
