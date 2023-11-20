@@ -8,6 +8,7 @@
 #card-carusel .card-main,
 #card-carusel .card-right
 {
+  z-index: 0;
   backface-visibility: hidden;
   /* transform-style: preserve-3d; */
   transition: transform 0.5s ease-in-out;
