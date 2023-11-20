@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation'
+
 
 import './logo.css';
 
 export default function Logo()
 {
-    const [checked, setChecked] = useState(false);
-
     const router = useRouter()
+
+    const [checked, setChecked] = useState(usePathname() == '/xray');
 
     function toggleChecked()
     {
