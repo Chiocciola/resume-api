@@ -5,13 +5,16 @@ export const dynamic = 'force-dynamic';
 async function getResume()
 {
     try
-    {    
-        const apiEntryPoint = process.env.API_URL;
-        
-        const sections = await fetch(apiEntryPoint + '/resume/sections').then(r => r.json());
+    {            
+        const sections = await fetch(process.env.API_URL + '/resume/sections').then(r => r.json());
 
         return await Promise.all(
-            sections.map( s => s.url).map( url => fetch(url).then(r => r.ok ? r.json() : {title: 'Error', content: `${url}: ${r.status} ${r.statusText}`})));
+            sections
+                .map( s => s.url)
+                .map( url => fetch(url)
+                .then(r => r.ok 
+                    ? r.json()
+                    : {title: 'Error', content: `${url}: ${r.status} ${r.statusText}`})));
     }
     catch (e)
     {

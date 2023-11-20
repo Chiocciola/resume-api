@@ -2,7 +2,7 @@ export default function Experience({content})
 {
     return (
         <div key="Experience">
-            <h2 className="text-2xl mt-3">Experience</h2>
+            <h2>Experience</h2>
 
             {content.map((company) => (
                 <div key={company.company} className="flex flex-row mt-4">

@@ -11,6 +11,7 @@ export default function ResumePag() {
 
     const [apiEntryPoint, setApiEntryPoint] = useState("/resume");
 
+    const [indexData, setIndexlData] = useState(null);
     const [generalData, setGeneralData] = useState(null);
     const [experienceData, setExperienceData] = useState(null);
     const [educationData, setEducationData] = useState(null);
@@ -35,6 +36,12 @@ export default function ResumePag() {
     }, []);
 
     const endpoints = [
+        {
+            description: 'List of all section endpoints',
+            endpoint: '/sections/',
+            data: indexData,
+            setData: setIndexlData,
+        },
         {
             description: 'General resume information such as name, title, and contact details',
             endpoint: '/sections/general',

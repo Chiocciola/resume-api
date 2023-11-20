@@ -54,13 +54,13 @@ export default function Xray({apiEntryPoint}) {
 
     return (
         <>       
-            <h1 className='text-center text-3xl'>X-ray</h1>
+            <h1>X-ray</h1>
 
-            <p className="text-center mb-4 text-xl">Sees through the resume</p>
+            <p className="text-center mb-4 text-xl">Revealing the invisible</p>
 
             <p>This is the x-ray view. It allows to see the data and templates that are used to render the resume.</p>
 
-            <h2 className="text-2xl mt-3">Walkthrough</h2>
+            <h2>Walkthrough</h2>
 
             <div className='flex flex-row mt-4 gap-1'>
                 <div className='overflow-hidden'>

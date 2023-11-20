@@ -2,7 +2,7 @@ export default function Education({title, content})
 {
     return(
     <div key={title}>
-        <h2 className="text-2xl mt-3">Education</h2>
+        <h2>Education</h2>
 
         {content.map(edu => (
             <div key={edu.institution} className="flex flex-row mt-3">
