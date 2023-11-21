@@ -12,20 +12,44 @@ export default function Xray({apiEntryPoint}) {
 
     const [resourcesUrl, setResourcesUrl] = useState("");
 
+    const [indexText, setIndexText] = useState(null);
     const [index, setIndex] = useState(null);
 
     useEffect(() => {
         setResourcesUrl(window.location.origin);
     }, []);
     
-    async function loadIndex(endpoint)
+    async function loadIndexText(indexEndpoint)
     {    
-        setIndex( await fetch(endpoint).then(r => r.ok ? r.json() : [{section: {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`} }]));
+        const r = await fetch(indexEndpoint);
+
+        if (r.ok) 
+        {
+            setIndexText(await r.text());
+        }
+        else
+        {
+            setIndexText( `Error: ${indexEndpoint}: ${r.status} ${r.statusText}`);
+        }
     }
 
-    async function loadSection(endpoint, i)
+    async function loadIndexJson(indexEndpoint)
+    {    
+        const r = await fetch(indexEndpoint);
+
+        if (r.ok) 
+        {
+            setIndex(await r.json());
+        }
+        else
+        {
+            setIndex([{section: {title: 'Error', content: `${indexEndpoint}: ${r.status} ${r.statusText}`} }]);
+        }
+    }
+
+    async function loadSection(sectionEndpoint, i)
     {   
-        var section = await fetch(endpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`});
+        var section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
         const newIndex = [...index]; 
         newIndex[i] =  { ...index[i], section: section };
@@ -63,15 +87,28 @@ export default function Xray({apiEntryPoint}) {
             <h2>Walkthrough</h2>
 
             <div className='flex flex-row mt-4 gap-1'>
-                <div className='overflow-hidden'>
-                    <p><span className={!index ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints:</span> {indexUrl}</p>
+                <div className='overflow-auto'>
+                    <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints:</span> {indexUrl}</p>
+                    { indexText && <pre className="overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm">{indexText}</pre> }
                 </div>
                 <div className='w-28 ml-auto'>
-                    <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndex(indexUrl))}>Get Index</button>
+                    <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch Index</button>
                 </div>
             </div>
 
-            { index && <p className='font-bold mt-4'>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> } 
+            { indexText && (
+                <>
+
+                    <div className='flex flex-row mt-4 gap-1'>
+
+                        <p className='font-bold'>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                        <div className='w-28 ml-auto'>
+                            <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
+                         </div>
+                    </div>
+
+                </>
+            )}
 
 
             { index && index.map((s, i) => (
@@ -103,11 +140,14 @@ export default function Xray({apiEntryPoint}) {
                         </div>
                     </div>  
 
+
+                    { !s.rendered &&
                     <div className='flex flex-col gap-2 w-28 ml-auto'>
-                        <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Get Data</button> 
-                        <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Get Template</button>
+                        <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> 
+                        <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>
                         <button disabled={!s.template || s.rendered} className={(!s.template || s.rendered ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (enableRender(i))}>Render</button>
                     </div>
+                    }
                 </div>                     
             ))}
         </>
