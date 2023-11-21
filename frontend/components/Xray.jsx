@@ -78,25 +78,25 @@ export default function Xray({apiEntryPoint}) {
 
     return (
         <>       
-            <h1>X-ray</h1>
+            <h1 className='xray'>X-ray</h1>
 
             <p className="text-center mb-4 text-xl">Revealing the invisible</p>
 
-            <p>This is the x-ray view. It allows to see the data and templates that are used to render the resume.</p>
+            <p>This is the x-ray view. It allows to load resume data from API, load JSX templates and render the resume by applying template to the data.</p>
 
             <h2>Walkthrough</h2>
 
             <div className='flex flex-row mt-4 gap-1'>
                 <div className='overflow-auto'>
                     <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints:</span> {indexUrl}</p>
-                    { indexText && <pre className="overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm">{indexText}</pre> }
+                    { indexText && <pre className="mt-4">{indexText}</pre> }
                 </div>
                 <div className='w-28 ml-auto'>
-                    <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch Index</button>
+                    <button disabled={indexText} className={ (indexText ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch Index</button>
                 </div>
             </div>
 
-            { indexText && (
+            { indexText &&
                 <>
 
                     <div className='flex flex-row mt-4 gap-1'>
@@ -108,46 +108,52 @@ export default function Xray({apiEntryPoint}) {
                     </div>
 
                 </>
-            )}
+            }
 
 
-            { index && index.map((s, i) => (
+            { index?.map((s, i) => (
 
-                <div key={i} className='flex flex-row mt-4 gap-1'>
+                <div key={i} className='mt-4'>
+                    <div key={i} className='flex flex-row  gap-1'>
 
-                    <div className='overflow-hidden'>
-                        {              !s.section &&  <p><span className='font-bold'>2.{i+1}.1 Fetch section data:</span> {s.url}</p>}
-                        {s.section &&  !s.template && <p><span className='font-bold'>2.{i+1}.2 Fetch section template:</span> {`${resourcesUrl}/components/${s?.section?.title}.jsx`}</p>}
-                        {s.template && !s.rendered && <p className='font-bold'>2.{i+1}.3 Render section</p>}
+                        <div className='overflow-hidden'>
+                            {!s.rendered &&
+                                <div>
+                                    <p><span className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data:</span> {s.url}</p>
+                                    <p><span className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template:</span> {`${resourcesUrl}/components/${s?.section?.title}.jsx`}</p>
+                                    <p><span className={s.template &&  !s.rendered ? 'font-bold' : ''}>2.{i+1}.3 Render section</span></p>
+                                </div>
+                            }
+                        
+                        </div>  
 
-                        <div id="card-carusel" className='mt-4'>
-
-                            <div className={(s.template ? "card-left" : s.section ?  "card-main" : "card-right") }>
-                                <span className='text-gray-500'> {s.url} </span>
-
-                                <pre className="overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm">{JSON.stringify(s.section, null, 2)}</pre>
-                            </div>
-
-                            <div className={(s.rendered ? "card-left" : s.template ? "card-main" : "card-right") }>
-                                <span className='text-gray-500'>{`${resourcesUrl}/components/${s?.section?.title || "_???_"}.jsx`}</span>
-
-                                <pre className="overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm">{s.template}</pre>
-                            </div>
-
-                            <div className={s.rendered ? "card-main" : "card-right"}>
-                                {s.rendered && X(s.section)}
-                            </div>
+                        { !s.rendered &&
+                        <div className='flex flex-col gap-2 w-28 ml-auto'>
+                            {              <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> }
+                            {s.section   && <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>}
+                            {s.template  && <button disabled={!s.template || s.rendered} className={(!s.template || s.rendered ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (enableRender(i))}>Render</button>}
                         </div>
-                    </div>  
-
-
-                    { !s.rendered &&
-                    <div className='flex flex-col gap-2 w-28 ml-auto'>
-                        <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> 
-                        <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>
-                        <button disabled={!s.template || s.rendered} className={(!s.template || s.rendered ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (enableRender(i))}>Render</button>
+                        }
                     </div>
-                    }
+
+                    <div id="card-carusel" className='mt-4'>
+
+                        <div className={(s.template ? "card-left" : s.section ?  "card-main" : "card-right") }>
+                            <span className='text-gray-500'> {s.url} </span>
+
+                            <pre>{JSON.stringify(s.section, null, 2)}</pre>
+                        </div>
+
+                        <div className={(s.rendered ? "card-left" : s.template ? "card-main" : "card-right") }>
+                            <span className='text-gray-500'>{`${resourcesUrl}/components/${s?.section?.title || "_???_"}.jsx`}</span>
+
+                            <pre>{s.template}</pre>
+                        </div>
+
+                        <div className={(s.rendered ? "card-main" : "card-right")}>
+                            {s.rendered && X(s.section)}
+                        </div>
+                    </div>
                 </div>                     
             ))}
         </>

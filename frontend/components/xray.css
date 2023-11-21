@@ -1,3 +1,22 @@
+.xray {
+
+  text-shadow: 
+    -1px 0px 0px #f00, 
+    1px  0px 0px #00f, 
+    -2px 0px 1px #ff0, 
+    2px  0px 1px #0ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .xray {
+
+    text-shadow: 
+      -1px 0px 0px #ff0, 
+      1px  0px 0px #0ff, 
+      -2px 0px 1px #f00, 
+      2px  0px 1px #00f;
+  }
+}
 
 #card-carusel
 {

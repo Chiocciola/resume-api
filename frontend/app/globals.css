@@ -4,12 +4,14 @@
 
 :root
 {
+  --fore-color: #000;
   --back-color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root
   {
+    --fore-color: #fff;
     --back-color: #333;
   }
 
@@ -29,6 +31,10 @@ h2{
 /* Align list bullets to the text */
 ul {
   padding-left: 20px;
+}
+
+pre {
+  @apply overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm
 }
 
 /* Navbar */
@@ -102,8 +108,8 @@ ul {
 
 #menu nav
 {
-position: fixed;
-  top: 52px;
+  position: fixed;
+  top: 51px;
   right: 0;
   
   background-color: var(--back-color);
