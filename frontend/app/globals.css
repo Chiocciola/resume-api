@@ -74,9 +74,9 @@ pre {
   display: block;
 
   width: 33px;
-  height: 1px;
+  height: 2px;
 
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   
   /* background: currentColor; */
   background: rgba(107,114,128,1);

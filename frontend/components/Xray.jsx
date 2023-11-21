@@ -78,7 +78,9 @@ export default function Xray({apiEntryPoint}) {
 
     return (
         <>       
-            <h1 className='xray'>X-ray</h1>
+            <div className='relative flex flex-row justify-center'>
+                <h1 className='xray' xray-text="X-ray">X-ray</h1>
+            </div>
 
             <p className="text-center mb-4 text-xl">Revealing the invisible</p>
 
