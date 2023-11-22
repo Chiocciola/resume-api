@@ -57,7 +57,7 @@ pre {
   position: absolute;
 
   /* Size of the hamburger */
-  width: 33px;
+  width: 30px;
   height: 19px;
   
   opacity: 0;
@@ -73,7 +73,7 @@ pre {
 {
   display: block;
 
-  width: 33px;
+  width: 30px;
   height: 2px;
 
   margin-bottom: 7px;
