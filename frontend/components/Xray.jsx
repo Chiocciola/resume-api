@@ -93,7 +93,7 @@ export default function Xray({apiEntryPoint}) {
                     <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints:</span> {indexUrl}</p>
                 </div>
                 <div className='w-28 ml-auto'>
-                    <button disabled={indexText} className={ (indexText ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch Index</button>
+                    <button disabled={indexText} className={ (indexText ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch</button>
                 </div>
             </div>
 
@@ -128,7 +128,7 @@ export default function Xray({apiEntryPoint}) {
                             </div>
                                             
                             <div className='ml-auto'>
-                                {              <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> }
+                                {              <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch</button> }
                             </div>
                         </div>
 
@@ -139,7 +139,7 @@ export default function Xray({apiEntryPoint}) {
                             </div>
                     
                             <div className='ml-auto'>
-                                {s.section   && <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>}
+                                {s.section   && <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch</button>}
                             </div>
                         </div>
 
