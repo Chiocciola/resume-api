@@ -25,11 +25,11 @@ export default function Xray({apiEntryPoint}) {
 
         if (r.ok) 
         {
-            setIndexText(await r.text());
+            setIndexText(await r.json());
         }
         else
         {
-            setIndexText( `Error: ${indexEndpoint}: ${r.status} ${r.statusText}`);
+            setIndex([{section: {title: 'Error', content: `${indexEndpoint}: ${r.status} ${r.statusText}`} }]);
         }
     }
 
