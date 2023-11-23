@@ -10,8 +10,8 @@ export default function General({title, content})
         
             <ul className="m-0 text-center">
                 <li className="inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${content.location}`}>📍 {content.location}</a></li>
-                <li className="inline-block whitespace-nowrap mx-2"><a href={`tel:${content.phone}`}>📱 {content.phone}</a></li>
-                <li className="inline-block whitespace-nowrap mx-2"><a href={`mailto:${content.email}`}>✉️ {content.email}</a></li>
+                {content.phone && <li className="inline-block whitespace-nowrap mx-2"><a href={`tel:${content.phone}`}>📱 {content.phone}</a></li>}
+                {content.mail && <li className="inline-block whitespace-nowrap mx-2"><a href={`mailto:${content.email}`}>✉️ {content.email}</a></li>}
                 <li className="inline-block whitespace-nowrap mx-2"><a href={content.linkedin.url}><Image src="/linkedin.png" className="align-middle inline mb-1" alt="LinkedIn" width="14" height="14"/> {content.linkedin.url.replace("https:\/\/www." ,"")}</a></li>
             </ul>
 
