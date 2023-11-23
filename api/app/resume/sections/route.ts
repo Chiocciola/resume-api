@@ -7,7 +7,7 @@ export async function GET() {
 		{url: host + "/resume/sections/skills"}, 
 		{url: host + "/resume/sections/experience"},
 		{url: host + "/resume/sections/education"},
-		{url: host + "/resume/sections/1"}
+		// {url: host + "/resume/sections/1"}
 
 	];
 

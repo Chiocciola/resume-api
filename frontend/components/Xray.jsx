@@ -91,7 +91,6 @@ export default function Xray({apiEntryPoint}) {
             <div className='flex flex-row mt-4 gap-1'>
                 <div className='overflow-auto'>
                     <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints:</span> {indexUrl}</p>
-                    { indexText && <pre className="mt-4">{indexText}</pre> }
                 </div>
                 <div className='w-28 ml-auto'>
                     <button disabled={indexText} className={ (indexText ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => (loadIndexText(indexUrl))}>Fetch Index</button>
@@ -99,44 +98,63 @@ export default function Xray({apiEntryPoint}) {
             </div>
 
             { indexText &&
-                <>
+                <div className='mt-4'>
+                    <pre className="mt-4">{JSON.stringify(indexText, null, 2)}</pre> 
+                </div>
+            }
 
-                    <div className='flex flex-row mt-4 gap-1'>
 
-                        <p className='font-bold'>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
-                        <div className='w-28 ml-auto'>
-                            <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
-                         </div>
+            { indexText &&
+                <div className='flex flex-row gap-1 mt-4'>
+
+                    <p className={!index ? 'font-bold' : ''}>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                    <div className='w-28 ml-auto'>
+                        <button disabled={index} className={ (index ? styleDisabled : styleEnabled) + ' rounded w-28 ml-auto'} onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
                     </div>
-
-                </>
+                </div>
             }
 
 
             { index?.map((s, i) => (
 
                 <div key={i} className='mt-4'>
-                    <div key={i} className='flex flex-row  gap-1'>
 
-                        <div className='overflow-hidden'>
-                            {!s.rendered &&
-                                <div>
-                                    <p><span className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data:</span> {s.url}</p>
-                                    <p><span className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template:</span> {`${resourcesUrl}/components/${s?.section?.title}.jsx`}</p>
-                                    <p><span className={s.template &&  !s.rendered ? 'font-bold' : ''}>2.{i+1}.3 Render section</span></p>
-                                </div>
-                            }
-                        
-                        </div>  
+                    {!s.rendered &&
 
-                        { !s.rendered &&
-                        <div className='flex flex-col gap-2 w-28 ml-auto'>
-                            {              <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> }
-                            {s.section   && <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>}
-                            {s.template  && <button disabled={!s.template || s.rendered} className={(!s.template || s.rendered ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (enableRender(i))}>Render</button>}
+                        <>
+                        <div className='flex flex-row gap-1'>
+                            <div className='overflow-hidden'>
+                                <p><span className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data:</span> {s.url}</p>
+                            </div>
+                                            
+                            <div className='ml-auto'>
+                                {              <button disabled={s.section}                 className={(               s.section  ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadSection(s.url, i))}>Fetch Data</button> }
+                            </div>
                         </div>
-                        }
-                    </div>
+
+                        <div className='flex flex-row gap-1 mt-1'>
+
+                            <div className='overflow-hidden'>
+                                <p><span className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template:</span> {`${resourcesUrl}/components/${s?.section?.title}.jsx`}</p>
+                            </div>
+                    
+                            <div className='ml-auto'>
+                                {s.section   && <button disabled={!s.section || s.template}  className={(!s.section  || s.template ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i))}>Fetch Template</button>}
+                            </div>
+                        </div>
+
+                        <div className='flex flex-row gap-1 mt-1'>
+
+                            <div className='overflow-hidden'>   
+                                <p><span className={s.template &&  !s.rendered ? 'font-bold' : ''}>2.{i+1}.3 Render section</span></p>
+                            </div>
+
+                            <div className='ml-auto'>
+                                {s.template  && <button disabled={!s.template || s.rendered} className={(!s.template || s.rendered ? styleDisabled : styleEnabled) + ' rounded w-28'} onClick={() => (enableRender(i))}>Render</button>}
+                            </div>
+                        </div>
+                        </>
+                    }
 
                     <div id="card-carusel" className='mt-4'>
 
