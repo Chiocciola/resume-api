@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/react';
+
 
 import { Major_Mono_Display } from 'next/font/google'
 
@@ -53,11 +55,10 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
           {/* Shadow on top of the menu */}
           <div className="absolute h-full w-full shadow-md pointer-events-none" />
-          
         </div>
 
         {children}
-
+        <Analytics />
       </body>
     </html>
   )
