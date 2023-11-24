@@ -28,6 +28,17 @@ h2{
   @apply text-2xl mt-3;
 }
 
+
+button
+{
+  @apply bg-blue-500 hover:bg-blue-700 text-white py-2 rounded;
+}
+
+button:disabled
+{
+  @apply bg-gray-500 text-gray-700;
+}
+
 /* Align list bullets to the text */
 ul {
   padding-left: 20px;
