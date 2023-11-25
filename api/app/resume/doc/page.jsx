@@ -19,6 +19,10 @@ export default function ResumePag() {
     const [languagesData, setLanguagesData] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        setApiEntryPoint(window.location.origin + '/resume');
+    }, []);
+
     const fetchData = async (endpoint, setData) => {
         setLoading(true);
         fetch(endpoint)
@@ -30,10 +34,6 @@ export default function ResumePag() {
     const clearData = (setData) => {
         setData(null);
     };
-
-    useEffect(() => {
-        setApiEntryPoint(window.location.origin + '/resume');
-    }, []);
 
     const endpoints = [
         {
