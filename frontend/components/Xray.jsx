@@ -18,7 +18,7 @@ export default function Xray({apiEntryPoint}) {
 
     const router = useRouter();
 
-    const indexUrl = apiEntryPoint + '/resume/sections';
+    const indexUrl = apiEntryPoint + '/resume';
 
     useEffect(() => {
         setResourcesUrl(window.location.origin);

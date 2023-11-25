@@ -24,7 +24,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <div id="navbar" className="flex flex-row justify-between sticky top-0 w-screen">
+        <div id="navbar" className="flex flex-row justify-between sticky top-0 w-full">
 
           <Logo />
 
@@ -42,7 +42,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           </Menu>          
 
           {/* Shadow on top of the menu */}
-          <div className="absolute h-full w-full shadow-md pointer-events-none z-20" />
+          <div className="absolute left-0 top-0 h-full w-full shadow-md pointer-events-none z-20" />
         </div>
 
         {children}

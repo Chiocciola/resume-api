@@ -38,37 +38,37 @@ export default function ResumePag() {
     const endpoints = [
         {
             description: 'List of all section endpoints',
-            endpoint: '/sections/',
+            endpoint: '/',
             data: indexData,
             setData: setIndexlData,
         },
         {
             description: 'General resume information such as name, title, and contact details',
-            endpoint: '/sections/general',
+            endpoint: '/general',
             data: generalData,
             setData: setGeneralData,
         },
         {
             description: "Hard and soft skills, technologies and programming languages",
-            endpoint: '/sections/skills',
+            endpoint: '/skills',
             data: skillsData,
             setData: setSkillsData,
         },
         {
             description: "Information about professional background",
-            endpoint: '/sections/experience',
+            endpoint: '/experience',
             data: experienceData,
             setData: setExperienceData,
         },
         {
             description: "Information about educational background",
-            endpoint: '/sections/education',
+            endpoint: '/education',
             data: educationData,
             setData: setEducationData,
         },
         {
             description: "Information about spoken languages",
-            endpoint: '/sections/languages',
+            endpoint: '/languages',
             data: languagesData,
             setData: setLanguagesData,
         },
