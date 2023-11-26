@@ -96,7 +96,8 @@ export default function Xray({apiEntryPoint}) {
             {/* Step 1 */}
             <div className='flex flex-row justify-between gap-1 mt-4'>
                 <div className='overflow-auto'>
-                    <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints</span></p>
+                    <p><span className={!indexText ? "font-bold" : ""}>1. Get resume sections</span></p>
+                    <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                 </div>
                 <div className='w-28'>
                     <button disabled={indexText} className='w-28' onClick={() => (loadIndexText(indexUrl))}>Fetch</button>
@@ -114,8 +115,10 @@ export default function Xray({apiEntryPoint}) {
             {/* Step 2 */}
             { indexText &&
                 <div className='flex flex-row justify-between gap-1 mt-4'>
-
-                    <p className={!index ? 'font-bold' : ''}>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                    <div>
+                        <p className={!index ? 'font-bold' : ''}>2. Handle each resume section</p>
+                        <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                    </div>
                     <div className='w-28'>
                         <button disabled={index} className='w-28' onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
                     </div>
@@ -130,21 +133,27 @@ export default function Xray({apiEntryPoint}) {
                     {/* Step 2.x.y */}
                     {!s.rendered &&
                         <>
-                            <p className='font-bold text-xl' >2.{i+1} {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()}</p>
+                            <p className='font-bold' >2.{i+1}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
                             <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data</p>                                            
-                                <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
+                                <p className={(              !s.section  ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section data</p>
+                                <div className='w-28'>                                            
+                                    <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
+                                </div>
                             </div>
 
                             <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template</p>                        
-                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
+                                <p className={(s.section &&  !s.template ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section template</p>     
+                                <div className='w-28'>                   
+                                    {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
+                                </div>
                             </div>
 
                             <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden'}>2.{i+1}.3 Render section</p>
-                                {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
+                                <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Render section</p>
+                                <div className='w-28'>
+                                    {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
+                                </div>
                             </div>
                         </>
                     }
@@ -172,9 +181,12 @@ export default function Xray({apiEntryPoint}) {
             {/* Step 3 */}
             { index?.every(s => s.rendered) &&
 
-                <div className='flex flex-row gap-1 mt-4'>
-                    <p className='font-bold'>3. This concludes the walkthrough. You can now proceed to the main resume page.</p>
-                    <div className='w-28 ml-auto'>
+                <div className='flex flex-row justify-between gap-1 mt-4'>
+                    <div>
+                        <p className='font-bold'>3. That's all folks!</p>
+                        <p>This concludes the walkthrough. Click the button to go back to the home page.</p>
+                    </div>
+                    <div className='w-28'>
                         <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={goHome}>End</button>
                     </div>
                 </div>
