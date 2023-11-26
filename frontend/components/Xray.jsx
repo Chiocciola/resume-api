@@ -183,7 +183,7 @@ export default function Xray({apiEntryPoint}) {
 
                 <div className='flex flex-row justify-between gap-1 mt-4'>
                     <div>
-                        <p className='font-bold'>3. That's all folks!</p>
+                        <p className='font-bold'>3. That&apos;s all folks!</p>
                         <p>This concludes the walkthrough. Click the button to go back to the home page.</p>
                     </div>
                     <div className='w-28'>
