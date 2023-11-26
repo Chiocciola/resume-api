@@ -94,11 +94,11 @@ export default function Xray({apiEntryPoint}) {
             <h2>Walkthrough</h2>
 
             {/* Step 1 */}
-            <div className='flex flex-row gap-1 mt-4'>
+            <div className='flex flex-row justify-between gap-1 mt-4'>
                 <div className='overflow-auto'>
                     <p><span className={!indexText ? "font-bold" : ""}>1. Let&apos;s start with fetching the index of resume section endpoints</span></p>
                 </div>
-                <div className='w-28 ml-auto'>
+                <div className='w-28'>
                     <button disabled={indexText} className='w-28' onClick={() => (loadIndexText(indexUrl))}>Fetch</button>
                 </div>
             </div>
@@ -113,10 +113,10 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 2 */}
             { indexText &&
-                <div className='flex flex-row gap-1 mt-4'>
+                <div className='flex flex-row justify-between gap-1 mt-4'>
 
                     <p className={!index ? 'font-bold' : ''}>2. Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
-                    <div className='w-28 ml-auto'>
+                    <div className='w-28'>
                         <button disabled={index} className='w-28' onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
                     </div>
                 </div>
@@ -127,38 +127,24 @@ export default function Xray({apiEntryPoint}) {
 
                 <div key={i} className='mt-4'>
 
+                    {/* Step 2.x.y */}
                     {!s.rendered &&
                         <>
-                            <div className='flex flex-row gap-1'>
-                                <div className='overflow-hidden'>
-                                    <p><span className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data</span></p>
-                                </div>
-                                                
-                                <div className='w-28 ml-auto'>
-                                    <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
-                                </div>
+                            <p className='font-bold text-xl' >2.{i+1} {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()}</p>
+
+                            <div className='flex flex-row justify-between gap-1 mt-1'>
+                                <p className={              !s.section  ? 'font-bold' : ''}>2.{i+1}.1 Fetch section data</p>                                            
+                                <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
                             </div>
 
-                            <div className='flex flex-row gap-1 mt-1'>
-
-                                <div className='overflow-hidden'>
-                                    <p><span className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template:</span></p>
-                                </div>
-                        
-                                <div className='w-28 ml-auto'>
-                                    {s.section && <button disabled={!s.section || s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
-                                </div>
+                            <div className='flex flex-row justify-between gap-1 mt-1'>
+                                <p className={s.section &&  !s.template ? 'font-bold' : ''}>2.{i+1}.2 Fetch section template</p>                        
+                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
                             </div>
 
-                            <div className='flex flex-row gap-1 mt-1'>
-
-                                <div className='overflow-hidden'>   
-                                    <p><span className={s.template &&  !s.rendered ? 'font-bold' : ''}>2.{i+1}.3 Render section</span></p>
-                                </div>
-
-                                <div className='w-28 ml-auto'>
-                                    {s.template && <button disabled={!s.template || s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
-                                </div>
+                            <div className='flex flex-row justify-between gap-1 mt-1'>
+                                <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden'}>2.{i+1}.3 Render section</p>
+                                {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
                             </div>
                         </>
                     }
@@ -172,7 +158,7 @@ export default function Xray({apiEntryPoint}) {
                         </div>
 
                         <div className={(s.rendered ? "card-left" : s.template ? "card-main" : "card-right") }>
-                            <span className='text-gray-500'>{`${resourcesUrl}/components/${s?.section?.title || "_???_"}.jsx`}</span>
+                            <span className='text-gray-500'>{`${resourcesUrl}/components/${s.section?.title}.jsx`}</span>
                             <pre>{s.template}</pre>
                         </div>
 
