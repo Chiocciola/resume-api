@@ -2,12 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Analytics } from '@vercel/analytics/react';
 
-import { Major_Mono_Display } from 'next/font/google'
-const majorMonoDisplay = Major_Mono_Display({ subsets: ['latin'], weight: '400' })
 
 import './globals.css'
 
-import Logo from '../components/Logo'
+import Icon from '../components/Icon'
+import Title from '../components/Title'
 import Menu from '../components/Menu'
 
 export const metadata: Metadata = {
@@ -26,12 +25,14 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
         <div id="navbar" className="flex flex-row justify-between sticky top-0 w-full">
 
-          <Logo />
+          <Icon />
 
-          <Link href='/' className='my-auto'><p className={majorMonoDisplay.className + " text-2xl text-gray-500"}>API Resume</p></Link>
+          <Title>API Resume</Title>
 
           <Menu>
-            <p>Hi, my name is <b>Dmitriy</b>.<br/>Welcome to my API Resume!<br/><br/>
+            <p>Hi, my name is <b>Dmitriy</b>.<br/>
+            Welcome to my API Resume!<br/>
+            <br/>
             The resume data is fetched from a RESTful API:</p>
             <ul className="mt-2">
               <li className="py-2"><a target="_blank" href={`${process.env.API_URL}/resume/doc`}>🚪 API &#x2197;</a></li>

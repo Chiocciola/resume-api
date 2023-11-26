@@ -184,7 +184,7 @@ export default function Xray({apiEntryPoint}) {
                 <div className='flex flex-row justify-between gap-1 mt-4'>
                     <div>
                         <p className='font-bold'>3. That&apos;s all folks!</p>
-                        <p>This concludes the walkthrough. Click the button to go back to the home page.</p>
+                        <p>This concludes the walkthrough. Click the end button to go back to the resume page.</p>
                     </div>
                     <div className='w-28'>
                         <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={goHome}>End</button>

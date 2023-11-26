@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-import './logo.css';
+import './icon.css';
 
-export default function Logo()
+export default function Icon()
 {
     const router = useRouter()
 
