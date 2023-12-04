@@ -33,12 +33,16 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             <p>Hi, my name is <b>Dmitriy</b>.<br/>
             Welcome to my API Resume!<br/>
             <br/>
-            The resume data is fetched from a RESTful API:</p>
+            The resume data is fetched from a REST API:</p>
             <ul className="mt-2">
               <li className="py-2"><a target="_blank" href={`${process.env.API_URL}/resume/doc`}>🚪 API &#x2197;</a></li>
-              <li className="py-2"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 API on SwaggerHub &#x2197;</a></li>
-              <li className="py-2"><a target="_blank" href='https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363'>🧑‍🚀 API on Postman &#x2197;</a></li>
-              <li className="py-2 mt-4"><Link href='/xray'>🩻 Explore API Resume using <b>x-ray view</b></Link></li>
+              {/* <li className="py-2"><a target="_blank" href='https://app.swaggerhub.com/apis/Chiocciola/Resume/1.0.0'>📄 API on SwaggerHub &#x2197;</a></li> */}
+              {/* <li className="py-2"><a target="_blank" href='https://www.postman.com/chiocciola/workspace/public/collection/27924363-81530057-d893-4d9c-ba3b-b6d6532ddf1d?action=share&creator=27924363'>🧑‍🚀 API on Postman &#x2197;</a></li> */}
+            </ul>
+
+            <p className="mt-4">Explore API Resume using x-ray view:</p>        
+            <ul>
+              <li className="py-2"><Link href='/xray'>🩻 X-ray view</Link></li>
             </ul>
           </Menu>          
 
