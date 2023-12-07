@@ -7,7 +7,7 @@ export default function Education({title, content})
         {content.map(edu => (
             <div key={edu.institution} className="flex flex-row mt-3">
 
-                <img className="w-12 h-12" src={edu.logo.url}/>
+                <img className="object-contain object-top w-12 h-12" src={edu.logo.url}/>
 
                 <div className="ml-4">
                     <h3 className="text-xl font-medium">{edu.institution}</h3>

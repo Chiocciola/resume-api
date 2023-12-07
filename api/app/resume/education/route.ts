@@ -4,7 +4,7 @@ export async function GET() {
 
     const nsu = {
         institution: "Novosibirsk State University",
-        logo: {url: host + '/nsu.png'},
+        logo: {url: host + '/nsu.svg'},
         degree: "Bachelor's degree, Computer Engineering",
         location: "Novosibirsk, Russia",
         startDate: "1998",

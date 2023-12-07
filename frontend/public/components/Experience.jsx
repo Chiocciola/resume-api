@@ -7,7 +7,7 @@ export default function Experience({content})
             {content.map((company) => (
                 <div key={company.company} className="flex flex-row mt-4">
 
-                    <img className="w-12 h-12" src={company.logo.url}/>
+                    <img className="object-contain object-top w-12 h-12" src={company.logo.url}/>
 
                     <div className="ml-4">
 
