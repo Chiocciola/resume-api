@@ -23,13 +23,13 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <div id="navbar" className="flex flex-row justify-between sticky top-0 w-full">
+        <div className="flex flex-row justify-between sticky top-0 w-full z-20 bg-white dark:bg-neutral-800">
 
-          <Icon />
+          <Icon className="z-20" />
 
-          <Title>API Resume</Title>
+          <Title className="z-20">API Resume</Title>
 
-          <Menu>
+          <Menu className="z-10">
             <p>Hi, my name is <b>Dmitriy</b>.<br/>
             Welcome to my API Resume!<br/>
             <br/>

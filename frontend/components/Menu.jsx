@@ -6,7 +6,7 @@ import {usePathname} from 'next/navigation';
 import './menu.css';
 
 
-export default function Menu({children}) {
+export default function Menu({children, className}) {
 
     const pathname = usePathname();
 
@@ -17,14 +17,14 @@ export default function Menu({children}) {
       }, [pathname]);
 
     return (
-        <div id="menu"  className='m-4'>
+        <div id="menu" className='m-4'>
 
-            <input id="menuChckbox" type="checkbox" ref={checkboxRef}/>
+            <input type="checkbox" ref={checkboxRef}/>
             <span/>
             <span/>
             <span/>
 
-            <nav className='p-12 shadow-lg z-10'>
+            <nav className={'p-12 shadow-lg bg-white dark:bg-neutral-800 ' + className}>
                 {children}
             </nav>
             

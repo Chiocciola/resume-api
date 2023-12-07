@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 
 import './icon.css';
 
-export default function Icon()
+export default function Icon({className})
 {
     const router = useRouter()
 
@@ -23,7 +23,7 @@ export default function Icon()
     }
 
     return (
-        <div id="logo" className="m-auto mx-4 text-3xl">
+        <div id="logo" className={"m-auto mx-4 text-3xl " + className}>
             <input id="logoCheckbox" type="checkbox" className="w-8 h-8" onChange={toggleChecked} checked={checked}/>
             <div className="w-8 h-8">📃</div>
             <div className="w-8 h-8">🩻</div>

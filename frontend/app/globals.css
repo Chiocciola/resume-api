@@ -2,19 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root
-{
-  --fore-color: #000;
-  --back-color: #fff;
-}
-
 @media (prefers-color-scheme: dark) {
-  :root
-  {
-    --fore-color: #fff;
-    --back-color: #333;
-  }
-
   html {
     color-scheme: dark;
   }
