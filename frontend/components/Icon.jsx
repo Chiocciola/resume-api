@@ -24,7 +24,7 @@ export default function Icon({className})
 
     return (
         <div id="logo" className={"m-auto mx-4 text-3xl " + className}>
-            <input id="logoCheckbox" type="checkbox" className="w-8 h-8" onChange={toggleChecked} checked={checked}/>
+            <input type="checkbox" className="w-8 h-8" onChange={toggleChecked} checked={checked}/>
             <div className="w-8 h-8">📃</div>
             <div className="w-8 h-8">🩻</div>
         </div>

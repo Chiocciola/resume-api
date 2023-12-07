@@ -12,6 +12,6 @@ export default function Title({children, className}) {
     const pathname = usePathname();
 
     return pathname == '/' 
-            ? <p className={majorMonoDisplay.className + " text-2xl text-gray-500 my-auto " + className}>{children}</p>
-            : <Link href='/' className={'my-auto ' + className}><p className={majorMonoDisplay.className + " text-2xl text-gray-500"}>{children}</p></Link>;
+            ? <p             className={majorMonoDisplay.className + " text-2xl text-gray-500 my-auto select-none cursor-default " + className}>{children}</p>
+            : <Link href='/' className={majorMonoDisplay.className + " text-2xl text-gray-500 my-auto select-none " + className}>{children}</Link>;
 }
