@@ -131,8 +131,8 @@ export default function Xray({apiEntryPoint}) {
                 <div key={i} className='mt-4'>
 
                     {/* Step 2.x.y */}
-                    <div className={'transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                        
+                    <div className={'overflow-hidden transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+
                         <p className='font-bold' >2.{i+1}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
                         <div className='flex flex-row justify-between gap-1 mt-1'>
