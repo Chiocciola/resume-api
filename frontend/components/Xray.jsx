@@ -131,32 +131,31 @@ export default function Xray({apiEntryPoint}) {
                 <div key={i} className='mt-4'>
 
                     {/* Step 2.x.y */}
-                    {!s.rendered &&
-                        <>
-                            <p className='font-bold' >2.{i+1}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
+                    <div className={'transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                        
+                        <p className='font-bold' >2.{i+1}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
-                            <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={(              !s.section  ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section data</p>
-                                <div className='w-28'>                                            
-                                    <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
-                                </div>
+                        <div className='flex flex-row justify-between gap-1 mt-1'>
+                            <p className={(              !s.section  ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section data</p>
+                            <div className='w-28'>                                            
+                                <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
                             </div>
+                        </div>
 
-                            <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={(s.section &&  !s.template ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section template</p>     
-                                <div className='w-28'>                   
-                                    {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
-                                </div>
+                        <div className='flex flex-row justify-between gap-1 mt-1'>
+                            <p className={(s.section &&  !s.template ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section template</p>     
+                            <div className='w-28'>                   
+                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
                             </div>
+                        </div>
 
-                            <div className='flex flex-row justify-between gap-1 mt-1'>
-                                <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Render section</p>
-                                <div className='w-28'>
-                                    {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
-                                </div>
+                        <div className='flex flex-row justify-between gap-1 mt-1'>
+                            <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Render section</p>
+                            <div className='w-28'>
+                                {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
                             </div>
-                        </>
-                    }
+                        </div>
+                    </div>
 
                     {/* Step 2.x.y result */}
                     <div id="card-carusel" className='mt-4'>
