@@ -91,36 +91,37 @@ export default function Xray({apiEntryPoint}) {
 
             <p>This is the x-ray view. It allows to load resume data from API, load JSX templates and render the resume by applying template to the data.</p>
 
-            <h2>Walkthrough</h2>
+            {/* <h2>Walkthrough</h2> */}
 
             {/* Step 1 */}
-            <div className='flex flex-row justify-between gap-1 mt-4'>
-                <div className='overflow-auto'>
-                    <p><span className={!indexText ? "font-bold" : ""}>1. Get resume sections</span></p>
-                    <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
-                </div>
-                <div className='w-28'>
-                    <button disabled={indexText} className='w-28' onClick={() => (loadIndexText(indexUrl))}>Fetch</button>
+            <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                <div className='flex flex-row justify-between gap-1 mt-4'>
+                    <div className='overflow-auto'>
+                        <p><span className={!indexText ? "font-bold" : ""}>1. Get resume sections</span></p>
+                        <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
+                    </div>
+                    <div className='w-28'>
+                        <button disabled={indexText} className='w-28' onClick={() => (loadIndexText(indexUrl))}>Fetch</button>
+                    </div>
                 </div>
             </div>
 
-            {/* Step 1 result */}
-            { indexText &&
-                <div className='mt-4'>
-                    <span className='text-gray-500'> {indexUrl} </span>
-                    <pre>{JSON.stringify(indexText, null, 2)}</pre> 
-                </div>
-            }
-
             {/* Step 2 */}
             { indexText &&
-                <div className='flex flex-row justify-between gap-1 mt-4'>
-                    <div>
-                        <p className={!index ? 'font-bold' : ''}>2. Handle each resume section</p>
-                        <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                <div className={'overflow-hidden transition-all duration-1000 ' + (index ? " opacity-0 max-h-0" : "opacity-100 max-h-[40rem]")}>
+                    <div className='flex flex-row justify-between gap-1 mt-4'>
+                        <div>
+                            <p className={!index ? 'font-bold' : ''}>2. Handle each resume section</p>
+                            <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
+                        </div>
+                        <div className='w-28'>
+                            <button disabled={index} className='w-28' onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
+                        </div>
                     </div>
-                    <div className='w-28'>
-                        <button disabled={index} className='w-28' onClick={() => loadIndexJson(indexUrl)}>Proceed</button>
+
+                    <div className='mt-4'>
+                        <span className='text-gray-500'> {indexUrl} </span>
+                        <pre>{JSON.stringify(indexText, null, 2)}</pre> 
                     </div>
                 </div>
             }
@@ -133,7 +134,7 @@ export default function Xray({apiEntryPoint}) {
                     {/* Step 2.x.y */}
                     <div className={'overflow-hidden transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
 
-                        <p className='font-bold' >2.{i+1}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
+                        <p className='font-bold' >{i+3}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
                         <div className='flex flex-row justify-between gap-1 mt-1'>
                             <p className={(              !s.section  ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section data</p>
@@ -182,7 +183,7 @@ export default function Xray({apiEntryPoint}) {
 
                 <div className='flex flex-row justify-between gap-1 mt-4'>
                     <div>
-                        <p className='font-bold'>3. That&apos;s all folks!</p>
+                        <p className='font-bold'>{2 + index.length + 1}. That&apos;s all folks!</p>
                         <p>This concludes the walkthrough. Click the end button to go back to the resume page.</p>
                     </div>
                     <div className='w-28'>
