@@ -94,7 +94,7 @@ export default function Xray({apiEntryPoint}) {
             {/* <h2>Walkthrough</h2> */}
 
             {/* Step 1 */}
-            <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+            <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? " opacity-0 max-h-0" : "opacity-100 max-h-20")}>
                 <div className='flex flex-row justify-between gap-1 mt-4'>
                     <div className='overflow-auto'>
                         <p><span className={!indexText ? "font-bold" : ""}>1. Get resume sections</span></p>
@@ -108,7 +108,7 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 2 */}
             { indexText &&
-                <div className={'overflow-hidden transition-all duration-1000 ' + (index ? " opacity-0 max-h-0" : "opacity-100 max-h-[40rem]")}>
+                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (index ? " opacity-0 max-h-0" : "opacity-100 max-h-[40rem]")}>
                     <div className='flex flex-row justify-between gap-1 mt-4'>
                         <div>
                             <p className={!index ? 'font-bold' : ''}>2. Handle each resume section</p>
