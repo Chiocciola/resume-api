@@ -13,7 +13,7 @@ export async function GET() {
 
     const vki = {
         institution: "College of Informatics",
-        logo: {url: host + '/vki.png'},
+        logo: {url: host + '/vki.svg'},
         degree: "Associate degree, Computer Engineering",
         location: "Novosibirsk, Russia",
         startDate: "1996",

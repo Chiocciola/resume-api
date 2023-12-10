@@ -47,7 +47,7 @@ export async function GET() {
 
     const appliedMaterials = {
         company: "Applied Materials",
-        logo: {url: host + '/amat.png'},
+        logo: {url: host + '/amat.svg'},
 
         positions: [softwareEngineerV, softwareEngineerIV, softwareEngineer]
     }
