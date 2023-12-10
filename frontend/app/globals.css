@@ -12,8 +12,12 @@ h1 {
   @apply text-center text-3xl;
 }
 
-h2{
+h2 {
   @apply text-2xl mt-3;
+}
+
+h3, h4 {
+  @apply text-xl font-medium;
 }
 
 a {

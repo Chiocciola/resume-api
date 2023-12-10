@@ -1,7 +1,7 @@
 export default function Experience({content})
 {
     return (
-        <div key="Experience">
+        <section key="Experience">
             <h2>Experience</h2>
 
             {content.map((company) => (
@@ -11,12 +11,12 @@ export default function Experience({content})
 
                     <div className="ml-4">
 
-                        {company.positions.length > 1 && (<h3 className="text-xl font-medium">{company.company}</h3>)}
+                        {company.positions.length > 1 && (<h3>{company.company}</h3>)}
 
                         {company.positions.map((exp) => (
                             <div key={exp.title} className="mt-2 only:mt-0">
 
-                                <h4 className="text-xl font-medium">{exp.title}</h4>
+                                <h4>{exp.title}</h4>
 
                                 {company.positions.length == 1 && (
                                     <p>{company.company}</p>)}
@@ -39,6 +39,6 @@ export default function Experience({content})
                     </div>
                 </div>
             ))}
-        </div>
+        </section>
     );
 }
