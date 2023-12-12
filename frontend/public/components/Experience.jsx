@@ -1,44 +1,45 @@
-export default function Experience({content})
+export default function Experience({title, content})
 {
-    return (
-        <section key="Experience">
-            <h2>Experience</h2>
+  return (
+    <section key={title}>
+      <h2>Experience</h2>
 
-            {content.map((company) => (
-                <div key={company.company} className="flex flex-row mt-4">
+      {content.map(company =>
+          <div key={company.company} className="flex flex-row gap-4 mt-4">
 
-                    <img className="object-contain object-top w-12 h-12" src={company.logo.url}/>
+            <img className="object-contain object-top w-12 h-12" src={company.logo.url}/>
 
-                    <div className="ml-4">
+            <div>
+              {company.positions.length > 1 && (<h3>{company.company}</h3>)}
 
-                        {company.positions.length > 1 && (<h3>{company.company}</h3>)}
+              {company.positions.map((exp) => 
+                <div key={exp.title} className="mt-2 only:mt-0">
 
-                        {company.positions.map((exp) => (
-                            <div key={exp.title} className="mt-2 only:mt-0">
+                  <h4>{exp.title}</h4>
 
-                                <h4>{exp.title}</h4>
+                  {company.positions.length == 1 &&
+                    <p>{company.company}</p>
+                  }
 
-                                {company.positions.length == 1 && (
-                                    <p>{company.company}</p>)}
+                    <p className="leading-tight text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</p>
+                    <p className="leading-tight text-gray-500">{exp.location}</p>
 
-                                    <p className="leading-tight text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</p>
-                                    <p className="leading-tight text-gray-500">{exp.location}</p>
+                  {exp.summary &&
+                    <p className="mt-2">{exp.summary}</p>
+                  }
 
-                                {exp.summary && (
-                                    <p className="mt-2">{exp.summary}</p>)}
-
-                                {exp.highlights && (
-                                    <ul className="mt-2 list-disc">
-                                        {exp.highlights.map((highlight, hightlightIndex) => (
-                                            <li key={hightlightIndex}>{highlight}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        ))}
-                    </div>
+                  {exp.highlights &&
+                    <ul className="mt-2 list-disc">
+                        {exp.highlights.map((highlight, hightlightIndex) =>
+                            <li key={hightlightIndex}>{highlight}</li>
+                        )}
+                    </ul>
+                  }
                 </div>
-            ))}
-        </section>
-    );
+              )}
+            </div>
+          </div>
+      )}
+    </section>
+  );
 }

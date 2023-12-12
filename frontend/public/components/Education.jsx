@@ -13,6 +13,7 @@ export default function Education({title, content})
                     <h3>{edu.institution}</h3>
                     <p className="leading-tight">{edu.degree}</p>
                     <p className="leading-tight text-gray-500">{edu.startDate} &ndash; {edu.endDate}</p>
+                    <p className="leading-tight text-gray-500">{edu.location}</p>
                 </div>
             </div>
         ))}

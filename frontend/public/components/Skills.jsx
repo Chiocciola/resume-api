@@ -7,7 +7,7 @@ export default function Skills({title, content})
 
       <ul className='ml-4 list-disc'>
         {content.map(group => (
-          <li key={group.kind}><strong>{group.kind}:</strong> {group.skills.join(", ")}</li>
+          <li key={group.kind}><b>{group.kind}:</b> {group.skills.join(", ")}</li>
         ))}
       </ul>
     </section>
