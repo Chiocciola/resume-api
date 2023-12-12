@@ -94,10 +94,10 @@ export default function Xray({apiEntryPoint}) {
             {/* <h2>Walkthrough</h2> */}
 
             {/* Step 1 */}
-            <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? " opacity-0 max-h-0" : "opacity-100 max-h-20")}>
-                <div className='flex flex-row justify-between gap-1 mt-4'>
-                    <div className='overflow-auto'>
-                        <p><span className={!indexText ? "font-bold" : ""}>1. Get resume sections</span></p>
+            <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                <p className={!indexText ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
+                <div className='flex flex-row justify-between gap-1 pl-4'>
+                    <div className='overflow-hidden'>
                         <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                     </div>
                     <div className='w-28'>
@@ -108,10 +108,10 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 2 */}
             { indexText &&
-                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (index ? " opacity-0 max-h-0" : "opacity-100 max-h-[40rem]")}>
-                    <div className='flex flex-row justify-between gap-1 mt-4'>
-                        <div>
-                            <p className={!index ? 'font-bold' : ''}>2. Handle each resume section</p>
+                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (index ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
+                    <p className={!index ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
+                    <div className='flex flex-row justify-between gap-1 pl-4'>
+                       <div className='overflow-auto'>
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
                         </div>
                         <div className='w-28'>
@@ -126,39 +126,44 @@ export default function Xray({apiEntryPoint}) {
                 </div>
             }
 
-            {/* Step 2.x */}
             { index?.map((s, i) => (
 
-                <div key={i} className='mt-4'>
+                <div key={i}>
 
-                    {/* Step 2.x.y */}
+                    {/* Section steps */}
                     <div className={'overflow-hidden transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
 
-                        <p className='font-bold' >{i+3}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
+                        <p className='mt-4 font-bold' >{i+3}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
-                        <div className='flex flex-row justify-between gap-1 mt-1'>
-                            <p className={(              !s.section  ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section data</p>
+                        <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
+                            <div className='overflow-hidden'>
+                                <p className={              !s.section  ? 'font-bold' : ''}>Fetch section data</p>
+                            </div>
                             <div className='w-28'>                                            
                                 <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
                             </div>
                         </div>
 
-                        <div className='flex flex-row justify-between gap-1 mt-1'>
-                            <p className={(s.section &&  !s.template ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Fetch section template</p>     
+                        <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
+                            <div className='overflow-hidden'>
+                                <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
+                            </div>  
                             <div className='w-28'>                   
                                 {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
                             </div>
                         </div>
 
-                        <div className='flex flex-row justify-between gap-1 mt-1'>
-                            <p className={(s.template &&  !s.rendered ? 'font-bold' : '') + ' overflow-hidden pl-4'}>Render section</p>
+                        <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
+                            <div className='overflow-hidden'>
+                                <p className={s.template &&  !s.rendered ? 'font-bold' : ''}>Render section</p>
+                            </div>
                             <div className='w-28'>
                                 {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
                             </div>
                         </div>
                     </div>
 
-                    {/* Step 2.x.y result */}
+                    {/* Section result */}
                     <div id="card-carusel" className='mt-4'>
 
                         <div className={(s.template ? "card-left" : s.section ?  "card-main" : "card-right") }>
@@ -178,16 +183,20 @@ export default function Xray({apiEntryPoint}) {
                 </div>
             ))}
 
-            {/* Step 3 */}
+            {/* Final step */}
             { index?.every(s => s.rendered) &&
 
-                <div className='flex flex-row justify-between gap-1 mt-4'>
-                    <div>
-                        <p className='font-bold'>{2 + index.length + 1}. That&apos;s all folks!</p>
-                        <p>This concludes the walkthrough. Click the end button to go back to the resume page.</p>
-                    </div>
-                    <div className='w-28'>
-                        <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={goHome}>End</button>
+                <div className='mt-4'>
+
+                    <p className='font-bold'>{2 + index.length + 1}. That&apos;s all folks!</p>
+
+                    <div className='flex flex-row justify-between gap-1 pl-4'>
+                        <div className='overflow-hidden'>
+                            <p>This concludes the walkthrough. Click the button to go back to the resume page.</p>
+                        </div>
+                        <div className='w-28'>
+                            <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={goHome}>Back home</button>
+                        </div>
                     </div>
                 </div>
             }
