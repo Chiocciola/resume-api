@@ -11,7 +11,7 @@
   position: absolute;
 
   /* Size of the hamburger */
-  width: 30px;
+  width: 24px;
   height: 18px;
   
   opacity: 0;
@@ -36,7 +36,7 @@
 {
   display: block;
 
-  width: 30px;
+  width: 24px;
   height: 2px;
 
   margin-bottom: 6px;
