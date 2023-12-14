@@ -89,7 +89,7 @@ export default function Xray({apiEntryPoint}) {
 
             <p className="text-center mb-4 text-xl">Revealing the invisible</p>
 
-            <p>This is the x-ray view. It allows to load resume data from API, load JSX templates and render the resume by applying template to the data.</p>
+            <p>Explore API resume using X-ray view. It allows to load resume data directli from an API, load JSX templates and render the resume by applying template to the data.</p>
 
             {/* <h2>Walkthrough</h2> */}
 
