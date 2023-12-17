@@ -7,11 +7,10 @@ export async function generateMetadata(): Promise<Metadata> {
     const general = await fetch(process.env.API_URL + '/resume/general').then(r => r.json());
 
     return {
-        title: general.content.name + ' | ' + general.content.title + ' | API Resume | X-ray view',
+        title: general.content.name + ' • ' + general.content.title + ' • X-ray',
         description: "Explore API resume using X-ray view",
     }
 }
-
 
 export default function Page() {
 

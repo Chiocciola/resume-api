@@ -1,8 +1,8 @@
+import { Metadata } from 'next'
+
 import X from '../components/X';
 
 //export const dynamic = 'force-dynamic';
-
-import { Metadata } from 'next'
  
 type Url = {
     url: string
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const general = await fetch(process.env.API_URL + '/resume/general').then(r => r.json());
 
     return {
-        title: general.content.name + ' | ' + general.content.title + ' | API Resume',
+        title: general.content.name + ' • ' + general.content.title + ' • API Resume',
         description: general.content.summary,
     }
 }
