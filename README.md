@@ -1,1 +1,1 @@
-Resume as REST API project
+Resume as a REST API project

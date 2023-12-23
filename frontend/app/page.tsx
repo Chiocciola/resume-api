@@ -23,7 +23,7 @@ async function getResume() : Promise<any[]>
 {
     try
     {            
-        const sections = await fetch(process.env.API_URL).then(r => r.json());
+        const sections = await fetch(process.env.API_URL as string).then(r => r.json());
 
         return await Promise.all(
             sections
