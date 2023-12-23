@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'APIs',
-  description: 'Place where APIs live',
+  title: 'Resume API',
+  description: 'Documentation for the Resume API',
   icons: {
     icon: '/flower.png',
     apple: '/flower.png'

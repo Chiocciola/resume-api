@@ -32,7 +32,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
             <p className="mt-4">The resume data is fetched from a REST API:</p>
             <ul>
-              <li className="py-2"><a target="_blank" href={`${process.env.API_URL}/resume/doc`}>🚪 API &#x2197;</a></li>
+              <li className="py-2"><a target="_blank" href={`${process.env.API_URL}/docs`}>🚪 API &#x2197;</a></li>
             </ul>
 
             <p className="mt-4">Explore API Resume using x-ray view:</p>        

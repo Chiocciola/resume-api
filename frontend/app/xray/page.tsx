@@ -4,7 +4,7 @@ import { Metadata } from 'next'
  
 export async function generateMetadata(): Promise<Metadata> {
 
-    const general = await fetch(process.env.API_URL + '/resume/general').then(r => r.json());
+    const general = await fetch(process.env.API_URL + '/general').then(r => r.json());
 
     return {
         title: general.content.name + ' • ' + general.content.title + ' • X-ray',

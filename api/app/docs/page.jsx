@@ -2,14 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-// export const metadata = {
-//     title: 'Resume API',
-//     description: 'Documentation for the Resume API',
-// }
-
 export default function ResumePag() {
 
-    const [apiEntryPoint, setApiEntryPoint] = useState("/resume");
+    const [apiEntryPoint, setApiEntryPoint] = useState("");
 
     const [indexData, setIndexlData] = useState(null);
     const [generalData, setGeneralData] = useState(null);
@@ -20,7 +15,7 @@ export default function ResumePag() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setApiEntryPoint(window.location.origin + '/resume');
+        setApiEntryPoint(window.location.origin);
     }, []);
 
     const fetchData = async (endpoint, setData) => {
@@ -75,7 +70,7 @@ export default function ResumePag() {
     ];            
 
     return (
-        <article style={{fontFamily: "monospace", margin: "auto", maxWidth: "800px"}}>
+        <main style={{fontFamily: "monospace", margin: "auto", maxWidth: "800px"}}>
             <h1>Resume API</h1>
             <p>The Resume API allows developers to access resume content, providing detailed information about professional and educational background. This API offers endpoints for retrieving general information, such as name and contact details, as well as detailed sections for experience and education.</p>
 
@@ -122,6 +117,6 @@ export default function ResumePag() {
                         </div>
                     </div>
                 ))}
-        </article>
+        </main>
     );
 };

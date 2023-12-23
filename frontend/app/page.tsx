@@ -11,7 +11,7 @@ type Url = {
 
 export async function generateMetadata(): Promise<Metadata> {
 
-    const general = await fetch(process.env.API_URL + '/resume/general').then(r => r.json());
+    const general = await fetch(process.env.API_URL + '/general').then(r => r.json());
 
     return {
         title: general.content.name + ' • ' + general.content.title + ' • API Resume',
@@ -23,7 +23,7 @@ async function getResume() : Promise<any[]>
 {
     try
     {            
-        const sections = await fetch(process.env.API_URL + '/resume').then(r => r.json());
+        const sections = await fetch(process.env.API_URL).then(r => r.json());
 
         return await Promise.all(
             sections
@@ -33,13 +33,13 @@ async function getResume() : Promise<any[]>
                             ? r.json()
                             : {title: 'Error', content: `${s.url}: ${r.status} ${r.statusText}`})));
     }
-    catch (e : unknown)
+    catch (e)
     {
         if (e instanceof Error)
             return [{title: 'Error', content: e.message}];
+        else
+            return [{title: 'Error', content: `${e}`}];
     }
-
-    return [];
 }
 
 export default async function Page() : Promise<JSX.Element>
