@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import X from './X';
+import Loader from './Loader';
 import './xray.css';
 
 export const dynamic = 'force-dynamic';
@@ -61,11 +62,17 @@ export default function Xray({apiEntryPoint}) {
     {   
         const sectionEndpoint = index[i].url;
 
+        const newIndex = [...index]; 
+        newIndex[i] =  { ...index[i], loading: true };
+
+        setIndex(newIndex);
+
         var section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
-        const newIndex = [...index]; 
-        newIndex[i] =  { ...index[i], section: section };
-        setIndex(newIndex);
+        const newIndex2 = [...index]; 
+        newIndex2[i].loading =  false;
+        newIndex2[i] =  { ...newIndex2[i], section: section };
+        setIndex(newIndex2);
     }
 
     async function loadTemplate(i)
@@ -159,7 +166,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={              !s.section  ? 'font-bold' : ''}>Fetch section data</p>
                             </div>
                             <div className='w-28'>                                            
-                                <button disabled={s.section} className= 'w-28' onClick={() => loadSection(i)}>Fetch</button> 
+                                <button disabled={s.section} className= 'w-28 inline-flex items-center justify-center' onClick={() => loadSection(i)}><Loader show={s.loading}/>Fetch</button> 
                             </div>
                         </div>
 
