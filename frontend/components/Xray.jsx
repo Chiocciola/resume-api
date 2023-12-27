@@ -19,15 +19,19 @@ export default function Xray({apiEntryPoint}) {
 
     const router = useRouter();
 
-    apiEntryPoint = apiEntryPoint + '/';
-
     useEffect(() => {
         setResourcesUrl(window.location.origin);
     }, []);
+
     
-    async function loadIndexText(indexEndpoint)
+    async function start()
+    {
+        setStarted(true);
+    }
+
+    async function loadIndexText()
     {    
-        const r = await fetch(indexEndpoint);
+        const r = await fetch(apiEntryPoint);
 
         if (r.ok) 
         {
@@ -35,13 +39,13 @@ export default function Xray({apiEntryPoint}) {
         }
         else
         {
-            setIndex([{section: {title: 'Error', content: `${indexEndpoint}: ${r.status} ${r.statusText}`} }]);
+            setIndex([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
         }
     }
 
-    async function loadIndexJson(indexEndpoint)
+    async function loadIndexJson()
     {    
-        const r = await fetch(indexEndpoint);
+        const r = await fetch(apiEntryPoint);
 
         if (r.ok) 
         {
@@ -49,12 +53,14 @@ export default function Xray({apiEntryPoint}) {
         }
         else
         {
-            setIndex([{section: {title: 'Error', content: `${indexEndpoint}: ${r.status} ${r.statusText}`} }]);
+            setIndex([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
         }
     }
 
-    async function loadSection(sectionEndpoint, i)
+    async function loadSection(i)
     {   
+        const sectionEndpoint = index[i].url;
+
         var section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
         const newIndex = [...index]; 
@@ -62,15 +68,18 @@ export default function Xray({apiEntryPoint}) {
         setIndex(newIndex);
     }
 
-    async function loadTemplate(endpoint, i)
+    async function loadTemplate(i)
     {
-        const template = await fetch(endpoint).then(r => r.text())  
+        const templateUrl = `${resourcesUrl}/components/${index[i].section.title}.jsx`;
+
+        const template = await fetch(templateUrl).then(r => r.text())  
         
         const newIndex = [...index]; 
         newIndex[i] =  { ...index[i], template: template };
-        setIndex(newIndex);    }   
+        setIndex(newIndex);
+    }   
 
-    async function enableRender(i)
+    async function render(i)
     {
         const newIndex = [...index]; 
         newIndex[i] =  { ...index[i], rendered: true };
@@ -92,13 +101,11 @@ export default function Xray({apiEntryPoint}) {
 
             <p>Explore API resume using X-ray view. It enables loading resume data directly from an API, loading of JSX templates, and rendering the resume by applying these templates to the data.</p>
 
-            {/* <h2>Walkthrough</h2> */}
-
             {/* Step 0 */}
             { 
                 <div className={'overflow-hidden transition-all duration-1000 ' + (started ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
                     <div className='flex justify-center mt-4'>
-                        <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={() => setStarted(true)}>Start</button>
+                        <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={start}>Start</button>
                     </div>
                 </div>
             }
@@ -112,7 +119,7 @@ export default function Xray({apiEntryPoint}) {
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                         </div>
                         <div className='w-28'>
-                            <button disabled={indexText} className='w-28' onClick={() => (loadIndexText(apiEntryPoint))}>Fetch</button>
+                            <button disabled={indexText} className='w-28' onClick={loadIndexText}>Fetch</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +159,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={              !s.section  ? 'font-bold' : ''}>Fetch section data</p>
                             </div>
                             <div className='w-28'>                                            
-                                <button disabled={s.section} className= 'w-28' onClick={() => (loadSection(s.url, i))}>Fetch</button> 
+                                <button disabled={s.section} className= 'w-28' onClick={() => loadSection(i)}>Fetch</button> 
                             </div>
                         </div>
 
@@ -161,7 +168,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
                             </div>  
                             <div className='w-28'>                   
-                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(`${resourcesUrl}/components/${s?.section?.title}.jsx`, i)}>Fetch</button>}
+                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(i)}>Fetch</button>}
                             </div>
                         </div>
 
@@ -170,7 +177,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={s.template &&  !s.rendered ? 'font-bold' : ''}>Render section</p>
                             </div>
                             <div className='w-28'>
-                                {s.template && <button disabled={s.rendered} className='w-28' onClick={() => enableRender(i)}>Render</button>}
+                                {s.template && <button disabled={s.rendered} className='w-28' onClick={() => render(i)}>Render</button>}
                             </div>
                         </div>
                     </div>
