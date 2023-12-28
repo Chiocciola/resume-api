@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Analytics } from '@vercel/analytics/react';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './globals.css'
 
 import Icon from '../components/Icon'
@@ -47,7 +50,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
         {children}
 
+        <ToastContainer />
         <Analytics />
+
       </body>
     </html>
   )

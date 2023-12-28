@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { immerable } from "immer";
 import { useImmer } from "use-immer";
+import { toast } from 'react-toastify';
 
 
 import X from './X';
@@ -30,7 +31,7 @@ export default function Xray({apiEntryPoint}) {
     const [resourcesUrl, setResourcesUrl] = useState("");
 
     const [started, setStarted] = useState(false);
-    const [indexText, setIndexText] = useState(null);
+    const [sectionsJson, setSectionsJson] = useState(null);
     const [sections, setSections] = useImmer(null);
 
     const router = useRouter();
@@ -44,72 +45,51 @@ export default function Xray({apiEntryPoint}) {
         setStarted(true);
     }
 
-    async function loadIndexText()
-    {    
-        const r = await fetch(apiEntryPoint);
-
-        if (r.ok) 
-        {
-            const json = await r.json();
-
-            setIndexText(json);
-        }
-        else
-        {
-            setSections([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
-        }
-    }
-
-    async function loadSections()
-    {    
+    function loadSectionsJson()
+    {
         const endpoint = apiEntryPoint; 
 
-        const r = await fetch(endpoint);
-
-        const sections = r.ok
-            ? (await r.json()).map(s => new Section(s.url))
-            : [{section: {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`} }];
-
-        setSections(sections);
+        fetch(endpoint)
+            .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+            .then( r => r.json())
+            .then( j => setSectionsJson(j))
+            .catch(e => toast.error(`${endpoint} ${e}`));
     }
 
-    async function loadSection(i)
-    {   
-        setSections(draft => {
-            draft[i].loading = true;
-        });
+    function handleSections()
+    {    
+        setSections(sectionsJson.map(s => new Section(s.url)));
+    }
 
+    function loadSection(i)
+    {   
         const endpoint = sections[i].url;
 
-        const r = await fetch(endpoint);
-        
-        const section  = r.ok
-            ? await r.json() 
-            : {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`};
+        setSections(draft => { draft[i].loading = true; });
 
-        setSections(draft => {
-            draft[i].loading = false;
-            draft[i].section = section;
-        });
+        fetch(endpoint)
+            .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+            .then( r => r.json())
+            .then( j => setSections(draft => { draft[i].section = j; }))
+            .finally(() => setSections(draft => { draft[i].loading = false; }))
+            .catch(e => toast.error(`${endpoint}: ${e}`));
     }
 
-    async function loadTemplate(i)
+    function loadTemplate(i)
     {
-        const templateUrl = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
+        const endpoint = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
         
-        setSections(draft => {
-            draft[i].templateLoading = true;
-        });
+        setSections(draft => { draft[i].templateLoading = true; });
 
-        const template = await fetch(templateUrl).then(r => r.text())  
-        
-        setSections(draft => { 
-            draft[i].templateLoading = false;
-            draft[i].template = template;
-        });
+        fetch(endpoint)
+            .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+            .then( r => r.text())
+            .then( j => setSections(draft => { draft[i].template = j;}) )
+            .finally(() => setSections(draft => { draft[i].templateLoading = false; }))
+            .catch(e => toast.error(`${endpoint}: ${e}`));
     }   
 
-    async function render(i)
+    function render(i)
     {
         setSections(draft => {
             draft[i].rendered = true;
@@ -142,35 +122,35 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 1 */}
             { started &&
-                <div className={'overflow-hidden transition-all duration-1000 ' + (indexText ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                    <p className={!indexText ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
+                <div className={'overflow-hidden transition-all duration-1000 ' + (sectionsJson ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                    <p className={!sectionsJson ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                         </div>
                         <div className='w-28'>
-                            <button disabled={indexText} className='w-28' onClick={loadIndexText}>Fetch</button>
+                            <button disabled={sectionsJson} className='w-28' onClick={loadSectionsJson}>Fetch</button>
                         </div>
                     </div>
                 </div>
             }   
 
             {/* Step 2 */}
-            { indexText &&
-                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (sections ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
+            { sectionsJson &&
+                <div className={'overflow-hidden transition-all duration-[1000ms] ' + (sections ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
                     <p className={!sections ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                        <div className='overflow-auto'>
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
                         </div>
                         <div className='w-28'>
-                            <button disabled={sections} className='w-28' onClick={() => loadSections(apiEntryPoint)}>Proceed</button>
+                            <button disabled={sections} className='w-28' onClick={() => handleSections(apiEntryPoint)}>Proceed</button>
                         </div>
                     </div>
 
                     <div className='mt-4'>
                         <span className='text-gray-500'> {apiEntryPoint} </span>
-                        <pre>{JSON.stringify(indexText, null, 2)}</pre> 
+                        <pre>{JSON.stringify(sectionsJson, null, 2)}</pre> 
                     </div>
                 </div>
             }
