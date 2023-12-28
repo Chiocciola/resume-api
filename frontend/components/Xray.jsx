@@ -29,7 +29,7 @@ export default function Xray({apiEntryPoint}) {
 
     const [started, setStarted] = useState(false);
     const [indexText, setIndexText] = useState(null);
-    const [index, setIndex] = useState(null);
+    const [sections, setSections] = useState(null);
 
     const router = useRouter();
 
@@ -55,7 +55,7 @@ export default function Xray({apiEntryPoint}) {
         }
         else
         {
-            setIndex([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
+            setSections([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
         }
     }
 
@@ -67,25 +67,25 @@ export default function Xray({apiEntryPoint}) {
         {
             const json = await r.json();
 
-            setIndex(json.map(s => new Section(s.url)));
+            setSections(json.map(s => new Section(s.url)));
         }
         else
         {
-            setIndex([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
+            setSections([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
         }
     }
 
     async function loadSection(i)
     {   
-        const sectionEndpoint = index[i].url;
+        const sectionEndpoint = sections[i].url;
 
-        setIndex(produce(draft => {
+        setSections(produce(draft => {
             draft[i].loading = true;
         }));
 
         const section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
-        setIndex(produce(draft => {
+        setSections(produce(draft => {
             draft[i].loading = false;
             draft[i].section = section;
         }));
@@ -93,15 +93,15 @@ export default function Xray({apiEntryPoint}) {
 
     async function loadTemplate(i)
     {
-        const templateUrl = `${resourcesUrl}/components/${index[i].section.title}.jsx`;
+        const templateUrl = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
         
-        setIndex(produce(draft => {
+        setSections(produce(draft => {
             draft[i].templateLoading = true;
         }));
 
         const template = await fetch(templateUrl).then(r => r.text())  
         
-        setIndex(produce(draft => { 
+        setSections(produce(draft => { 
             draft[i].templateLoading = false;
             draft[i].template = template;
         }));
@@ -109,7 +109,7 @@ export default function Xray({apiEntryPoint}) {
 
     async function render(i)
     {
-        setIndex(produce(draft => {
+        setSections(produce(draft => {
             draft[i].rendered = true;
         }));
     }
@@ -155,14 +155,14 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 2 */}
             { indexText &&
-                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (index ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
-                    <p className={!index ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
+                <div className={'overflow-hidden transition-all duration-[1500ms] ' + (sections ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
+                    <p className={!sections ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                        <div className='overflow-auto'>
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
                         </div>
                         <div className='w-28'>
-                            <button disabled={index} className='w-28' onClick={() => loadIndexJson(apiEntryPoint)}>Proceed</button>
+                            <button disabled={sections} className='w-28' onClick={() => loadIndexJson(apiEntryPoint)}>Proceed</button>
                         </div>
                     </div>
 
@@ -173,7 +173,7 @@ export default function Xray({apiEntryPoint}) {
                 </div>
             }
 
-            { index?.map((s, i) => (
+            { sections?.map((s, i) => (
 
                 <div key={i}>
 
@@ -231,11 +231,11 @@ export default function Xray({apiEntryPoint}) {
             ))}
 
             {/* Final step */}
-            { index?.every(s => s.rendered) &&
+            { sections?.every(s => s.rendered) &&
 
                 <div className='mt-4'>
 
-                    <p className='font-bold'>{2 + index.length + 1}. That&apos;s all folks!</p>
+                    <p className='font-bold'>{2 + sections.length + 1}. That&apos;s all folks!</p>
 
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
