@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Page() {
 
-    const apiEntryPoint = process.env.API_URL;
+    const apiEntryPoint: string = process.env.API_URL as string;
 
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">

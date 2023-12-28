@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { immerable } from "immer";
 import { useImmer } from "use-immer";
@@ -13,26 +14,33 @@ import './xray.css';
 
 class Section
 {
-    constructor(url)
-    {
-        this[immerable] = true;
+    [immerable] = true;
 
+    url: string;
+    loading: boolean = false;
+    section: any = null;
+    templateLoading: boolean = false;
+    template: null | string = null;
+    rendered: boolean = false;
+
+    constructor(url: string)
+    {
         this.url = url;
-        this.loading = false;
-        this.section = null;
-        this.templateLoading = false;
-        this.template = null;
-        this.rendered = false;
     }
 }
 
-export default function Xray({apiEntryPoint}) {
+type Url = {
+    url: string
+}
+
+
+export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
     const [resourcesUrl, setResourcesUrl] = useState("");
 
     const [started, setStarted] = useState(false);
-    const [sectionsJson, setSectionsJson] = useState(null);
-    const [sections, setSections] = useImmer(null);
+    const [sectionsJson, setSectionsJson] = useState<Url[]>([]);
+    const [sections, setSections] = useImmer<Section[]>([]);
 
     const router = useRouter();
 
@@ -61,8 +69,14 @@ export default function Xray({apiEntryPoint}) {
         setSections(sectionsJson.map(s => new Section(s.url)));
     }
 
-    function loadSection(i)
+    function loadSection(i: number)
     {   
+        if (i < 0 || i >= sections.length)
+        {
+            toast.error(`Invalid section index ${i}`);
+            return;
+        }
+
         const endpoint = sections[i].url;
 
         setSections(draft => { draft[i].loading = true; });
@@ -75,7 +89,7 @@ export default function Xray({apiEntryPoint}) {
             .catch(e => toast.error(`${endpoint}: ${e}`));
     }
 
-    function loadTemplate(i)
+    function loadTemplate(i: number)
     {
         const endpoint = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
         
@@ -89,7 +103,7 @@ export default function Xray({apiEntryPoint}) {
             .catch(e => toast.error(`${endpoint}: ${e}`));
     }   
 
-    function render(i)
+    function render(i: number)
     {
         setSections(draft => {
             draft[i].rendered = true;
@@ -122,29 +136,29 @@ export default function Xray({apiEntryPoint}) {
 
             {/* Step 1 */}
             { started &&
-                <div className={'overflow-hidden transition-all duration-1000 ' + (sectionsJson ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                    <p className={!sectionsJson ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
+                <div className={'overflow-hidden transition-all duration-1000 ' + (sectionsJson.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                         </div>
                         <div className='w-28'>
-                            <button disabled={sectionsJson} className='w-28' onClick={loadSectionsJson}>Fetch</button>
+                            <button disabled={sectionsJson.length > 0} className='w-28' onClick={loadSectionsJson}>Fetch</button>
                         </div>
                     </div>
                 </div>
             }   
 
             {/* Step 2 */}
-            { sectionsJson &&
-                <div className={'overflow-hidden transition-all duration-[1000ms] ' + (sections ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
-                    <p className={!sections ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
+            { sectionsJson.length > 0 &&
+                <div className={'overflow-hidden transition-all duration-[1000ms] ' + (sections.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
+                    <p className={sections.length == 0 ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                        <div className='overflow-auto'>
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
                         </div>
                         <div className='w-28'>
-                            <button disabled={sections} className='w-28' onClick={() => handleSections(apiEntryPoint)}>Proceed</button>
+                            <button disabled={sections.length > 0} className='w-28' onClick={handleSections}>Proceed</button>
                         </div>
                     </div>
 
@@ -155,7 +169,7 @@ export default function Xray({apiEntryPoint}) {
                 </div>
             }
 
-            { sections?.map((s, i) => (
+            { sections.map((s, i) => (
 
                 <div key={i}>
 
@@ -178,7 +192,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
                             </div>  
                             <div className='w-28'>                   
-                                {s.section && <button disabled={s.template || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
+                                {s.section && <button disabled={s.template != null || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
                             </div>
                         </div>
 
@@ -213,7 +227,7 @@ export default function Xray({apiEntryPoint}) {
             ))}
 
             {/* Final step */}
-            { sections?.every(s => s.rendered) &&
+            { sections.length > 0 && sections.every(s => s.rendered) &&
 
                 <div className='mt-4'>
 
