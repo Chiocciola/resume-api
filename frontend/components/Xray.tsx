@@ -7,7 +7,6 @@ import { immerable } from "immer";
 import { useImmer } from "use-immer";
 import { toast } from 'react-toastify';
 
-
 import X from './X';
 import Loader from './Loader';
 import './xray.css';
@@ -32,7 +31,6 @@ class Section
 type Url = {
     url: string
 }
-
 
 export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
