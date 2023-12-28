@@ -7,9 +7,6 @@ import X from './X';
 import Loader from './Loader';
 import './xray.css';
 
-export const dynamic = 'force-dynamic';
-
-
 export default function Xray({apiEntryPoint}) {
 
     const [resourcesUrl, setResourcesUrl] = useState("");
@@ -79,11 +76,16 @@ export default function Xray({apiEntryPoint}) {
     {
         const templateUrl = `${resourcesUrl}/components/${index[i].section.title}.jsx`;
 
+        const newIndex = [...index]; 
+        newIndex[i] =  { ...index[i], templateLoading: true };
+        setIndex(newIndex);
+
         const template = await fetch(templateUrl).then(r => r.text())  
         
-        const newIndex = [...index]; 
-        newIndex[i] =  { ...index[i], template: template };
-        setIndex(newIndex);
+        const newIndex2 = [...index]; 
+        newIndex2[i].templateLoading = false;
+        newIndex2[i] =  { ...newIndex2[i], template: template };
+        setIndex(newIndex2);
     }   
 
     async function render(i)
@@ -166,7 +168,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={              !s.section  ? 'font-bold' : ''}>Fetch section data</p>
                             </div>
                             <div className='w-28'>                                            
-                                <button disabled={s.section} className= 'w-28 inline-flex items-center justify-center' onClick={() => loadSection(i)}><Loader show={s.loading}/>Fetch</button> 
+                                <button disabled={s.section || s.loading} className= 'w-28 inline-flex items-center justify-center' onClick={() => loadSection(i)}><Loader show={s.loading}/>Fetch</button> 
                             </div>
                         </div>
 
@@ -175,7 +177,7 @@ export default function Xray({apiEntryPoint}) {
                                 <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
                             </div>  
                             <div className='w-28'>                   
-                                {s.section && <button disabled={s.template} className='w-28' onClick={() => loadTemplate(i)}>Fetch</button>}
+                                {s.section && <button disabled={s.template || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
                             </div>
                         </div>
 
