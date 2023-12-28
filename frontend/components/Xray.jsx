@@ -39,7 +39,6 @@ export default function Xray({apiEntryPoint}) {
         setResourcesUrl(window.location.origin);
     }, []);
 
-    
     async function start()
     {
         setStarted(true);
@@ -61,31 +60,32 @@ export default function Xray({apiEntryPoint}) {
         }
     }
 
-    async function loadIndexJson()
+    async function loadSections()
     {    
-        const r = await fetch(apiEntryPoint);
+        const endpoint = apiEntryPoint; 
 
-        if (r.ok) 
-        {
-            const json = await r.json();
+        const r = await fetch(endpoint);
 
-            setSections(json.map(s => new Section(s.url)));
-        }
-        else
-        {
-            setSections([{section: {title: 'Error', content: `${apiEntryPoint}: ${r.status} ${r.statusText}`} }]);
-        }
+        const sections = r.ok
+            ? (await r.json()).map(s => new Section(s.url))
+            : [{section: {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`} }];
+
+        setSections(sections);
     }
 
     async function loadSection(i)
     {   
-        const sectionEndpoint = sections[i].url;
-
         setSections(draft => {
             draft[i].loading = true;
         });
 
-        const section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
+        const endpoint = sections[i].url;
+
+        const r = await fetch(endpoint);
+        
+        const section  = r.ok
+            ? await r.json() 
+            : {title: 'Error', content: `${endpoint}: ${r.status} ${r.statusText}`};
 
         setSections(draft => {
             draft[i].loading = false;
@@ -164,7 +164,7 @@ export default function Xray({apiEntryPoint}) {
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
                         </div>
                         <div className='w-28'>
-                            <button disabled={sections} className='w-28' onClick={() => loadIndexJson(apiEntryPoint)}>Proceed</button>
+                            <button disabled={sections} className='w-28' onClick={() => loadSections(apiEntryPoint)}>Proceed</button>
                         </div>
                     </div>
 

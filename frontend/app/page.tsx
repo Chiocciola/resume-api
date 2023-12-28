@@ -35,10 +35,9 @@ async function getResume() : Promise<any[]>
     }
     catch (e)
     {
-        if (e instanceof Error)
-            return [{title: 'Error', content: e.message}];
-        else
-            return [{title: 'Error', content: `${e}`}];
+        const message = (e instanceof Error) ? e.message : `${e}`;
+
+        return [{title: 'Error', content: message}];
     }
 }
 
