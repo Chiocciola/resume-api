@@ -127,7 +127,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
             {/* Step 0 */}
             { 
-                <div className={'overflow-hidden transition-all duration-1000 ' + (started ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                <div className={'overflow-hidden transition-all duration-500 ' + (started ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
                     <div className='flex justify-center mt-4'>
                         <button className='w-28 bg-yellow-500 hover:bg-yellow-700' onClick={start}>Start</button>
                     </div>
@@ -136,7 +136,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
             {/* Step 1 */}
             { started &&
-                <div className={'overflow-hidden transition-all duration-1000 ' + (sectionsJson.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                <div className={'overflow-hidden transition-all duration-500 ' + (sectionsJson.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
                     <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
@@ -151,7 +151,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
             {/* Step 2 */}
             { sectionsJson.length > 0 &&
-                <div className={'overflow-hidden transition-all duration-[1000ms] ' + (sections.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
+                <div className={'overflow-hidden transition-all duration-500 ' + (sections.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
                     <p className={sections.length == 0 ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                        <div className='overflow-auto'>
@@ -174,7 +174,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                 <div key={i}>
 
                     {/* Section steps */}
-                    <div className={'overflow-hidden transition-all delay-300 duration-1000 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                    <div className={'overflow-hidden transition-all delay-300 duration-500 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
 
                         <p className='mt-4 font-bold' >{i+3}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
