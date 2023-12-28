@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { immerable, produce} from "immer";
+import { immerable } from "immer";
+import { useImmer } from "use-immer";
+
 
 import X from './X';
 import Loader from './Loader';
@@ -29,7 +31,7 @@ export default function Xray({apiEntryPoint}) {
 
     const [started, setStarted] = useState(false);
     const [indexText, setIndexText] = useState(null);
-    const [sections, setSections] = useState(null);
+    const [sections, setSections] = useImmer(null);
 
     const router = useRouter();
 
@@ -79,39 +81,39 @@ export default function Xray({apiEntryPoint}) {
     {   
         const sectionEndpoint = sections[i].url;
 
-        setSections(produce(draft => {
+        setSections(draft => {
             draft[i].loading = true;
-        }));
+        });
 
         const section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
-        setSections(produce(draft => {
+        setSections(draft => {
             draft[i].loading = false;
             draft[i].section = section;
-        }));
+        });
     }
 
     async function loadTemplate(i)
     {
         const templateUrl = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
         
-        setSections(produce(draft => {
+        setSections(draft => {
             draft[i].templateLoading = true;
-        }));
+        });
 
         const template = await fetch(templateUrl).then(r => r.text())  
         
-        setSections(produce(draft => { 
+        setSections(draft => { 
             draft[i].templateLoading = false;
             draft[i].template = template;
-        }));
+        });
     }   
 
     async function render(i)
     {
-        setSections(produce(draft => {
+        setSections(draft => {
             draft[i].rendered = true;
-        }));
+        });
     }
 
     function goHome()
