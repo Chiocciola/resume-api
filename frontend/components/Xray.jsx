@@ -2,10 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { immerable, produce} from "immer";
 
 import X from './X';
 import Loader from './Loader';
 import './xray.css';
+
+class Section
+{
+    constructor(url)
+    {
+        this[immerable] = true;
+
+        this.url = url;
+        this.loading = false;
+        this.section = null;
+        this.templateLoading = false;
+        this.template = null;
+        this.rendered = false;
+    }
+}
 
 export default function Xray({apiEntryPoint}) {
 
@@ -33,7 +49,9 @@ export default function Xray({apiEntryPoint}) {
 
         if (r.ok) 
         {
-            setIndexText(await r.json());
+            const json = await r.json();
+
+            setIndexText(json);
         }
         else
         {
@@ -47,7 +65,9 @@ export default function Xray({apiEntryPoint}) {
 
         if (r.ok) 
         {
-            setIndex(await r.json());
+            const json = await r.json();
+
+            setIndex(json.map(s => new Section(s.url)));
         }
         else
         {
@@ -59,40 +79,39 @@ export default function Xray({apiEntryPoint}) {
     {   
         const sectionEndpoint = index[i].url;
 
-        const newIndex = [...index]; 
-        newIndex[i] =  { ...index[i], loading: true };
+        setIndex(produce(draft => {
+            draft[i].loading = true;
+        }));
 
-        setIndex(newIndex);
+        const section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
 
-        var section = await fetch(sectionEndpoint).then(r => r.ok ? r.json() : {title: 'Error', content: `${sectionEndpoint}: ${r.status} ${r.statusText}`});
-
-        const newIndex2 = [...index]; 
-        newIndex2[i].loading =  false;
-        newIndex2[i] =  { ...newIndex2[i], section: section };
-        setIndex(newIndex2);
+        setIndex(produce(draft => {
+            draft[i].loading = false;
+            draft[i].section = section;
+        }));
     }
 
     async function loadTemplate(i)
     {
         const templateUrl = `${resourcesUrl}/components/${index[i].section.title}.jsx`;
-
-        const newIndex = [...index]; 
-        newIndex[i] =  { ...index[i], templateLoading: true };
-        setIndex(newIndex);
+        
+        setIndex(produce(draft => {
+            draft[i].templateLoading = true;
+        }));
 
         const template = await fetch(templateUrl).then(r => r.text())  
         
-        const newIndex2 = [...index]; 
-        newIndex2[i].templateLoading = false;
-        newIndex2[i] =  { ...newIndex2[i], template: template };
-        setIndex(newIndex2);
+        setIndex(produce(draft => { 
+            draft[i].templateLoading = false;
+            draft[i].template = template;
+        }));
     }   
 
     async function render(i)
     {
-        const newIndex = [...index]; 
-        newIndex[i] =  { ...index[i], rendered: true };
-        setIndex(newIndex);
+        setIndex(produce(draft => {
+            draft[i].rendered = true;
+        }));
     }
 
     function goHome()
