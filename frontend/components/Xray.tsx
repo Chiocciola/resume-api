@@ -13,11 +13,17 @@ import './xray.css';
 
 class Section
 {
+    title: string | undefined;
+    content: any;
+}
+
+class XraySection
+{
     [immerable] = true;
 
     url: string;
     loading: boolean = false;
-    section: any = null;
+    section: null | Section = null;
     templateLoading: boolean = false;
     template: null | string = null;
     rendered: boolean = false;
@@ -37,8 +43,11 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
     const [resourcesUrl, setResourcesUrl] = useState("");
 
     const [started, setStarted] = useState(false);
+
     const [sectionsJson, setSectionsJson] = useState<Url[]>([]);
-    const [sections, setSections] = useImmer<Section[]>([]);
+    const [sectionsJsonLoading, setSectionsJsonLoading] = useState(false);
+
+    const [sections, setSections] = useImmer<XraySection[]>([]);
 
     const router = useRouter();
 
@@ -55,16 +64,19 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
     {
         const endpoint = apiEntryPoint; 
 
+        setSectionsJsonLoading(true);
+
         fetch(endpoint)
             .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
             .then( r => r.json())
             .then( j => setSectionsJson(j))
+            .finally(() => setSectionsJsonLoading(false))
             .catch(e => toast.error(`${endpoint} ${e}`));
     }
 
     function handleSections()
     {    
-        setSections(sectionsJson.map(s => new Section(s.url)));
+        setSections(sectionsJson.map(s => new XraySection(s.url)));
     }
 
     function loadSection(i: number)
@@ -89,7 +101,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
     function loadTemplate(i: number)
     {
-        const endpoint = `${resourcesUrl}/components/${sections[i].section.title}.jsx`;
+        const endpoint = `${resourcesUrl}/components/${sections[i].section?.title}.jsx`;
         
         setSections(draft => { draft[i].templateLoading = true; });
 
@@ -141,7 +153,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                         </div>
                         <div className='w-28'>
-                            <button disabled={sectionsJson.length > 0} className='w-28' onClick={loadSectionsJson}>Fetch</button>
+                            <button disabled={sectionsJson.length > 0 || sectionsJsonLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSectionsJson}><Loader show={sectionsJsonLoading}/>Fetch</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +193,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                                 <p className={              !s.section  ? 'font-bold' : ''}>Fetch section data</p>
                             </div>
                             <div className='w-28'>                                            
-                                <button disabled={s.section || s.loading} className= 'w-28 inline-flex items-center justify-center' onClick={() => loadSection(i)}><Loader show={s.loading}/>Fetch</button> 
+                                <button disabled={s.section != null || s.loading} className= 'w-28 inline-flex items-center justify-center' onClick={() => loadSection(i)}><Loader show={s.loading}/>Fetch</button> 
                             </div>
                         </div>
 
