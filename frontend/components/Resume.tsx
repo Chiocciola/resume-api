@@ -7,7 +7,7 @@ type Url = {
     url: string;
 }
 
-export async function getSections(endpoint: string) : Promise<any[]>
+export async function getSections(endpoint: string | undefined) : Promise<any[]>
 {
     if (!endpoint)
     {
@@ -37,9 +37,8 @@ export async function getSections(endpoint: string) : Promise<any[]>
 }
 
 
-export default function Resume({endpoint}: {endpoint: string}) : JSX.Element
-{
-    
+export default function Resume({endpoint}: {endpoint: string | undefined}) : JSX.Element
+{   
     const [sections, setSections] = useState([] as any[]);
 
     useEffect(
