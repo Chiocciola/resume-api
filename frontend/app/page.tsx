@@ -1,17 +1,16 @@
 import { Metadata } from 'next'
 
 import X from '../components/X';
-
-//export const dynamic = 'force-dynamic';
  
 type Url = {
     url: string
 }
 
-
 export async function generateMetadata(): Promise<Metadata> {
 
-    const general = await fetch(process.env.API_URL + '/general').then(r => r.json());
+    const general = await
+        fetch(process.env.API_URL + '/general')
+        .then(r => r.json());
 
     return {
         title: general.content.name + ' • ' + general.content.title + ' • API Resume',
@@ -21,23 +20,28 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function getResume() : Promise<any[]>
 {
+    if (!process.env.API_URL)
+    {
+        return [{title: 'Error', content: 'API_URL not set'}];
+    }
+
     try
     {            
-        const sections = await fetch(process.env.API_URL as string).then(r => r.json());
+        const sections: Url[] = 
+            await fetch(process.env.API_URL)
+                .then(r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+                .then(r => r.json());
 
         return await Promise.all(
-            sections
-                .map( (s: Url) => 
-                    fetch(s.url)
-                        .then(r => r.ok 
-                            ? r.json()
-                            : {title: 'Error', content: `${s.url}: ${r.status} ${r.statusText}`})));
+            sections.map( (s: Url) => 
+                fetch(s.url)
+                    .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+                    .then( r => r.json())
+                    .catch(r => ({title: 'Error', content: `${s.url}: ${r}`}))));
     }
     catch (e)
     {
-        const message = (e instanceof Error) ? e.message : `${e}`;
-
-        return [{title: 'Error', content: message}];
+        return [{title: 'Error', content: `${e}`}];
     }
 }
 
