@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import X from './X';
+import Render from './Render';
 
 type Url = {
     url: string;
@@ -18,24 +18,25 @@ export async function getSections(endpoint: string | undefined) : Promise<any[]>
 
     try
     {            
-        const sections : Url[] = 
+        const sectionUrls : Url[] = 
             await fetch(endpoint)
                 .then(r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
                 .then(r => r.json());
 
-        return await Promise.all(
-            sections.map( (s : Url) => 
+        const sectionsPromises : any[] = 
+            sectionUrls.map( (s : Url) => 
                 fetch(s.url)
                     .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
                     .then( r => r.json())
-                    .catch(r => ({title: 'Error', content: `${s.url}: ${r}`}))));
+                    .catch(r => ({title: 'Error', content: `${s.url}: ${r}`})));
+
+        return await Promise.all(sectionsPromises);
     }
     catch (e)
     {
         return [{title: 'Error', content: `${e}`}];
     }
 }
-
 
 export default function Resume({endpoint}: {endpoint: string | undefined}) : JSX.Element
 {   
@@ -45,9 +46,5 @@ export default function Resume({endpoint}: {endpoint: string | undefined}) : JSX
         () => {getSections(endpoint).then(setSections)},
         []);
 
-    return (
-        <>
-            {sections.map(X)}
-        </>
-    );
+    return <>{sections.map(Render)}</>;
 };

@@ -7,15 +7,10 @@ import { immerable } from "immer";
 import { useImmer } from "use-immer";
 import { toast } from 'react-toastify';
 
-import X from './X';
+import {Section} from './Render';
+import Render from './Render';
 import Loader from './Loader';
 import './xray.css';
-
-class Section
-{
-    title: string | undefined;
-    content: any;
-}
 
 class XraySection
 {
@@ -230,7 +225,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                         </div>
 
                         <div className={(s.rendered ? "card-main" : "card-right")}>
-                            {s.rendered && X(s.section)}
+                            {s.rendered && s.section && Render(s.section)}
                         </div>
                     </div>
                 </div>
