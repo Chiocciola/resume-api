@@ -7,7 +7,7 @@ import { immerable } from "immer";
 import { useImmer } from "use-immer";
 import { toast } from 'react-toastify';
 
-import {Section} from './Render';
+import {Url, Section} from './api';
 import Render from './Render';
 import Loader from './Loader';
 import './xray.css';
@@ -29,10 +29,6 @@ class XraySection
     }
 }
 
-type Url = {
-    url: string
-}
-
 export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
     const [resourcesUrl, setResourcesUrl] = useState("");
@@ -50,7 +46,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
         setResourcesUrl(window.location.origin);
     }, []);
 
-    async function start()
+    function start()
     {
         setStarted(true);
     }

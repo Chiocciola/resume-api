@@ -4,16 +4,12 @@ import Experience from '../public/components/Experience';
 import Education from '../public/components/Education';
 import Error from '../public/components/Error';
 
-export interface Section
-{
-    title: string;
-    content: any;
-}
+import { Section } from './api';
 
 const mapping : {[key: string]: (section: Section) => JSX.Element}
     = {General: General, Skills: Skills, Experience: Experience, Education: Education, Error: Error};
 
-export default function Render(section: Section)
+export default function Render(section: Section) : JSX.Element
 {
     return mapping[section.title](section);
 }

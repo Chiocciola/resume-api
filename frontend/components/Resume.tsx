@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Render from './Render';
-
-type Url = {
-    url: string;
-}
+import { Url } from './api';
 
 export async function getSections(endpoint: string | undefined) : Promise<any[]>
 {
