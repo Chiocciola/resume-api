@@ -11,6 +11,7 @@ import {Url, Section} from './api';
 import Render from './Render';
 import Loader from './Loader';
 import './xray.css';
+import { Validate } from './Validate';
 
 class XraySection
 {
@@ -19,6 +20,7 @@ class XraySection
     url: string;
     loading: boolean = false;
     section: null | Section = null;
+    isValid: null | boolean = null;
     templateLoading: boolean = false;
     template: null | string = null;
     rendered: boolean = false;
@@ -35,6 +37,10 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
     const [started, setStarted] = useState(false);
 
+    const [schema, setSchema] = useState<object | null>(null);
+    const [schemaLoading, setSchemaLoading] = useState(false);
+
+
     const [sectionsJson, setSectionsJson] = useState<Url[]>([]);
     const [sectionsJsonLoading, setSectionsJsonLoading] = useState(false);
 
@@ -49,6 +55,20 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
     function start()
     {
         setStarted(true);
+    }
+
+    function loadSchema()
+    {
+        const endpoint = `${resourcesUrl}/Chiocciola-Resume-1.0.1-swagger.json`;
+
+        setSchemaLoading(true);
+
+        fetch(endpoint)
+            .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
+            .then( r => r.json())
+            .then( j => setSchema(j))
+            .finally(() => setSchemaLoading(false))
+            .catch(e => toast.error(`${endpoint}: ${e}`));
     }
 
     function loadSectionsJson()
@@ -88,6 +108,25 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             .then( j => setSections(draft => { draft[i].section = j; }))
             .finally(() => setSections(draft => { draft[i].loading = false; }))
             .catch(e => toast.error(`${endpoint}: ${e}`));
+    }
+
+    function validateSection(i: number)
+    {
+        if (i < 0 || i >= sections.length)
+        {
+            toast.error(`Invalid section index ${i}`);
+            return;
+        }
+
+        if (sections[i].section == null)
+        {
+            toast.error(`Section ${i} not loaded`);
+            return;
+        }
+
+        const isValid = Validate(sections[i].url, sections[i].section as Section, schema);
+
+        setSections(draft => { draft[i].isValid = isValid; });
     }
 
     function loadTemplate(i: number)
@@ -137,8 +176,23 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
             {/* Step 1 */}
             { started &&
+                <div className={'overflow-hidden transition-all duration-500 ' + (schema ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get Resume API schema</p>
+                    <div className='flex flex-row justify-between gap-1 pl-4'>
+                        <div className='overflow-hidden'>
+                            <p>Let&apos;s start with fetching the API schema in OpenAPI format. We will use it to validate API responses.</p>
+                        </div>
+                        <div className='w-28'>
+                            <button disabled={sectionsJson.length > 0 || sectionsJsonLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSchema}><Loader show={schemaLoading}/>Fetch</button>
+                        </div>
+                    </div>
+                </div>
+            }   
+
+            {/* Step 2 */}
+            { schema &&
                 <div className={'overflow-hidden transition-all duration-500 ' + (sectionsJson.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get resume sections</p>
+                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>2. Get resume sections</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
@@ -150,10 +204,10 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                 </div>
             }   
 
-            {/* Step 2 */}
+            {/* Step 3 */}
             { sectionsJson.length > 0 &&
                 <div className={'overflow-hidden transition-all duration-500 ' + (sections.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
-                    <p className={sections.length == 0 ? 'font-bold mt-4' : 'mt-4'}>2. Handle each resume section</p>
+                    <p className={sections.length == 0 ? 'font-bold mt-4' : 'mt-4'}>3. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                        <div className='overflow-auto'>
                             <p>Now when we have section endpoints, let&apos;s fetch the data and templates for each section.</p> 
@@ -177,7 +231,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                     {/* Section steps */}
                     <div className={'overflow-hidden transition-all delay-300 duration-500 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
 
-                        <p className='mt-4 font-bold' >{i+3}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
+                        <p className='mt-4 font-bold' >{i+4}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
@@ -190,10 +244,19 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
+                                <p className={              !s.section  ? 'font-bold' : ''}>Validate data agains OpenAPI schema</p>
+                            </div>
+                            <div className='w-28'>                                            
+                                {s.section && <button disabled={s.isValid != null} className= 'w-28 inline-flex items-center justify-center' onClick={() => validateSection(i)}> {s.isValid && (s.isValid == true ? "✅" : "❌")} Validate</button> }
+                            </div>
+                        </div>
+
+                        <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
+                            <div className='overflow-hidden'>
                                 <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
                             </div>  
                             <div className='w-28'>                   
-                                {s.section && <button disabled={s.template != null || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
+                                {s.isValid && <button disabled={s.template != null || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
                             </div>
                         </div>
 
@@ -232,7 +295,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
                 <div className='mt-4'>
 
-                    <p className='font-bold'>{2 + sections.length + 1}. That&apos;s all folks!</p>
+                    <p className='font-bold'>{3 + sections.length + 1}. That&apos;s all folks!</p>
 
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>

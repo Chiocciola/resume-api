@@ -7,7 +7,7 @@ export function Validate(endpoint: string, response: Section, schema: any) : boo
     try
     {
         endpoint = endpoint.substring(21);
-        console.log(`${endpoint}: Validating response`);
+        console.log(`${endpoint}: Validating response against schema`);
         
         const responses = schema.paths[endpoint].get.responses;
         const validator = new OpenAPIResponseValidator({
@@ -19,17 +19,15 @@ export function Validate(endpoint: string, response: Section, schema: any) : boo
 
         if (result?.errors)
         {
-            console.log(`${endpoint}: Validation failed: ${JSON.stringify(result.errors)}`);
+            throw new Error(JSON.stringify(result.errors));
         }
-        else
-        {
-            console.log(`${endpoint}: Validation passed`);
-        }
+
+        console.log(`${endpoint}: Response validation passed`);
     }
     catch (e)
     {
-        console.log(`${endpoint}: Validation failed: ${e}`);
-        console.log(e);
+        console.log(`${endpoint}: Response validation failed: ${e}`);
+        return false;
     }
 
     return true;
