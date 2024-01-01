@@ -180,7 +180,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                     <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get Resume API schema</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
-                            <p>Let&apos;s start with fetching the API schema in OpenAPI format. We will use it to validate API responses.</p>
+                            <p>Let&apos;s start with fetching the API schema. We will use it to validate API responses.</p>
                         </div>
                         <div className='w-28'>
                             <button disabled={sectionsJson.length > 0 || sectionsJsonLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSchema}><Loader show={schemaLoading}/>Fetch</button>
@@ -244,7 +244,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
-                                <p className={              !s.section  ? 'font-bold' : ''}>Validate data agains OpenAPI schema</p>
+                                <p className={s.section && !s.isValid ? 'font-bold' : ''}>Validate data against schema</p>
                             </div>
                             <div className='w-28'>                                            
                                 {s.section && <button disabled={s.isValid != null} className= 'w-28 inline-flex items-center justify-center' onClick={() => validateSection(i)}> {s.isValid && (s.isValid == true ? "✅" : "❌")} Validate</button> }
@@ -253,7 +253,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
-                                <p className={s.section &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
+                                <p className={s.isValid &&  !s.template ? 'font-bold' : ''}>Fetch section template</p>   
                             </div>  
                             <div className='w-28'>                   
                                 {s.isValid && <button disabled={s.template != null || s.templateLoading} className='w-28 inline-flex items-center justify-center' onClick={() => loadTemplate(i)}><Loader show={s.templateLoading}/>Fetch</button>}
