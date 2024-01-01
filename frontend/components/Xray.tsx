@@ -124,9 +124,9 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             return;
         }
 
-        const isValid = Validate(sections[i].url, sections[i].section as Section, schema);
+        const errors = Validate(sections[i].url, sections[i].section as Section, schema);
 
-        setSections(draft => { draft[i].isValid = isValid; });
+        setSections(draft => { draft[i].isValid = errors == null; });
     }
 
     function loadTemplate(i: number)
