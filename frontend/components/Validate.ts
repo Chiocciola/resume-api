@@ -6,7 +6,8 @@ export function Validate(endpoint: string, response: Section, schema: any) : boo
 {
     try
     {
-        endpoint = endpoint.substring(21);
+        endpoint = endpoint.substring(endpoint.lastIndexOf("/"));
+        
         console.log(`${endpoint}: Validating response against schema`);
         
         const responses = schema.paths[endpoint].get.responses;
