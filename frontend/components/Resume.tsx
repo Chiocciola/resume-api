@@ -16,23 +16,25 @@ export async function getSections(endpoint: string | undefined) : Promise<Sectio
     console.log(`Fetching sections from  ${endpoint}`);
 
     try
-    {            
+    {  
+        const schemaUrl : string = '/Chiocciola-Resume-1.0.1-swagger.json';
+        
+        const schema : object = 
+            await fetch(schemaUrl)
+            .then(r => r.ok ? r : Promise.reject(`${schemaUrl}: ${r.status} ${r.statusText}`))
+            .then(r => r.json());
+
         const sectionUrls : Url[] = 
             await fetch(endpoint)
                 .then(r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
                 .then(r => r.json());
-
-        const schema : object = 
-            await fetch('/Chiocciola-Resume-1.0.1-swagger.json')
-            .then(r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
-            .then(r => r.json());
 
         const sectionsPromises : Promise<Section>[] = 
             sectionUrls.map( (s : Url) => 
                 fetch(s.url)
                     .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
                     .then( r => r.json())
-                    .then( section => Validate(s.url, section, schema) ? section : Promise.reject(`Validation agains schema failed`))
+                    .then( section => { const errors = Validate(s.url, section, schema); return errors ? Promise.reject(`Validation failed: ${errors}`): section})
                     .catch(e => new ErrorSection(`${s.url}: ${e}`)));
 
         return await Promise.all(sectionsPromises);

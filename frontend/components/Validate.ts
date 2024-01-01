@@ -2,17 +2,16 @@ import OpenAPIResponseValidator from 'openapi-response-validator'
 
 import {Section} from './api';
 
-export function Validate(endpoint: string, response: Section, schema: any) : boolean
+export function Validate(endpoint: string, response: Section, schema: any) : string | null
 {
     try
     {
         endpoint = endpoint.substring(endpoint.lastIndexOf("/"));
-        
+
         console.log(`${endpoint}: Validating response against schema`);
         
-        const responses = schema.paths[endpoint].get.responses;
         const validator = new OpenAPIResponseValidator({
-            responses: responses,
+            responses: schema.paths[endpoint].get.responses,
             components: schema.components
         });
 
@@ -28,8 +27,8 @@ export function Validate(endpoint: string, response: Section, schema: any) : boo
     catch (e)
     {
         console.log(`${endpoint}: Response validation failed: ${e}`);
-        return false;
+        return `${e}`;
     }
 
-    return true;
+    return null;
 }
