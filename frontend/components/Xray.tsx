@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import * as React from 'react';
+
 import { useRouter } from 'next/navigation';
 import { immerable } from "immer";
 import { useImmer } from "use-immer";
@@ -20,7 +20,7 @@ class XraySection
 {
     [immerable] = true;
 
-    url: string;
+    endpoint: Url;
     loading: boolean = false;
     section: null | Section = null;
     isValid: null | boolean = null;
@@ -28,13 +28,13 @@ class XraySection
     template: null | string = null;
     rendered: boolean = false;
 
-    constructor(url: string)
+    constructor(endpoint: Url)
     {
-        this.url = url;
+        this.endpoint = endpoint;
     }
 }
 
-export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
+export default function Xray(props: {apiEntryPoint: string | undefined}) {
 
     const [resourcesUrl, setResourcesUrl] = useState("");
 
@@ -43,9 +43,8 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
     const [schema, setSchema] = useState<object | null>(null);
     const [schemaLoading, setSchemaLoading] = useState(false);
 
-
-    const [sectionsJson, setSectionsJson] = useState<Url[]>([]);
-    const [sectionsJsonLoading, setSectionsJsonLoading] = useState(false);
+    const [sectionEndpoints,        setSectionsEndpoints] = useState<Url[]>([]);
+    const [sectionEndpointsLoading, setSectionsEndpointsLoading] = useState(false);
 
     const [sections, setSections] = useImmer<XraySection[]>([]);
 
@@ -62,35 +61,41 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
     function loadSchema()
     {
-        const endpoint = `${resourcesUrl}/Chiocciola-Resume-1.0.1-swagger.json`;
+        const url = `${resourcesUrl}/Chiocciola-Resume-1.0.1-swagger.json`;
 
         setSchemaLoading(true);
 
-        fetch(endpoint)
+        fetch(url)
             .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
             .then( r => r.json())
             .then( j => setSchema(j))
             .finally(() => setSchemaLoading(false))
-            .catch(e => toast.error(`${endpoint}: ${e}`));
+            .catch(e => toast.error(`${url}: ${e}`));
     }
 
     function loadSectionsJson()
     {
-        const endpoint = apiEntryPoint; 
+        if (!props.apiEntryPoint)
+        {
+            toast.error("API entry point not set");
+            return;
+        }
 
-        setSectionsJsonLoading(true);
+        const url = props.apiEntryPoint; 
 
-        fetch(endpoint)
+        setSectionsEndpointsLoading(true);
+
+        fetch(url)
             .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
             .then( r => r.json())
-            .then( j => setSectionsJson(j))
-            .finally(() => setSectionsJsonLoading(false))
-            .catch(e => toast.error(`${endpoint}: ${e}`));
+            .then( j => setSectionsEndpoints(j))
+            .finally(() => setSectionsEndpointsLoading(false))
+            .catch(e => toast.error(`${url}: ${e}`));
     }
 
     function handleSections()
     {    
-        setSections(sectionsJson.map(s => new XraySection(s.url)));
+        setSections(sectionEndpoints.map(endpoint => new XraySection(endpoint)));
     }
 
     function loadSection(i: number)
@@ -101,16 +106,16 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             return;
         }
 
-        const endpoint = sections[i].url;
+        const url = sections[i].endpoint.url;
 
         setSections(draft => { draft[i].loading = true; });
 
-        fetch(endpoint)
+        fetch(url)
             .then( r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
             .then( r => r.json())
             .then( j => setSections(draft => { draft[i].section = j; }))
             .finally(() => setSections(draft => { draft[i].loading = false; }))
-            .catch(e => toast.error(`${endpoint}: ${e}`));
+            .catch(e => toast.error(`${url}: ${e}`));
     }
 
     function validateSection(i: number)
@@ -127,7 +132,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             return;
         }
 
-        const errors = Validate(sections[i].url, sections[i].section as Section, schema);
+        const errors = Validate(sections[i].endpoint.url, sections[i].section as Section, schema);
 
         setSections(draft => { draft[i].isValid = errors == null; });
     }
@@ -180,13 +185,13 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             {/* Step 1 */}
             { started &&
                 <div className={'overflow-hidden transition-all duration-500 ' + (schema ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get Resume API schema</p>
+                    <p className={sectionEndpoints.length == 0 ? "font-bold mt-4" : "mt-4"}>1. Get Resume API schema</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
                             <p>Let&apos;s start with fetching the API schema. We will use it to validate API responses.</p>
                         </div>
                         <div className='w-28'>
-                            <button disabled={sectionsJson.length > 0 || sectionsJsonLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSchema}><Loader show={schemaLoading}/>Fetch</button>
+                            <button disabled={sectionEndpoints.length > 0 || sectionEndpointsLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSchema}><Loader show={schemaLoading}/>Fetch</button>
                         </div>
                     </div>
                 </div>
@@ -194,21 +199,21 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
             {/* Step 2 */}
             { schema &&
-                <div className={'overflow-hidden transition-all duration-500 ' + (sectionsJson.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
-                    <p className={sectionsJson.length == 0 ? "font-bold mt-4" : "mt-4"}>2. Get resume sections</p>
+                <div className={'overflow-hidden transition-all duration-500 ' + (sectionEndpoints.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-96")}>
+                    <p className={sectionEndpoints.length == 0 ? "font-bold mt-4" : "mt-4"}>2. Get resume sections</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
                         <div className='overflow-hidden'>
                             <p>Let&apos;s start with fetching the index of resume section endpoints</p>                    
                         </div>
                         <div className='w-28'>
-                            <button disabled={sectionsJson.length > 0 || sectionsJsonLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSectionsJson}><Loader show={sectionsJsonLoading}/>Fetch</button>
+                            <button disabled={sectionEndpoints.length > 0 || sectionEndpointsLoading} className='w-28 inline-flex items-center justify-center' onClick={loadSectionsJson}><Loader show={sectionEndpointsLoading}/>Fetch</button>
                         </div>
                     </div>
                 </div>
             }   
 
             {/* Step 3 */}
-            { sectionsJson.length > 0 &&
+            { sectionEndpoints.length > 0 &&
                 <div className={'overflow-hidden transition-all duration-500 ' + (sections.length > 0 ? "opacity-0 max-h-0" : "opacity-100 max-h-[60rem]")}>
                     <p className={sections.length == 0 ? 'font-bold mt-4' : 'mt-4'}>3. Handle each resume section</p>
                     <div className='flex flex-row justify-between gap-1 pl-4'>
@@ -221,8 +226,8 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                     </div>
 
                     <div className='mt-4'>
-                        <span className='text-gray-500'> {apiEntryPoint} </span>
-                        <pre>{JSON.stringify(sectionsJson, null, 2)}</pre> 
+                        <span className='text-gray-500'> {props.apiEntryPoint} </span>
+                        <pre>{JSON.stringify(sectionEndpoints, null, 2)}</pre> 
                     </div>
                 </div>
             }
@@ -234,7 +239,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                     {/* Section steps */}
                     <div className={'overflow-hidden transition-all delay-300 duration-500 ' + (s.rendered ? " opacity-0 max-h-0" : "opacity-100 max-h-96")}>
 
-                        <p className='mt-4 font-bold' >{i+4}. {s.url.substring(s.url.lastIndexOf("/") + 1).toUpperCase()} section</p>
+                        <p className='mt-4'>{i+4}. Handle <b>{s.endpoint.url.substring(s.endpoint.url.lastIndexOf("/") + 1).toUpperCase()}</b> section</p>
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
@@ -247,10 +252,10 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
 
                         <div className='flex flex-row justify-between gap-1 mt-1 pl-4'>
                             <div className='overflow-hidden'>
-                                <p className={s.section && !s.isValid ? 'font-bold' : ''}>Validate data against schema</p>
+                                <span className={s.section && !s.isValid ? 'font-bold' : ''}>Validate data against schema</span>
                             </div>
                             <div className='w-28'>                                            
-                                {s.section && <button disabled={s.isValid != null} className= 'w-28 inline-flex items-center justify-center' onClick={() => validateSection(i)}> {s.isValid && (s.isValid == true ? "✅" : "❌")} Validate</button> }
+                                {s.section && <button disabled={s.isValid != null} className= 'w-28 inline-flex items-center justify-center' onClick={() => validateSection(i)}>{s.isValid && (s.isValid == true ? "✅" : "❌")} Validate</button> }
                             </div>
                         </div>
 
@@ -277,7 +282,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
                     <div id="card-carusel" className='mt-4'>
 
                         <div className={(s.template ? "card-left" : s.section ?  "card-main" : "card-right") }>
-                            <span className='text-gray-500'> {s.url} </span>
+                            <span className='text-gray-500'> {s.endpoint.url} </span>
                             <pre>{JSON.stringify(s.section, null, 2)}</pre>
                         </div>
 

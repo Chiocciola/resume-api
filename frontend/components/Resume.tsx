@@ -9,16 +9,16 @@ import { Url, Section, ErrorSection } from './api';
 import Render from './Renderer';
 import Validate from './Validator';  
 
-export async function getSections(endpoint: string | undefined) : Promise<Section[]>
+export async function getSections(apiEntryPoint: string | undefined) : Promise<Section[]>
 {
     try
     {  
-        if (!endpoint)
+        if (!apiEntryPoint)
         {
-            throw Error('Endpoint not set');
+            throw Error('API entry point not set');
         }
     
-        console.log(`Fetching sections from  ${endpoint}`);
+        console.log(`Fetching sections from  ${apiEntryPoint}`);
     
         const schemaUrl : string = '/Chiocciola-Resume-1.0.1-swagger.json';
         
@@ -28,7 +28,7 @@ export async function getSections(endpoint: string | undefined) : Promise<Sectio
             .then(r => r.json());
 
         const sectionUrls : Url[] = 
-            await fetch(endpoint)
+            await fetch(apiEntryPoint)
                 .then(r => r.ok ? r : Promise.reject(`${r.status} ${r.statusText}`))
                 .then(r => r.json());
 
@@ -48,14 +48,11 @@ export async function getSections(endpoint: string | undefined) : Promise<Sectio
     }
 }
 
-export default function Resume({endpoint}: {endpoint: string | undefined}) : JSX.Element
+export default function Resume(props: {apiEntryPoint: string | undefined}) : JSX.Element
 {   
     const [sections, setSections] = useState([] as Section[]);
 
-    useEffect(
-        () => {getSections(endpoint)
-            .then(setSections)},
-        []);
+    useEffect(() => {getSections(props.apiEntryPoint).then(setSections)}, [props.apiEntryPoint]);
 
     if (sections.length === 0)
     {

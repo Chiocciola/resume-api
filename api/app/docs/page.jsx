@@ -60,13 +60,7 @@ export default function ResumePag() {
             endpoint: '/education',
             data: educationData,
             setData: setEducationData,
-        },
-        {
-            description: "Information about spoken languages",
-            endpoint: '/languages',
-            data: languagesData,
-            setData: setLanguagesData,
-        },
+        }
     ];            
 
     return (

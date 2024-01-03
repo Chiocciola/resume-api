@@ -1,6 +1,7 @@
 
 export interface Url {
     url: string;
+    description : string | null;
 }
 
 export interface Section

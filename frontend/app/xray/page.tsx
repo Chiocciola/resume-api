@@ -14,15 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-export default function Page() {
-
-    const apiEntryPoint: string = process.env.API_URL as string;
-
+export default function Page() : JSX.Element
+{
     return (
         <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
-
-            <Xray apiEntryPoint={apiEntryPoint} />
-           
+            <Xray apiEntryPoint={process.env.API_URL} />        
         </main>
     );
 };
