@@ -1,22 +1,25 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import Render from './Render';
+
 import Loader from './Loader';
+
 import { Url, Section, ErrorSection } from './api';
-import { Validate } from './Validate';  
+
+import Render from './Renderer';
+import Validate from './Validator';  
 
 export async function getSections(endpoint: string | undefined) : Promise<Section[]>
 {
-    if (!endpoint)
-    {
-        return [{title: 'Error', content: 'Endpoint not set'}];
-    }
-
-    console.log(`Fetching sections from  ${endpoint}`);
-
     try
     {  
+        if (!endpoint)
+        {
+            throw Error('Endpoint not set');
+        }
+    
+        console.log(`Fetching sections from  ${endpoint}`);
+    
         const schemaUrl : string = '/Chiocciola-Resume-1.0.1-swagger.json';
         
         const schema : object = 

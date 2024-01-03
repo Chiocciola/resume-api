@@ -7,11 +7,14 @@ import { immerable } from "immer";
 import { useImmer } from "use-immer";
 import { toast } from 'react-toastify';
 
-import {Url, Section} from './api';
-import Render from './Render';
 import Loader from './Loader';
+
+import {Url, Section} from './api';
+
+import Render from './Renderer';
+import Validate from './Validator';
+
 import './xray.css';
-import { Validate } from './Validate';
 
 class XraySection
 {
@@ -82,7 +85,7 @@ export default function Xray({apiEntryPoint}: {apiEntryPoint: string}) {
             .then( r => r.json())
             .then( j => setSectionsJson(j))
             .finally(() => setSectionsJsonLoading(false))
-            .catch(e => toast.error(`${endpoint} ${e}`));
+            .catch(e => toast.error(`${endpoint}: ${e}`));
     }
 
     function handleSections()

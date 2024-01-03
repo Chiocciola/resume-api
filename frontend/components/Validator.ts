@@ -2,7 +2,7 @@ import OpenAPIResponseValidator from 'openapi-response-validator'
 
 import {Section} from './api';
 
-export function Validate(endpoint: string, response: Section, schema: any) : string | null
+export default function Validate(endpoint: string, response: Section, schema: any) : string | null
 {
     try
     {
