@@ -2,6 +2,9 @@
 import Resume from '../../components/Resume';
 
 
+import type { JSX } from "react";
+
+
 export default async function Page() : Promise<JSX.Element>
 {
     return (
@@ -9,4 +12,4 @@ export default async function Page() : Promise<JSX.Element>
             <Resume apiEntryPoint={process.env.API_URL + "/test"}/>
         </main>
     );
-};
+}

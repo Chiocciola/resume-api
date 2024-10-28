@@ -6,6 +6,8 @@ import Error from '../public/components/Error';
 
 import { Section } from './api';
 
+import type { JSX } from "react";
+
 const mapping : {[key: string]: (section: Section) => JSX.Element}
     = {General: General, Skills: Skills, Experience: Experience, Education: Education, Error: Error};
 

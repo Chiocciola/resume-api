@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 
 import Resume from '../components/Resume';
 
+import type { JSX } from "react";
+
 export async function generateMetadata(): Promise<Metadata> {
 
     const general = await
@@ -21,4 +23,4 @@ export default function Page() : JSX.Element
             <Resume apiEntryPoint={process.env.API_URL}/>
         </main>
     );
-};
+}

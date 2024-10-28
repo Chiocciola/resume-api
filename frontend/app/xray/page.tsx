@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
 
 import Xray from '../../components/Xray';
- 
+
+import type { JSX } from "react";
+
 export async function generateMetadata(): Promise<Metadata> {
 
     const general = await 
@@ -21,4 +23,4 @@ export default function Page() : JSX.Element
             <Xray apiEntryPoint={process.env.API_URL} />        
         </main>
     );
-};
+}
