@@ -2,7 +2,9 @@ import { Metadata } from 'next'
 
 import Resume from '../components/Resume';
 
-import type { JSX } from "react";
+import Loader from '../components/Loader';
+
+import  {Suspense, type JSX } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -19,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() : JSX.Element
 {
     return (
-        <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
+        <Suspense fallback={<div className='flex justify-center w-full text-current'><Loader show={true} color="text-current"/></div>}>
             <Resume apiEntryPoint={process.env.API_URL}/>
-        </main>
+        </Suspense>
     );
 }
