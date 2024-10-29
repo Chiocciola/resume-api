@@ -48,7 +48,9 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           <div className="absolute left-0 top-0 h-full w-full shadow-md pointer-events-none z-20" />
         </header>
 
-        {children}
+        <main className="px-4 md:px-16 lg:px-32 xl:px-48 py-4">
+          {children}
+        </main>  
 
         <ToastContainer />
         <Analytics />
