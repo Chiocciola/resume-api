@@ -38,6 +38,10 @@ ul {
   @apply list-disc ml-4;
 }
 
+li::marker {
+  @apply text-gray-500;
+}
+
 ul ul {
   list-style-type: "- ";
 }

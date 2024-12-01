@@ -1,11 +1,4 @@
-import { micromark } from "micromark"
-
-function renderHTML(markdown) {
-
-  var html = micromark(markdown);
-
-  return {__html: html};
-}
+import Markdown from "@/components/Markdown";
 
 export default function Experience({title, content})
 {
@@ -15,32 +8,36 @@ export default function Experience({title, content})
 
       {content.map(company =>
           <div key={company.company} className="flex flex-row gap-4 mt-4">
-
-            <img className="object-contain object-top w-12 h-12" src={company.logo.url}/>
+            
+            <img className="object-contain object-top w-12 h-12" src={company.logo.url}/> 
 
             <div>
-              {company.positions.length > 1 && (<h3>{company.company}</h3>)}
+              {company.positions.length > 1 &&
+                <h3>{company.company}</h3>
+              }
 
               {company.positions.map((exp) => 
-                <div key={exp.title} className="mt-2 only:mt-0">
+                <div key={exp.title} className="flex flex-col gap-2 mt-2 only:mt-0">
 
-                  <h4>{exp.title}</h4>
+                  <div>
+                    <h4>{exp.title}</h4>
 
-                  {company.positions.length == 1 &&
-                    <p>{company.company}</p>
-                  }
+                    {company.positions.length == 1 &&
+                      <p>{company.company}</p>
+                    }
 
                     <p className="leading-tight text-gray-500">{exp.startDate} &ndash; {exp.endDate ?? 'Present'}</p>
                     <p className="leading-tight text-gray-500">{exp.location}</p>
-
+                  </div>
+                  
                   {exp.summary &&
-                    <p className="mt-2">{exp.summary}</p>
+                    <p>{exp.summary}</p>
                   }
 
                   {exp.highlights &&
-                    <ul className="mt-2">
+                    <ul>
                         {exp.highlights.map((highlight, hightlightIndex) =>
-                            <li key={hightlightIndex} dangerouslySetInnerHTML={renderHTML(highlight)} />
+                            <li key={hightlightIndex}><Markdown>{highlight}</Markdown></li>
                         )}
                     </ul>
                   }

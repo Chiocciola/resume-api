@@ -20,8 +20,9 @@ export default function General({title, content})
             { content.summary && (
                 <>
                     <h2>Summary</h2>
-                    
-                    <p className="ml-4">{content.summary}</p>
+                    <div className="ml-4">
+                        <p>{content.summary}</p>
+                    </div>
                 </>
             )}
         </section>
