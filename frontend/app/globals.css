@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
+@layer base
+{
 
 h1 {
   @apply text-center text-3xl;
@@ -43,4 +42,6 @@ ul {
 
 pre {
   @apply overflow-hidden p-2 rounded bg-gray-700 text-white whitespace-pre-wrap text-sm
+}
+
 }
