@@ -11,14 +11,14 @@ export default function Experience({title, content})
             
             <img className="object-contain object-top w-12 h-12" src={company.logo.url}/> 
 
-            <div>
+            <div className="flex flex-col gap-2">
+
               {company.positions.length > 1 &&
                 <h3>{company.company}</h3>
               }
 
               {company.positions.map((exp) => 
-                <div key={exp.title} className="flex flex-col gap-2 mt-2 only:mt-0">
-
+                <>
                   <div>
                     <h4>{exp.title}</h4>
 
@@ -41,7 +41,7 @@ export default function Experience({title, content})
                         )}
                     </ul>
                   }
-                </div>
+                </>
               )}
             </div>
           </div>
