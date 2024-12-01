@@ -1,5 +1,4 @@
-@tw-bucket user
-{/* Menu */
+/* Menu */
 #menu
 {  
   -webkit-user-select: none;
@@ -84,5 +83,4 @@
 {
   transform: none;
   opacity: 1;
-}
 }

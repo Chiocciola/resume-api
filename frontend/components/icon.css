@@ -1,5 +1,4 @@
-@tw-bucket user
-{/* Logo */
+/* Logo */
 #logo
 {
   -webkit-user-select: none;
@@ -50,5 +49,4 @@
 #logo input:checked ~ div:nth-child(3)
 {
   transform: rotateY(0deg);
-}
 }
