@@ -10,10 +10,10 @@ export async function GET() {
         highlights: [
             "Managing a US-based team (2 devs + 1 UI/UX) and matrix-managing a team of 20 devs in India.",
             "Successfully established and scaled a high-performing team in India within a tight timeframe to offset the loss of an EU-based team, ensuring a seamless transition and zero disruptions.",
-            "Proactively pinpointed and prioritized three transformative areas of focus:",
-            "- Advancing error detection from run-time to earlier stages, ultimately targeting compile-time.",
-            "- Enhancing diagnostics by exposing internal GUI states and incorporating specialized views for in-depth system insights.",
-            "- Transitioning from imperative to declarative programming, optimizing code efficiency by leveraging framework capabilities.",
+`Proactively pinpointed and prioritized three transformative areas of focus:\n
+ - Advancing error detection from run-time to earlier stages, ultimately targeting compile-time.\n
+ - Enhancing diagnostics by exposing internal GUI states and incorporating specialized views for in-depth system insights.\n
+ - Transitioning from imperative to declarative programming, optimizing code efficiency by leveraging framework capabilities.`,
             "Thoroughly documenting the existing behavior of the software, clarifying system functions, identifying inconsistencies, and paving the way for optimized solutions."
         ]    
     };

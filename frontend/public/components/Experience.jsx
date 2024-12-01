@@ -1,3 +1,12 @@
+import { micromark } from "micromark"
+
+function renderHTML(markdown) {
+
+  var html = micromark(markdown);
+
+  return {__html: html};
+}
+
 export default function Experience({title, content})
 {
   return (
@@ -29,9 +38,9 @@ export default function Experience({title, content})
                   }
 
                   {exp.highlights &&
-                    <ul className="mt-2 list-disc">
+                    <ul className="mt-2">
                         {exp.highlights.map((highlight, hightlightIndex) =>
-                            <li key={hightlightIndex}>{highlight}</li>
+                            <li key={hightlightIndex} dangerouslySetInnerHTML={renderHTML(highlight)} />
                         )}
                     </ul>
                   }
