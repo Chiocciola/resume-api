@@ -23,7 +23,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
     <html lang="en">
       <body>
 
-        <header className="flex flex-row justify-between sticky top-0 w-full z-20 bg-white dark:bg-neutral-800">
+        <header className="flex flex-row justify-between sticky top-0 w-full z-20 backdrop-blur bg-white/75 dark:bg-neutral-800/75">
 
           <Icon className="z-20" />
 
