@@ -35,12 +35,11 @@ button:disabled
 }
 
 ul {
-  @apply list-disc list-inside;
+  @apply list-disc ml-4;
 }
 
 ul ul {
   list-style-type: "- ";
-  @apply ml-8 list-outside;
 }
 
 ol {
