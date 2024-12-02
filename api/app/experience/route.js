@@ -32,7 +32,14 @@ export async function GET() {
         ]
     };
 
-    const softwareEngineer = {
+    const appliedMaterials = {
+        company: "Applied Materials",
+        logo: {url: host + '/amat.svg'},
+
+        positions: [softwareEngineerV, softwareEngineerIV]
+    }
+
+    const softwareEngineerBaccini = {
 		title: "Software Engineer",
         location: "Treviso, Italy",
         startDate: "Sep 2012",
@@ -45,11 +52,11 @@ export async function GET() {
         ]
     };
 
-    const appliedMaterials = {
-        company: "Applied Materials",
-        logo: {url: host + '/amat.svg'},
+    const baccini = {
+        company: "Baccini",
+        logo: {url: host + '/baccini.svg'},
 
-        positions: [softwareEngineerV, softwareEngineerIV, softwareEngineer]
+        positions: [softwareEngineerBaccini]
     }
 
     const softwareEngineerGeolink = {
@@ -80,7 +87,7 @@ export async function GET() {
 
     const data = {
         title: "Experience",
-        content: [appliedMaterials, geolink, tdisie]
+        content: [appliedMaterials, baccini, geolink, tdisie]
     };  
 
 	return Response.json(data)
