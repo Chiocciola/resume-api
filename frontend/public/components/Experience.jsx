@@ -1,3 +1,4 @@
+import React from "react";
 import Markdown from "@/components/Markdown";
 
 export default function Experience({title, content})
@@ -18,7 +19,7 @@ export default function Experience({title, content})
               }
 
               {company.positions.map((exp) => 
-                <>
+                <React.Fragment key={exp.title}>
                   <div>
                     <h4>{exp.title}</h4>
 
@@ -41,7 +42,7 @@ export default function Experience({title, content})
                         )}
                     </ul>
                   }
-                </>
+                </React.Fragment>
               )}
             </div>
           </div>
