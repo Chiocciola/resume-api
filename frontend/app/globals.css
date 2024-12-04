@@ -1,15 +1,5 @@
 @import 'tailwindcss';
 
-
-@theme {
-
-  --animate-gradient: gradient 2s linear infinite;
-
-  @keyframes gradient {
-    to { background-position: 200% center }
-  }
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
