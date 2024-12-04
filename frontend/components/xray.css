@@ -5,6 +5,36 @@
 
   --x1: 0.75px;
   --x2: 2px;
+
+  transition: --x1 2s ease-in-out, --x2 2s ease-in-out;
+
+}
+
+.xray:hover {
+  animation: xray-animation 1s linear infinite;
+}
+
+@keyframes xray-animation {
+  0%,100% {
+    --x1: 0.75px;
+    --x2: 2px;
+  }
+  12.5%,87.5% {
+    --x1: 0.81px;
+    --x2: 2.16px;
+  }
+  25%,75% {
+    --x1: 0.87px;
+    --x2: 2.33px;
+  }
+  37.5%,62.5% {
+    --x1: 0.93px;
+    --x2: 2.5px;
+  }
+  50% {
+    --x1: 1px;
+    --x2: 2.66px;
+  }
 }
 
 .xray::before, .xray::after {
