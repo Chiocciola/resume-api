@@ -9,6 +9,7 @@ import './globals.css'
 
 import Icon from '../components/Icon'
 import Title from '../components/Title'
+import XRayTitle from '@/components/XRayTitle';
 import Menu from '../components/Menu'
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
           <Icon className="z-20" />
 
           <Title className="z-20">API Resume</Title>
+          <XRayTitle />
 
           <Menu className="z-10">
             <p>Hi, my name is <b>Dmitriy</b>.</p>

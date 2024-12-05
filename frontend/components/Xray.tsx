@@ -14,7 +14,7 @@ import {Url, Section} from './api';
 import Render from './Renderer';
 import Validate from './Validator';
 
-import './xray.css';
+import './Xray.css';
 
 class XraySection
 {
@@ -165,9 +165,7 @@ export default function Xray(props: {apiEntryPoint: string | undefined}) {
 
     return (
         <>       
-            <div className='flex justify-center items-center'>
-                <h1 className='xray' xray-text="X-ray">X-ray</h1>
-            </div>
+            <h1>X-ray</h1>
 
             <p className="text-center mb-4 text-xl">Revealing the invisible</p>
 

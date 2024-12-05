@@ -1,0 +1,49 @@
+.xray {
+    position: relative; 
+  
+    color: transparent;
+  
+    --x1: 0.75px;
+    --x2: 2px;
+  }
+  
+  .xray::before, .xray::after {
+    content: attr(xray-text);
+    position: absolute;
+    left: 0px;
+    mix-blend-mode: darken;
+    transition: text-shadow 0.5s ease-in-out;
+  }
+  
+  .xray::before {
+    text-shadow: 
+      calc(-1 * var(--x1)) 0px 0px #f00,
+      calc(-1 * var(--x2)) 0px 1px #ff0;
+  }
+  
+  .xray::after {
+    text-shadow:
+      var(--x1) 0px 0px #00f, 
+      var(--x2) 0px 1px #0ff;
+  }
+  
+  
+  @media (prefers-color-scheme: dark) {
+  
+    .xray::before, .xray::after {
+      mix-blend-mode: lighten;
+    }
+  
+    .xray::before {
+      text-shadow: 
+        calc(-1 * var(--x1)) 0px 0px #ff0,
+        calc(-1 * var(--x2)) 0px 1px #f00;
+    }
+    
+    .xray::after {
+      text-shadow: 
+        var(--x1) 0px 0px #0ff,
+        var(--x2) 0px 1px #00f;
+    }
+  }
+  
