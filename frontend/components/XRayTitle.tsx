@@ -16,8 +16,8 @@ export default function XRayTitle() {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
             const sineValue = Math.sin(scrollPosition / 100.0); // Adjust the divisor to control the frequency
-            const x1 = sineValue * 1.5;
-            const x2 = sineValue * 4;
+            const x1 = sineValue * 1;
+            const x2 = sineValue * 2.66;
 
             xrayRef.current?.style.setProperty('--x1', `${x1}px`);
             xrayRef.current?.style.setProperty('--x2', `${x2}px`);
