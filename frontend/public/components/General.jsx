@@ -4,9 +4,9 @@ export default function General({title, content})
 {
     return (
         <section key={title}>
-            <h1>{content.name}</h1>
+            <h2 className="text-center">{content.name}</h2>
                     
-            <p className="text-center mb-4 text-xl">{content.title}</p>
+            <p className="text-center">{content.title}</p>
         
             <ul className="m-0 p-0 text-center">
                     <li className="inline-block whitespace-nowrap mx-2"><a href={`http://maps.apple.com/?q=${content.location}`}>📍 {content.location}</a></li>
