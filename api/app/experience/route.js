@@ -53,7 +53,7 @@ export async function GET() {
     };
 
     const baccini = {
-        company: "Baccini",
+        company: "Baccini S.p.A.",
         logo: {url: host + '/baccini.svg'},
 
         positions: [softwareEngineerBaccini]
