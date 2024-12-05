@@ -10,7 +10,7 @@ import './XRayTitle.css';
 export default function XRayTitle() {
 
 
-    const xrayRef = useRef(null);
+    const xrayRef = useRef<HTMLParagraphElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
