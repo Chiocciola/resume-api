@@ -8,9 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './globals.css'
 
 import Icon from '../components/Icon'
-import Title from '../components/Title'
-import XRayTitle from '@/components/XRayTitle';
 import Menu from '../components/Menu'
+import DynamicTitle from '../components/DynamicTitle'
 
 export const metadata: Metadata = {
   icons: {
@@ -28,8 +27,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
 
           <Icon className="z-20" />
 
-          <Title className="z-20">API Resume</Title>
-          <XRayTitle />
+          <DynamicTitle className="z-20"/>
 
           <Menu className="z-10">
             <p>Hi, my name is <b>Dmitriy</b>.</p>

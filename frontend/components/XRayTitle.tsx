@@ -1,21 +1,21 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 import { Outfit } from 'next/font/google'
 const outfit = Outfit({ subsets: ['latin'], weight: '400' })
 
 import './XRayTitle.css';
 
-export default function XRayTitle() {
+export default function XRayTitle({children, className}: {children: string, className?: string}) {
 
-
-    const xrayRef = useRef<HTMLParagraphElement>(null);
+    const xrayRef = useRef<HTMLAnchorElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const sineValue = Math.sin(scrollPosition / 100.0); // Adjust the divisor to control the frequency
+            const sineValue = Math.sin(scrollPosition / 100.0);
             const x1 = sineValue * 1;
             const x2 = sineValue * 2.66;
 
@@ -31,9 +31,7 @@ export default function XRayTitle() {
     }, []);
 
     return (
-        <div className='flex justify-center items-center my-auto'>
-            <p className={outfit.className + ' text-2xl my-auto select-none xray'} xray-text="X-ray" ref={xrayRef}>X-ray</p>
-        </div>
+            <Link href="/" className={outfit.className + ' text-2xl select-none xray'} xray-text={children} ref={xrayRef}>{children}</Link>
     );
 
 }

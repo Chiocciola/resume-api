@@ -1,21 +1,31 @@
+.glowingText {
+  position: relative;
+}
+
+.glowPart{
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
 .glowingText:hover .glowPart {
 
     animation: blur 2s linear infinite;
-  } 
+} 
   
-  .glowingText:hover .textPart {
+.glowingText:hover .textPart {
+
+animation: bg 2s linear infinite;
+} 
   
-    animation: bg 2s linear infinite;
-  } 
+@keyframes bg {
+to { background-position: 200% center; }
+}
   
-  @keyframes bg {
-    to { background-position: 200% center; }
-  }
-  
-  @keyframes blur {
-    0% { filter: blur(6px); }
-   25% { filter: blur(10px); background-position: 50% center; }
-   50% { filter: blur(6px);  background-position: 100% center; }
-   75% { filter: blur(10px); background-position: 150% center; }
+@keyframes blur {
+  0% { filter: blur(6px); }
+  25% { filter: blur(10px); background-position: 50% center; }
+  50% { filter: blur(6px);  background-position: 100% center; }
+  75% { filter: blur(10px); background-position: 150% center; }
   100% { filter: blur(6px);  background-position: 200% center; }
-  }
+}
