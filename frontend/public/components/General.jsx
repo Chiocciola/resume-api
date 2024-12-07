@@ -3,8 +3,9 @@ import Image from "next/image";
 export default function General({title, content})
 {
     return (
+        <>
         <section key={title}>
-            <h2 className="text-center">{content.name}</h2>
+            <h1 className="text-center">{content.name}</h1>
                     
             <p className="text-center">{content.title}</p>
         
@@ -16,7 +17,8 @@ export default function General({title, content})
                     <li className="inline-block whitespace-nowrap mx-2"><a href={`mailto:${content.email}`}>✉️ {content.email}</a></li>}
                     <li className="inline-block whitespace-nowrap mx-2"><a href={content.linkedin.url}><Image src="/linkedin.png" className="align-middle inline mb-1" alt="LinkedIn" width="14" height="14"/> LinkedIn</a></li>
             </ul>
-
+        </section>
+        <section>
             { content.summary && (
                 <>
                     <h2>Summary</h2>
@@ -26,5 +28,6 @@ export default function General({title, content})
                 </>
             )}
         </section>
+        </>
     );
 }
