@@ -7,7 +7,7 @@ export async function GET() {
 			title: "Software Engineer",
 			location: "Cupertino, CA",
 			// phone: "408-306-2596",
-			// email: "di-man@yandex.ru",
+			email: "dmitriy.bondar.dev@gmail.com",
 			linkedin: {url: "https://www.linkedin.com/in/dmitriy-bondar/"},
 			summary: `Experienced technical leader with over 15 years of experience, specialized in .NET and Front-end
 			development. Known for successfully leading large-scale projects from inception to completion and
