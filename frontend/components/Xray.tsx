@@ -167,7 +167,7 @@ export default function Xray(props: {apiEntryPoint: string | undefined}) {
         <>       
             <h1>X-ray</h1>
 
-            <p className="text-center mb-4 text-xl">Revealing the invisible</p>
+            <p className="text-center mb-4">Revealing the invisible</p>
 
             <p>Explore API resume using X-ray view. It enables loading resume data directly from an API, loading of JSX templates, and rendering the resume by applying these templates to the data.</p>
 
